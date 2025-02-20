@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const tokenRouter = require('./routes/tokenRouter');
 const authRouter = require('./routes/authRouter');
+const resumeRouter = require('./routes/resumeRouter');
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
 app.use('/api/tokens', tokenRouter);
+app.use('/api/resume', resumeRouter);
 
 module.exports = app;
