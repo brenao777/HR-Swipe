@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Company extends Model {
     static associate({ Vacancy }) {
-      this.hasMany(Vacancy, { foreignKey: 'vacancyId' })
+      this.hasMany(Vacancy, { foreignKey: 'vacancyId' });
     }
   }
   Company.init(
@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       description: DataTypes.TEXT,
       vacancyId: DataTypes.INTEGER,
+      logo: DataTypes.STRING,
+      location: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
     },
     {
       sequelize,

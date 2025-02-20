@@ -3,7 +3,7 @@ const resumeService = require('../services/resumeService');
 const getAllResumes = async (req, res) => {
   try {
     const { search } = req.query;
-    const resumes = await resumeService.findItems(search);
+    const resumes = await resumeService.findResume(search);
     return res.status(200).json(resumes);
   } catch (error) {
     console.error('Ошибка при загрузке резюме: ', error);
@@ -17,15 +17,15 @@ const createResume = async (req, res) => {
     const { user } = res.locals;
     // const { file } = req;
 
-    if (!specialty || !number || !location || !age || !experience) {
-      return res.status(400).json({ message: 'Некорректные данные' });
-    }
+    // if (!specialty || !number || !age || !experience) {
+    //   return res.status(400).json({ message: 'Некорректные данные' });
+    // }
 
     const newResume = await resumeService.createResume({
       specialty,
-      number,
+      number: Number(number),
       location,
-      age,
+      age: Number(age),
       experience,
       coverLetter,
       userId: user.id,
@@ -34,11 +34,11 @@ const createResume = async (req, res) => {
     return res.status(201).json(newResume);
   } catch (error) {
     console.error('Ошибка при создании резюме: ', error);
-    return res.status(500).send({ message: error });
+    return res.status(500).send({ message: error.message });
   }
 };
 
-const getItemById = async (req, res) => {
+const getResumeById = async (req, res) => {
   try {
     const { resumeId } = req.params;
     const resume = await resumeService.findResumeIdById(resumeId);
@@ -95,4 +95,4 @@ const updateResume = async (req, res) => {
   }
 };
 
-module.exports = { getAllResumes, createResume, getItemById, deleteResume, updateResume };
+module.exports = { getAllResumes, createResume, getResumeById, deleteResume, updateResume };

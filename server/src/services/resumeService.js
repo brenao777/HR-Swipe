@@ -1,4 +1,4 @@
-const { Resume } = require('../../db/models');
+const { Resume, User } = require('../../db/models');
 const { Op } = require('sequelize');
 // const sharp = require('sharp');
 // const path = require('path');
@@ -14,6 +14,12 @@ const findResume = async (search) => {
     });
   }
   return Resume.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ['firstName', 'secondName'],
+      },
+    ],
     order: [['id', 'DESC']],
   });
 };
