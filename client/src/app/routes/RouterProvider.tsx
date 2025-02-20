@@ -1,6 +1,8 @@
+import PersonCabinetPage from '@/pages/Applicant/PersonCabinetPage/PersonCabinetPage';
+import VacancyPage from '@/pages/Applicant/VacancyPage/VacancyPage';
+import HrResponsesPage from '@/pages/HR/HrResponsesPage/HrResponsesPage';
 import Layout from '@/pages/Layout/Layout';
 import LoginPage from '@/pages/LoginPage/LoginPage';
-import MainPage from '@/pages/MainPage/MainPage';
 import RegisterPage from '@/pages/RegisterPage/RegisterPage';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
@@ -12,11 +14,13 @@ export default function RouterProvider(): React.JSX.Element {
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* <Route element={<ProtectedRoute allowedStatuses={['guest']} redirectTo="/login" />}> */}
-            <Route index element={<MainPage />} />
+          <Route index element={<VacancyPage />} />
+          <Route path="/responses" element={<HrResponsesPage />} />
+          <Route path="/cabinet" element={<PersonCabinetPage />} />
           {/* </Route> */}
           {/* <Route element={<ProtectedRoute allowedStatuses={['guest']} redirectTo="/login" />}> */}
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
           {/* </Route> */}
         </Route>
       </Routes>
