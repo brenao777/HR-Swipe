@@ -2,10 +2,10 @@
 
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class vacancyStatus extends Model {
+  class VacancyStatus extends Model {
     static associate() {}
   }
-  vacancyStatus.init(
+  VacancyStatus.init(
     {
       userId: DataTypes.INTEGER,
       vacancyId: DataTypes.INTEGER,
@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'vacancyStatus',
+      modelName: 'VacancyStatus',
     },
   );
-  return vacancyStatus;
+  return VacancyStatus;
 };

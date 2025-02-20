@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
   Conditions.init(
     {
       experience: DataTypes.STRING,
-      income: DataTypes.ENUM,
-      format: DataTypes.ENUM,
-      schedule: DataTypes.ENUM,
+      income: DataTypes.ENUM(['80000', '90000', '100000']),
+      format: DataTypes.ENUM(['Удаленно', 'Офис', 'Гибрид']),
+      schedule: DataTypes.ENUM(['Полная', 'Частичная', 'Проектная']),
     },
     {
       sequelize,
