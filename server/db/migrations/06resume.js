@@ -3,31 +3,42 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Conditions', {
+    await queryInterface.createTable('Resumes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      experience: {
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+      },
+      number: {
+        type: Sequelize.STRING,
+        unique: true,
+      },
+      specialty: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      income: {
-        type: Sequelize.ENUM,
-        values: ['80000', '90000', '100000'],
+      location: {
+        type: Sequelize.STRING,
+      },
+      age: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      experience: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      coverLetter: {
+        type: Sequelize.TEXT,
         allowNull: true,
-      },
-      format: {
-        type: Sequelize.ENUM,
-        values: ['Удаленно', 'Офис', 'Гибрид'],
-        allowNull: false,
-      },
-      schedule: {
-        type: Sequelize.ENUM,
-        values: ['Полная', 'Частичная', 'Проектная'],
-        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +53,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Conditions');
+    await queryInterface.dropTable('Resumes');
   },
 };
