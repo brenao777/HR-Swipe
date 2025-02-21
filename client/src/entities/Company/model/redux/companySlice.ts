@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getCompany } from "./companyThanks";
 
 const initialState: CompanyState = {
-    companyCard: [],
+    companys: [],
     loading: false,
     error: null,
 };
@@ -20,7 +20,7 @@ const companySlise = createSlice ({
         })
         .addCase(getCompany.fulfilled, (state, action) => {
             state.loading = false;
-            state.companyCard = action.payload;
+            state.companys = action.payload;
         })
         .addCase(getCompany.rejected, (state, action) => {
             state.loading = false;

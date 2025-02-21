@@ -35,7 +35,7 @@ const createCompany = async (req, res) => {
   }
 };
 
-const getItemById = async (req, res) => {
+const getCompanyById = async (req, res) => {
   try {
     const { companyId } = req.params;
     const company = await companyService.findCompanyIdById(companyId);
@@ -91,4 +91,4 @@ const updateCompany = async (req, res) => {
   }
 };
 
-module.exports = { getAllCompany, createCompany, getItemById, deleteCompany, updateCompany };
+module.exports = { getAllCompany, createCompany, getCompanyById, deleteCompany, updateCompany };

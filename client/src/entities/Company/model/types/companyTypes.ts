@@ -5,7 +5,7 @@ export type CompanyObjectType = z.infer <typeof CompanyObjectSchema>
 export type CompanyArrayType = z.infer <typeof CompanyArraySchema>
 
 export type CompanyState = {
-    companyCard: CompanyArrayType;
+    companys: CompanyArrayType;
     loading: boolean;
     error: null | string;
 }
