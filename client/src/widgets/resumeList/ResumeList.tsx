@@ -20,6 +20,8 @@ export default function ResumeList({ resume }: Props): React.JSX.Element {
         <Card.Title>{resume.age}</Card.Title>
         <Card.Text>{resume.location}</Card.Text>
         <Button variant="primary">Подробнее</Button>
+        <Button variant="primary">Приглашение</Button>
+        <Button variant="primary">Отказ</Button>
       </Card.Body>
     </Card>
   );

@@ -17,6 +17,99 @@ module.exports = {
       },
     ]);
 
+    await queryInterface.bulkInsert('Conditions', [
+      {
+        experience: '1-3 года',
+        from: 60000, // Зарплата от
+        before: 90000, // Зарплата до
+        format: 'Гибрид',
+        schedule: 'Полная',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        experience: '3-5 лет',
+        from: 80000,
+        before: 120000,
+        format: 'Удаленно',
+        schedule: 'Полная',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        experience: 'Нет опыта',
+        from: 40000,
+        before: 60000,
+        format: 'Офис',
+        schedule: 'Частичная',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
+
+    await queryInterface.bulkInsert('Companies', [
+      {
+        title: 'ТехноСофт',
+        description:
+          'Ведущая IT-компания, специализирующаяся на разработке веб-приложений и мобильных решений.',
+        logo: '/logos/technosoft.png',
+        location: 'Москва',
+        userId: 1, // Связь с пользователем (например, HR или владелец компании)
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'Данные XXI',
+        description:
+          'Компания, занимающаяся анализом данных и внедрением искусственного интеллекта.',
+        logo: '/logos/dataxxi.png',
+        location: 'Санкт-Петербург',
+        userId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'ДизайнЛаб',
+        description:
+          'Агентство дизайна и UX/UI, создающее современные решения для бизнеса.',
+        logo: '/logos/designlab.png',
+        location: 'Новосибирск',
+        userId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
+
+    await queryInterface.bulkInsert('Vacancies', [
+      {
+        title: 'Frontend разработчик',
+        description: 'Разработка интерфейсов на React и TypeScript',
+        conditionsId: 1, // Гибкий график
+        location: 'Москва',
+        companyId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'Backend разработчик',
+        description: 'Создание API на Node.js и Express',
+        conditionsId: 2, // Удалённая работа
+        location: 'Санкт-Петербург',
+        companyId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'Дизайнер UI/UX',
+        description: 'Проектирование интерфейсов и прототипов',
+        conditionsId: 3, // Полный рабочий день
+        location: 'Новосибирск',
+        companyId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
+
     await queryInterface.bulkInsert('Resumes', [
       {
         userId: 1,
@@ -134,5 +227,8 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('Vacancies', null, {});
+    await queryInterface.bulkDelete('Resumes', null, {});
+    await queryInterface.bulkDelete('Conditions', null, {});
   },
 };

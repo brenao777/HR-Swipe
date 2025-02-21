@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Companies', {
+    await queryInterface.createTable('Vacancies', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,40 +14,36 @@ module.exports = {
         type: Sequelize.STRING,
       },
       description: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
       },
-      vacancyId: {
+      conditionsId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Vacancies',
+          model: 'Conditions',
           key: 'id',
         },
       },
-      logo: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       location: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
-      userId: {
+      companyId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        references: {
+          model: 'Companies',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Companies');
+    await queryInterface.dropTable('Vacancies');
   },
 };

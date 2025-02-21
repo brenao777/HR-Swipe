@@ -16,18 +16,21 @@ export default function NavBar(): React.JSX.Element {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">HR-Swipe</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">HR-Swipe</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+            <Nav.Link as={Link} to="/">
+              Вакансии
+            </Nav.Link>
+            <Nav.Link as={Link} to="/responses">
+              Отклики
+            </Nav.Link>
             <Nav.Link as={Link} to="/login">
               Войти
             </Nav.Link>
             <Nav.Link as={Link} to="/register">
               Регистрация
-            </Nav.Link>
-            <Nav.Link as={Link} to="/responses">
-              Отклики
             </Nav.Link>
             <Nav.Link as={Link} to="/cabinet">
               Личный кабинет

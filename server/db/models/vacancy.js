@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class Vacancy extends Model {
     static associate({ User, Company, Conditions, VacancyStatus }) {
       this.belongsToMany(User, { through: VacancyStatus, foreignKey: 'vacancyId' });
-      this.belongsTo(Company, { foreignKey: 'vacancyId' });
+      this.belongsTo(Company, { foreignKey: 'companyId' });
       this.belongsTo(Conditions, { foreignKey: 'conditionsId' });
     }
   }
@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       conditionsId: DataTypes.INTEGER,
       location: DataTypes.STRING,
+      companyId: DataTypes.INTEGER,
     },
     {
       sequelize,
