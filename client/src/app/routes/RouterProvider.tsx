@@ -1,5 +1,6 @@
 import PersonCabinetPage from '@/pages/Applicant/PersonCabinetPage/PersonCabinetPage';
 import VacancyPage from '@/pages/Applicant/VacancyPage/VacancyPage';
+import HrCompanyPage from '@/pages/HR/HrCompanyPage/HrCompanyPage';
 import HrResponsesPage from '@/pages/HR/HrResponsesPage/HrResponsesPage';
 import Layout from '@/pages/Layout/Layout';
 import LoginPage from '@/pages/LoginPage/LoginPage';
@@ -17,6 +18,7 @@ export default function RouterProvider(): React.JSX.Element {
           <Route index element={<VacancyPage />} />
           <Route path="/responses" element={<HrResponsesPage />} />
           <Route path="/cabinet" element={<PersonCabinetPage />} />
+          <Route path="/company" element={<HrCompanyPage />} />
           {/* </Route> */}
           {/* <Route element={<ProtectedRoute allowedStatuses={['guest']} redirectTo="/login" />}> */}
           <Route path="/register" element={<RegisterPage />} />

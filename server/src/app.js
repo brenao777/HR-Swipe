@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const tokenRouter = require('./routes/tokenRouter');
 const authRouter = require('./routes/authRouter');
 const resumeRouter = require('./routes/resumeRouter');
+const companyRouter = require('./routes/companyRouter');
 
 const app = express();
 
@@ -16,5 +17,6 @@ app.use(cookieParser());
 app.use('/api/auth', authRouter);
 app.use('/api/tokens', tokenRouter);
 app.use('/api/resume', resumeRouter);
+app.use('/api/company', companyRouter)
 
 module.exports = app;

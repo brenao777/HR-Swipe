@@ -9,7 +9,7 @@ import { CompanyArraySchema } from "../schema/companyShema";
 
 export const getCompany = createAsyncThunk('getCompany/company', async (_, { rejectWithValue }) => {
     try {
-      const {data} = await axios.get<CompanyArrayType[]>('/api/');
+      const {data} = await axios.get<CompanyArrayType[]>('/api/company');
       return CompanyArraySchema.parse(data);
     } catch (error) {
       return rejectWithValue(error instanceof Error ? error.message : 'POLOMALOSY');
