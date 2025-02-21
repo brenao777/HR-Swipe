@@ -1,11 +1,12 @@
 import { z } from 'zod';
 
-export const VacancyObjectSchema = z.object({
+export const vacancySchema = z.object({
     id: z.number(),
     title: z.string(),
     description: z.string(),
-    conditiosId: z.number(),
+    conditionsId: z.number(),
     location: z.string(),
+    companyId: z.number(),
 })
 
-export const VacancyArraySchema = z.array(VacancyObjectSchema);
+export const VacancyArraySchema = z.array(vacancySchema);

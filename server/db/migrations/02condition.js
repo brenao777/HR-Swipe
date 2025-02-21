@@ -14,9 +14,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      income: {
-        type: Sequelize.ENUM,
-        values: ['80000', '90000', '100000'],
+      from: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      before: {
+        type: Sequelize.INTEGER,
         allowNull: true,
       },
       format: {
