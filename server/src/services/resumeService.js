@@ -45,7 +45,7 @@ const createResume = async ({
   return newResume;
 };
 
-const findResumeIdById = async (resumeId) => Resume.findOne({ where: { id: resumeId } });
+const findResumeIdById = async (userId) => Resume.findOne({ where: { userId } });
 
 const deleteResumeById = async (resumeId, userId) => {
   const resume = await Resume.findByPk(resumeId);

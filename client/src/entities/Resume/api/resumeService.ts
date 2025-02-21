@@ -19,6 +19,18 @@ class ResumeService {
     }
   }
 
+  async getResumeById(userId: number): Promise<ResumeType[]> {
+    try {
+      const res = await this.client.get(`/resume/${String(userId)}`);
+      return resumeSchema.array().parse(res.data);
+    } catch (err) {
+      if (err instanceof ZodError) {
+        console.log('Validation error in getResumeById: ', err.issues);
+      }
+      throw err;
+    }
+  }
+
   async addResume(resume: ResumeFormType): Promise<ResumeType> {
     try {
       const res = await this.client.post('/resume', resume);
