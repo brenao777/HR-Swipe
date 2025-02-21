@@ -40,8 +40,9 @@ const createResume = async (req, res) => {
 
 const getResumeById = async (req, res) => {
   try {
-    const { resumeId } = req.params;
-    const resume = await resumeService.findResumeIdById(resumeId);
+    // const { resumeId } = req.params;
+    const { user } = res.locals;
+    const resume = await resumeService.findResumeIdById(user.id);
     if (!resume) {
       res.status(404).json({ message: 'Резюме не найдено!' });
     }

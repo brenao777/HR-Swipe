@@ -21,6 +21,7 @@ export default function PersonCabinetPage(): React.JSX.Element {
   };
 
   return (
+    <>
     <div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -44,6 +45,11 @@ export default function PersonCabinetPage(): React.JSX.Element {
       </Modal>
       <Button onClick={handleShow}>Создать резюме</Button>
     </div>
+    <div>
+      <h1>Мои резюме</h1>
+      
+    </div>
+    </>
   );
 }
 

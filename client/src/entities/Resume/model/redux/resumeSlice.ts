@@ -1,7 +1,7 @@
 // import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { ResumeSliceType } from '../types/resumeTypes';
-import { getResumes } from './resumeThunks';
+import { getResumeById, getResumes } from './resumeThunks';
 
 const initialState: ResumeSliceType = {
   resumes: [],
@@ -12,11 +12,7 @@ const initialState: ResumeSliceType = {
 const resumeSlice = createSlice({
   name: 'resume',
   initialState,
-  reducers: {
-    // setSelected: (state, action: PayloadAction<boolean>) => {
-
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getResumes.pending, (state) => {
@@ -31,7 +27,12 @@ const resumeSlice = createSlice({
         state.loading = true;
         state.error = null;
         state.resumes = action.payload;
-      });
+      })
+      .addCase(getResumeById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.resumes = action.payload;
+      }),
   },
 });
 

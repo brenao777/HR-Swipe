@@ -4,10 +4,14 @@ import { resumeFormSchema } from '../schema/resumeSchema';
 
 export const getResumes = createAsyncThunk('resume/getResumes', () => resumeService.getResumes());
 
+export const getResumeById = createAsyncThunk('resume/getResumeById', (userId: number) =>
+  resumeService.getResumeById(userId),
+);
+
 export const addResume = createAsyncThunk('resume/addResume', (formData: FormData) => {
-  console.log('DATA ----------------->', formData)
+  console.log('DATA ----------------->', formData);
   const data = resumeFormSchema.parse(Object.fromEntries(formData));
-  console.log(data)
+  console.log(data);
   return resumeService.addResume(data);
 });
 
