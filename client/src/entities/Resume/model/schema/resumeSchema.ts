@@ -9,18 +9,21 @@ export const resumeSchema = z.object({
   age: z.number(),
   experience: z.string(),
   coverLetter: z.string(),
+  photo: z.string(),
   User: z.object({
     firstName: z.string(),
     secondName: z.string(),
   }),
 });
 
+export const resumeListSchema = z.array(resumeSchema.omit({ User: true }));
+
 export const resumeFormSchema = z.object({
-  userId: z.string().optional(),
   number: z.string(),
   specialty: z.string(),
-  location: z.string().optional(),
+  location: z.string(),
   age: z.string(),
   experience: z.string(),
-  coverLetter: z.string().optional(),
+  coverLetter: z.string(),
+  photo: z.instanceof(File),
 });

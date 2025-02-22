@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    margin: 3vh
+}
+
+.photo {
+  border-radius: 10px;
+  max-width: 25vh;
+  max-height: 25vh;
+}

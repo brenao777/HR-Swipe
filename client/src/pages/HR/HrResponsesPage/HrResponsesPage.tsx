@@ -9,7 +9,7 @@ export default function HrResponsesPage(): React.JSX.Element {
 
   useEffect(() => {
     void dispatch(getResumes());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

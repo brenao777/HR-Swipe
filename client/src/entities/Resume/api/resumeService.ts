@@ -1,8 +1,8 @@
 import type { AxiosInstance } from 'axios';
 import axiosInstance from '@/shared/api/axiosInstance';
 import { ZodError } from 'zod';
-import { resumeSchema } from '../model/schema/resumeSchema';
-import type { ResumeFormType, ResumeType } from '../model/types/resumeTypes';
+import { resumeListSchema, resumeSchema } from '../model/schema/resumeSchema';
+import type { ResumeFormType, ResumeListType, ResumeType } from '../model/types/resumeTypes';
 
 class ResumeService {
   constructor(private readonly client: AxiosInstance) {}
@@ -19,10 +19,10 @@ class ResumeService {
     }
   }
 
-  async getResumeById(userId: number): Promise<ResumeType[]> {
+  async getResumeById(userId: number): Promise<ResumeListType> {
     try {
       const res = await this.client.get(`/resume/${String(userId)}`);
-      return resumeSchema.array().parse(res.data);
+      return resumeListSchema.parse(res.data);
     } catch (err) {
       if (err instanceof ZodError) {
         console.log('Validation error in getResumeById: ', err.issues);
@@ -33,7 +33,9 @@ class ResumeService {
 
   async addResume(resume: ResumeFormType): Promise<ResumeType> {
     try {
-      const res = await this.client.post('/resume', resume);
+      const res = await this.client.post('/resume', resume, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       return resumeSchema.parse(res.data);
     } catch (err) {
       if (err instanceof ZodError) {
@@ -42,6 +44,7 @@ class ResumeService {
       throw err;
     }
   }
+
 
   async deleteResume(id: number): Promise<void> {
     await this.client.delete(`/resume/${id.toString()}`);
