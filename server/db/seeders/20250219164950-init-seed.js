@@ -15,6 +15,15 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        firstName: 'Боб',
+        secondName: 'Бобов',
+        email: 'bob@b.com',
+        password: bcrypt.hashSync('qwertY1*', 10),
+        company: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
 
     await queryInterface.bulkInsert('Conditions', [
@@ -62,7 +71,7 @@ module.exports = {
         title: 'Данные XXI',
         description:
           'Компания, занимающаяся анализом данных и внедрением искусственного интеллекта.',
-        logo: '/logos/dataxxi.png',
+        logo: 'https://xxi-century.ru/images/Logo21v_197x197.png',
         location: 'Санкт-Петербург',
         userId: 2,
         createdAt: new Date(),
