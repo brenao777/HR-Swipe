@@ -9,7 +9,6 @@ type Props = {
 
 export default function MyResumesList({ resume }: Props): React.JSX.Element {
   return (
-    <div className={styles.container}>
       <Card>
         <Card.Header>{resume.specialty}</Card.Header>
         <Card.Img
@@ -28,6 +27,5 @@ export default function MyResumesList({ resume }: Props): React.JSX.Element {
           <Button variant="primary">Подробнее</Button>
         </Card.Body>
       </Card>
-    </div>
   );
 }
