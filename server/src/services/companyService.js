@@ -1,80 +1,69 @@
 const { Company } = require('../../db/models');
 const { Op } = require('sequelize');
-// const sharp = require('sharp');
-// const path = require('path');
 
-const findCompany = async (search) => {
+// Поиск компаний с фильтрацией по userId
+const findCompany = async (search, userId) => {
+  const query = {};
   if (search && search.length !== 0) {
-    return Company.findAll({
-      where: {
-        title: {
-          [Op.like]: `%${search}%`,
-        },
-      },
-    });
+    query.title = { [Op.like]: `%${search}%` };
   }
+
+  query.userId = userId; // Фильтруем по userId
+
   return Company.findAll({
+    where: query,
     order: [['id', 'DESC']],
   });
 };
 
-const createCompany = async ({
-  title,
-  description,
-  userId,
-  logo,
-  location,
-}) => {
-  const newCompany = Company.create({
-  title,
-  description,
-  userId,
-  logo,
-  location,
+// Создание новой компании
+const createCompany = async ({ title, description, userId, logo, location }) => {
+  const newCompany = await Company.create({
+    title,
+    description,
+    userId,
+    logo,
+    location,
   });
   return newCompany;
 };
 
-const findCompanyIdById = async (companyId) => Company.findOne({ where: { id: companyId } });
-
-const deleteCompanyById = async (companyId, userId) => {
-  const company = await Company.findByPk(companyId);
-  if (!company) {
-    return { success: false, status: 404, message: 'Товар не найден!' };
-  }
-  if (company.userId !== userId) {
-    return {
-      success: false,
-      status: 403,
-      message: 'У вас нет прав на удаление этого резюме!',
-    };
-  }
-
-  await Company.destroy({
+// Поиск компании по ID с проверкой userId
+const findCompanyIdById = async (companyId, userId) => {
+  return Company.findOne({
     where: {
       id: companyId,
+      userId, // Проверяем соответствие userId
     },
   });
-
-  return { success: true, status: 200, message: 'Резюме успешно удален!' };
 };
 
-const updateCompanyById = async (companyId, userId, updates) => {
-  const company = await Company.findOne({ where: { id: companyId } });
-  //   const fileName = resume.img;
-  //   const filePath = path.join(__dirname, `../../public/${fileName}`);
-  //   await sharp(updates.file.buffer).webp().toFile(filePath);
+// Удаление компании с проверкой userId
+const deleteCompanyById = async (companyId, userId) => {
+  const company = await Company.findByPk(companyId);
 
   if (!company) {
-    return { success: false, status: 404, message: 'Резюме не найдено!' };
+    return { success: false, status: 404, message: 'Компания не найдена!' };
   }
 
   if (company.userId !== userId) {
-    return {
-      success: false,
-      status: 403,
-      message: 'У вас нет прав на изменение этого товара!',
-    };
+    return { success: false, status: 403, message: 'У вас нет прав на удаление этой компании!' };
+  }
+
+  await Company.destroy({ where: { id: companyId } });
+  return { success: true, status: 200, message: 'Компания успешно удалена!' };
+};
+
+// Обновление компании с проверкой userId
+const updateCompanyById = async (companyId, userId, updates) => {
+  const company = await Company.findOne({ where: { id: companyId } });
+
+  if (!company) {
+    return { success: false, status: 404, message: 'Компания не найдена!' };
+  }
+
+  if (company.userId !== userId) {
+    return { success: false, status: 403, message: 'У вас нет прав на изменение этой компании!' };
   }
 
   await company.update({
@@ -82,7 +71,6 @@ const updateCompanyById = async (companyId, userId, updates) => {
     description: updates.description || company.description,
     logo: updates.logo || company.logo,
     location: updates.location || company.location,
-    userId: updates.userId || company.userId,
   });
 
   return { success: true, company };
