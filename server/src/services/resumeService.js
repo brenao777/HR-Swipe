@@ -51,7 +51,14 @@ const createResume = async ({
   return newResume;
 };
 
-const findResumeIdById = async (userId) => Resume.findAll({ where: { userId } });
+const findResumeIdById = async (userId) =>
+  Resume.findAll({
+    where: { userId },
+    include: {
+      model: User,
+      attributes: ['firstName', 'secondName'],
+    },
+  });
 
 const deleteResumeById = async (resumeId, userId) => {
   const resume = await Resume.findByPk(resumeId);

@@ -9,7 +9,7 @@ import RegisterPage from '@/pages/RegisterPage/RegisterPage';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import ProtectedRoute from './ProtectedRouter';
-import Test from '@/entities/Test';
+import Test from '@/entities/test/Test';
 
 export default function RouterProvider(): React.JSX.Element {
   return (
