@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { animated, to } from '@react-spring/web'; // Добавляем to для комбинации
+import { animated, to } from '@react-spring/web';
 import { applyToVacancy, hideVacancy } from '@/entities/Vacancy/model/redux/vacancySlice';
 import { useAppDispatch } from '@/shared/api/hooks/hooks';
 import type { VacancyType } from '../model/types/vacancyTypes';
@@ -7,6 +7,7 @@ import { useSwipeAnimation } from '@/shared/api/hooks/useSwipeAnimation';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import styles from './VacancyCard.module.scss';
+import { createResponse } from '@/entities/vacancyStatus/model/redux/vacancyStatusThunk';
 
 type VacancyCardProps = {
   vacancy: VacancyType;
@@ -17,13 +18,15 @@ export default function VacancyCard({ vacancy }: VacancyCardProps): React.JSX.El
   const [showModal, setShowModal] = useState(false);
   const [isSwiped, setIsSwiped] = useState(false);
 
-  const handleApply = () => {
+  const handleApply = async () => {
     console.log('Applying to vacancy:', vacancy.id);
+    await dispatch(createResponse(vacancy.id));
     setIsSwiped(true);
-    dispatch(applyToVacancy(vacancy.id));
+    // dispatch(applyToVacancy(vacancy.id));
   };
   const handleHide = () => {
     console.log('Hiding vacancy:', vacancy.id);
+    console.log('СВАЙП НАПРАВО ------->');
     setIsSwiped(true);
     dispatch(hideVacancy(vacancy.id));
   };
@@ -48,7 +51,7 @@ export default function VacancyCard({ vacancy }: VacancyCardProps): React.JSX.El
           transform: to(
             [props.x, props.rotate],
             (x, rotate) => `translateX(${x}px) rotate(${rotate}deg)`,
-          ), // Комбинируем x и rotate
+          ),
           opacity: props.opacity,
         }}
         {...bind}
