@@ -30,6 +30,7 @@ class VacancyService {
       throw err;
     }
   }
+
 }
 
 export default new VacancyService(axiosInstance);

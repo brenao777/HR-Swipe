@@ -7,6 +7,7 @@ const conditionsRouter = require('./routes/conditionsRouter');
 const resumeRouter = require('./routes/resumeRouter');
 const vacancyRouter = require('./routes/vacancyRouter');
 const companyRouter = require('./routes/companyRouter');
+const vacancyStatusRouter = require('./routes/vacancyStatusRouter');
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.use('/api/resume', resumeRouter);
 app.use('/api/vacancies', vacancyRouter);
 app.use('/api/company', companyRouter)
 app.use('/api/conditions', conditionsRouter);
+app.use('/api/response', vacancyStatusRouter)
 
 module.exports = app;

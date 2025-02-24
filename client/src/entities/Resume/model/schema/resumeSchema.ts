@@ -16,8 +16,6 @@ export const resumeSchema = z.object({
   }),
 });
 
-export const resumeListSchema = z.array(resumeSchema.omit({ User: true }));
-
 export const resumeFormSchema = z.object({
   number: z.string(),
   specialty: z.string(),

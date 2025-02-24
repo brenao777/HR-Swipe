@@ -8,19 +8,21 @@ type Props = {
 };
 
 export default function MyResumesList({ resume }: Props): React.JSX.Element {
+
+  console.log(resume)
   return (
-    <div className={styles.container}>
       <Card>
         <Card.Header>{resume.specialty}</Card.Header>
         <Card.Img
           className={styles.photo}
           variant="top"
           src={`http://localhost:3000/${resume.photo}`}
-          // alt={resume.User.firstName}
+          alt={resume.User.firstName}
         />
         <Card.Body>
-          <Card.Title>{resume.specialty}</Card.Title>
-          <Card.Title>Возраст - {resume.age} лет</Card.Title>
+          <Card.Title>{resume.User.firstName} {resume.User.secondName}</Card.Title>
+          <Card.Text>{resume.specialty}</Card.Text>
+          <Card.Text>Возраст - {resume.age} лет</Card.Text>
           <Card.Text>Город - {resume.location}</Card.Text>
           <Card.Text>Опыт работы - {resume.experience}</Card.Text>
           <Card.Text>Номер телефона - {resume.number}</Card.Text>
@@ -28,6 +30,5 @@ export default function MyResumesList({ resume }: Props): React.JSX.Element {
           <Button variant="primary">Подробнее</Button>
         </Card.Body>
       </Card>
-    </div>
   );
 }

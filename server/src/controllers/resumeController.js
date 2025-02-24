@@ -44,19 +44,15 @@ const createResume = async (req, res) => {
 
 const getResumeById = async (req, res) => {
   try {
-    // const { resumeId } = req.params;
     const userId = res.locals.user.id;
     const resume = await resumeService.findResumeIdById(userId);
-    console.log(resume);
     if (!resume) {
       res.status(404).json({ message: 'Резюме не найдено!' });
     }
-    setTimeout(() => {
-      res.status(200).json(resume);
-    }, 1500);
+    res.status(200).json(resume);
   } catch (error) {
     console.error(error);
-    res.sendStatus(500);
+    res.status(500).send({ message: error.message });
   }
 };
 
