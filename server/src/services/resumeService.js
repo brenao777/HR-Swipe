@@ -1,7 +1,7 @@
 const { Resume, User } = require('../../db/models');
 const { Op } = require('sequelize');
-// const sharp = require('sharp');
-// const path = require('path');
+const sharp = require('sharp');
+const path = require('path');
 
 const findResume = async (search) => {
   if (search && search.length !== 0) {
@@ -14,12 +14,10 @@ const findResume = async (search) => {
     });
   }
   return Resume.findAll({
-    include: [
-      {
-        model: User,
-        attributes: ['firstName', 'secondName'],
-      },
-    ],
+    include: {
+      model: User,
+      attributes: ['firstName', 'secondName'],
+    },
     order: [['id', 'DESC']],
   });
 };
@@ -32,7 +30,13 @@ const createResume = async ({
   experience,
   coverLetter,
   userId,
+  file,
+  fullName,
 }) => {
+  const fileName = `${userId}-${new Date().getTime()}.webp`;
+  const filePath = path.join(__dirname, `../../public/${fileName}`);
+  await sharp(file.buffer).webp().toFile(filePath);
+
   const newResume = Resume.create({
     number,
     specialty,
@@ -41,11 +45,13 @@ const createResume = async ({
     experience,
     coverLetter,
     userId,
+    photo: fileName,
+    fullName,
   });
   return newResume;
 };
 
-const findResumeIdById = async (resumeId) => Resume.findOne({ where: { id: resumeId } });
+const findResumeIdById = async (userId) => Resume.findAll({ where: { userId } });
 
 const deleteResumeById = async (resumeId, userId) => {
   const resume = await Resume.findByPk(resumeId);
@@ -71,9 +77,9 @@ const deleteResumeById = async (resumeId, userId) => {
 
 const updateResumeById = async (resumeId, userId, updates) => {
   const resume = await Resume.findOne({ where: { id: resumeId } });
-  //   const fileName = resume.img;
-  //   const filePath = path.join(__dirname, `../../public/${fileName}`);
-  //   await sharp(updates.file.buffer).webp().toFile(filePath);
+  const fileName = resume.img;
+  const filePath = path.join(__dirname, `../../public/${fileName}`);
+  await sharp(updates.file.buffer).webp().toFile(filePath);
 
   if (!resume) {
     return { success: false, status: 404, message: 'Резюме не найдено!' };
@@ -95,6 +101,7 @@ const updateResumeById = async (resumeId, userId, updates) => {
     experience: updates.experience || resume.experience,
     coverLetter: updates.coverLetter || resume.coverLetter,
     userId: updates.userId || resume.userId,
+    photo: resume.photo,
   });
 
   return { success: true, resume };

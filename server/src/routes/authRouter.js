@@ -6,16 +6,16 @@ const generateTokens = require('../utils/generateTokens');
 const cookieConfig = require('../configs/сookie.config');
 
 authRouter.post('/register', async (req, res) => {
-  const { email, name, password } = req.body;
+  const { email, firstName, secondName, password, company } = req.body;
 
-  if (!email || !name || !password) {
-    return res.status(400).json({ error: 'Missing required fields' });
+  if (!email || !firstName || !password || !secondName) {
+    return res.status(400).json({ error: 'Нужно заполнить все поля!' });
   }
 
   try {
     const [user, created] = await User.findOrCreate({
       where: { email },
-      defaults: { name, password: await bcrypt.hash(password, 10) },
+      defaults: { firstName, secondName, company, password: await bcrypt.hash(password, 10) },
     });
 
     if (!created) {
@@ -26,12 +26,12 @@ authRouter.post('/register', async (req, res) => {
 
     const { accessToken, refreshToken } = generateTokens({ user: plainUser });
 
-    res
+    return res
       .cookie('refreshToken', refreshToken, cookieConfig.refresh)
       .json({ user: plainUser, accessToken });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Server error' });
+    return res.status(500).json({ error: 'Server error' });
   }
 });
 
@@ -57,12 +57,12 @@ authRouter.post('/login', async (req, res) => {
     delete plainUser.password;
 
     const { accessToken, refreshToken } = generateTokens({ user: plainUser });
-    res
+    return res
       .cookie('refreshToken', refreshToken, cookieConfig.refresh)
       .json({ user: plainUser, accessToken });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Server error' });
+    return res.status(500).json({ error: 'Server error' });
   }
 });
 
