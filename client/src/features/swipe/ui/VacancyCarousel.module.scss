@@ -1,0 +1,16 @@
+.carouselContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.noVacancies {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+  font-size: 60px;
+  font-weight: 600;
+
+}

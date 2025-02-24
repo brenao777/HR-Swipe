@@ -9,6 +9,7 @@ import RegisterPage from '@/pages/RegisterPage/RegisterPage';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import ProtectedRoute from './ProtectedRouter';
+import Test from '@/entities/Test';
 
 export default function RouterProvider(): React.JSX.Element {
   return (
@@ -21,6 +22,7 @@ export default function RouterProvider(): React.JSX.Element {
             <Route path="/cabinet" element={<PersonCabinetPage />} />
             <Route path="/company" element={<HrCompanyPage />} />
             <Route path="/myResumes" element={<MyResumesPage />} />
+            <Route path="/test" element={<Test />} />
           </Route>
           <Route element={<ProtectedRoute allowedStatuses={['guest']} redirectTo="/login" />}>
             <Route path="/register" element={<RegisterPage />} />

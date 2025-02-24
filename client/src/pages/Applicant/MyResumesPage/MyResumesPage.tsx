@@ -2,6 +2,7 @@ import { getResumeById } from '@/entities/Resume/model/redux/resumeThunks';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import MyResumesList from '@/widgets/MyResumesList/MyResumesList';
 import React, { useEffect } from 'react';
+import styles from './MyResumesPage.module.scss';
 
 export default function MyResumesPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -17,9 +18,9 @@ export default function MyResumesPage(): React.JSX.Element {
 
   return (
     <div>
-      <h1 style={{display: 'flex', justifyContent: 'center'}}>Мои резюме</h1>
+      <h1 style={{ display: 'flex', justifyContent: 'center' }}>Мои резюме</h1>
       {resumes.map((resume) => (
-        <div key={resume.id}>
+        <div key={resume.id} className={styles.container}>
           <MyResumesList resume={resume} />
         </div>
       ))}
