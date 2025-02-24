@@ -1,78 +1,109 @@
 import { getCompany } from '@/entities/Company/model/redux/companyThanks';
+import { getVacancies } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
-import HrVacancyModal from '@/widgets/Modal/HrVacancyModal/HrVacancyModal';
 import React, { useEffect, useState } from 'react';
-import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export default function HrCompanyPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const { companys, loading, error } = useAppSelector((store) => store.company);
+  const { vacancies } = useAppSelector((store) => store.vacancies);
 
-  const [showModal, setShowModal] = useState(false);
-  const [selectedCompany, setSelectedCompany] = useState<null | { id: number; title: string;}>(null);
+  const [activeTab, setActiveTab] = useState<'company' | 'vacancies'>('company'); // управление кнопками
 
   useEffect(() => {
     void dispatch(getCompany());
+    void dispatch(getVacancies());
   }, [dispatch]);
 
-  const handleOpenModal = (company: { id: number; title: string;  }): void => {
-    setSelectedCompany(company);
-    setShowModal(true);
-  };
-
-  const handleCloseModal = (): void => {
-    setShowModal(false);
-    setSelectedCompany(null);
-  };
-
   if (loading) {
-    return <div className="text-center mt-5">Загрузка...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <span className="visually-hidden">Загрузка...</span>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-center text-danger mt-5">Ошибка: {error}</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        error
+      </div>
+    );
   }
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center mb-4">Моя компания</h2>
-      <Row xs={1} md={1} lg={1} className="g-4">
+    <Container fluid className="vh-100 p-0">
+      <Row className="g-0 h-100">
         {companys.map((company) => (
-          <Col key={company.id}>
-            <Card style={{ width: '36rem', height: '40rem' }} className="shadow-lg p-3 mb-5 bg-white rounded">
-              <Card.Img
-                variant="top"
-                src={company.logo}
-                alt={company.title}
-                style={{ height: '200px', objectFit: 'cover', marginBottom: '20px' }}
-              />
-              <Card.Body>
-                <Card.Title className="fs-3">{company.title}</Card.Title>
-                <Card.Text className="fs-5" style={{ whiteSpace: 'pre-line' }}>
-                  {company.description}
-                </Card.Text>
-                <Card.Text className="mt-3 fs-6">
-                  <strong>Локация:</strong> {company.location}
-                </Card.Text>
-                <Button
-                  variant="primary"
-                  className="mt-4 w-100"
-                  onClick={() => handleOpenModal({ id: company.id, title: company.title })}
-                >
-                  Создать вакансию
-                </Button>
-              </Card.Body>
-            </Card>
+          <Col key={company.id} xs={12} className="h-100">
+            <div className="d-flex flex-column h-100 p-4">
+              <div className="d-flex align-items-center mb-4">
+                <img
+                  src={company.logo}
+                  alt={company.title}
+                  className="rounded-circle me-3"
+                  style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+                />
+                <div>
+                  <span className="text-muted" style={{ fontSize: '0.9rem', opacity: 0.7 }}>
+                    Организация
+                  </span>
+                  <h2 className="mb-0">{company.title}</h2>
+                </div>
+
+                <div className="ms-auto d-flex gap-2">
+                  <Button
+                    variant={activeTab === 'company' ? 'primary' : 'outline-primary'}
+                    onClick={() => setActiveTab('company')}
+                  >
+                    О компании
+                  </Button>
+                  <Button
+                    variant={activeTab === 'vacancies' ? 'primary' : 'outline-primary'}
+                    onClick={() => setActiveTab('vacancies')}
+                  >
+                    Вакансии
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex-grow-1">
+                {activeTab === 'company' && (
+                  <div>
+                    <p style={{ whiteSpace: 'pre-line' }}>{company.description}</p>
+                    <p>
+                      <strong>Локация:</strong> {company.location}
+                    </p>
+                  </div>
+                )}
+
+                {activeTab === 'vacancies' && (
+                  <div className="mt-4">
+                    {vacancies.length > 0 ? (
+                      <div>
+                        {vacancies.map((vacancy) => (
+                          <div
+                            key={vacancy.id}
+                            className="border rounded p-3 mb-3"
+                            style={{ backgroundColor: '#f8f9fa' }}
+                          >
+                            <h3>{vacancy.title}</h3>
+                            <p><strong>Описание:</strong> {vacancy.description}</p>
+                            <p><strong>Локация:</strong> {vacancy.location}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-center">Нет доступных вакансий.</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
           </Col>
         ))}
       </Row>
-
-      {/* Модальное окно для создания вакансии */}
-      <HrVacancyModal
-        show={showModal}
-        onHide={handleCloseModal}
-        company={selectedCompany}
-      />
     </Container>
   );
 }

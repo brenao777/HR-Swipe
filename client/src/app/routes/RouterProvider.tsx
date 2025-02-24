@@ -9,6 +9,7 @@ import RegisterPage from '@/pages/RegisterPage/RegisterPage';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import ProtectedRoute from './ProtectedRouter';
+import FilterModal from '@/widgets/Modal/FilterModal/FilterModal';
 
 export default function RouterProvider(): React.JSX.Element {
   return (
@@ -19,6 +20,7 @@ export default function RouterProvider(): React.JSX.Element {
             <Route index element={<VacancyPage />} />
             <Route path="/responses" element={<HrResponsesPage />} />
             <Route path="/cabinet" element={<PersonCabinetPage />} />
+            <Route path="/filter" element={<FilterModal />} />
             <Route path="/company" element={<HrCompanyPage />} />
             <Route path="/myResumes" element={<MyResumesPage />} />
           </Route>
