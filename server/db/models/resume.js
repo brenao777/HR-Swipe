@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       experience: DataTypes.TEXT,
       coverLetter: DataTypes.TEXT,
       photo: DataTypes.STRING,
+      status: DataTypes.ENUM(['pending', 'accepted', 'rejection']),
     },
     {
       sequelize,
