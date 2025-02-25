@@ -31,9 +31,9 @@ module.exports = {
         title: 'ТехноСофт',
         description:
           'Ведущая IT-компания, специализирующаяся на разработке веб-приложений и мобильных решений.',
-        logo: '/logos/technosoft.png',
+        logo: 'ts.jpg',
         location: 'Москва',
-        userId: 1, // Связь с пользователем (например, HR или владелец компании)
+        userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
