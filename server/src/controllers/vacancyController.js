@@ -15,17 +15,16 @@ const getAllVacancies = async (req, res) => {
 
 const createVacancy = async (req, res) => {
   try {
-    const { title, description, conditionsId, location } = req.body;
+    const { title, description, location } = req.body;
     const { user } = res.locals;
 
-    if (!title || !description || !conditionsId || !location) {
+    if (!title || !description || !location) {
       return res.status(400).json({ message: 'Некорректные данные' });
     }
 
     const newVacancy = await vacancyService.createVacancy({
       title,
       description,
-      conditionsId,
       location,
       userId: user.id,
     });
@@ -71,13 +70,12 @@ const deleteVacancy = async (req, res) => {
 const updateVacancy = async (req, res) => {
   try {
     const { vacancyId } = req.params;
-    const { title, description, conditionsId, location } = req.body;
+    const { title, description, location } = req.body;
     const userId = res.locals.user.id;
 
     const updatedVacancy = await vacancyService.updateVacancyById(vacancyId, userId, {
       title,
       description,
-      conditionsId,
       location,
     });
 

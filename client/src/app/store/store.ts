@@ -3,7 +3,6 @@ import userSlice from '@/entities/user/model/redux/userSlice';
 import resumeSlice from '@/entities/Resume/model/redux/resumeSlice';
 import companyReducer from '@/entities/Company/model/redux/companySlice';
 import vacanciesSlice from '@/entities/Vacancy/model/redux/vacancySlice';
-import conditionsReduser from '@/entities/Conditions/modal/redux/conditionsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +10,6 @@ export const store = configureStore({
     company: companyReducer,
     resume: resumeSlice.reducer,
     vacancies: vacanciesSlice.reducer,
-    conditions: conditionsReduser,
   },
 });
 
