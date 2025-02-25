@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { VacancySliceType, VacancyType } from '../types/vacancyTypes';
-import { getVacancies } from './vacancyThunk';
+import { findVacancyById, getVacancies } from './vacancyThunk';
 
 const initialState: VacancySliceType = {
   vacancies: [],
@@ -38,6 +38,20 @@ const vacanciesSlice = createSlice({
         state.loading = false;
       })
       .addCase(getVacancies.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+
+    builder
+      .addCase(findVacancyById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(findVacancyById.fulfilled, (state, action) => {
+        state.vacancies = action.payload;
+        state.loading = false;
+      })
+      .addCase(findVacancyById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

@@ -14,6 +14,7 @@ const resumeSlice = createSlice({
   name: 'resume',
   initialState,
   reducers: {},
+
   extraReducers: (builder) => {
     builder
       .addCase(getResumes.pending, (state) => {
