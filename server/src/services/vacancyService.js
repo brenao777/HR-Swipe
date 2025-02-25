@@ -20,7 +20,7 @@ const findVacancies = async (search) => {
   });
 };
 
-const createVacancy = async ({ title, description, conditionsId, location, userId }) =>
+const createVacancy = async ({ title, description, location, userId }) =>
   // If you later add an 'img' field to Vacancy, uncomment and adjust the following:
   // const fileName = `${userId}-${new Date().getTime()}.webp`;
   // const filePath = path.join(__dirname, `../../public/${fileName}`);
@@ -29,7 +29,6 @@ const createVacancy = async ({ title, description, conditionsId, location, userI
   Vacancy.create({
     title,
     description,
-    conditionsId,
     location,
     userId, // Assuming Vacancy has a userId foreign key, adjust if not
   });
@@ -83,7 +82,6 @@ const updateVacancyById = async (vacancyId, userId, updates) => {
   await vacancy.update({
     title: updates.title || vacancy.title,
     description: updates.description || vacancy.description,
-    conditionsId: updates.conditionsId || vacancy.conditionsId,
     location: updates.location || vacancy.location,
     // img: fileName // Uncomment if img is added to the model
   });
