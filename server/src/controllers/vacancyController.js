@@ -15,18 +15,43 @@ const getAllVacancies = async (req, res) => {
 
 const createVacancy = async (req, res) => {
   try {
-    const { title, description, location } = req.body;
-    const { user } = res.locals;
+    const {
+      title,
+      description,
+      location,
+      companyId,
+      experience,
+      format,
+      schedule,
+      from,
+      before,
+    } = req.body;
+    // const { user } = res.locals;
 
-    if (!title || !description || !location) {
-      return res.status(400).json({ message: 'Некорректные данные' });
+    if (
+      !title ||
+      !description ||
+      !location ||
+      !companyId ||
+      !experience ||
+      !format ||
+      !schedule ||
+      !from ||
+      !before
+    ) {
+      return res.status(400).json({ message: 'Необходимо указать все данные!' });
     }
 
     const newVacancy = await vacancyService.createVacancy({
       title,
       description,
       location,
-      userId: user.id,
+      companyId,
+      experience,
+      format,
+      schedule,
+      from,
+      before,
     });
     return res.status(201).json(newVacancy);
   } catch (error) {
