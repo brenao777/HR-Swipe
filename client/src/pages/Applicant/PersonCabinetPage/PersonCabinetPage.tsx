@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import { addResume } from '@/entities/Resume/model/redux/resumeThunks';
-import ResponceCard from '@/entities/Vacancy/ui/ResponceCard';
+
 import { findVacancyById } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useNavigate } from 'react-router';
 
@@ -54,11 +54,11 @@ export default function PersonCabinetPage(): React.JSX.Element {
       </Modal>
       <Button onClick={handleShow}>Создать резюме</Button>
       <Button onClick={() => navigate('/myResumes')}>Мои резюме</Button>
-      <div>
+      {/* <div>
         {respones.map((resp) => (
           <ResponceCard key={resp.id} resp={resp} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

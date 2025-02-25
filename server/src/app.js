@@ -21,8 +21,8 @@ app.use(cors());
 app.use('/api/auth', authRouter);
 app.use('/api/resume', resumeRouter);
 app.use('/api/tokens', tokenRouter);
-app.use('/api/company', companyRouter)
-app.use('/api/response', vacancyStatusRouter)
+app.use('/api/company', companyRouter);
+app.use('/api/response', vacancyStatusRouter);
 app.use('/api/vacancies', vacancyRouter);
 
 module.exports = app;
