@@ -6,3 +6,7 @@ export const getVacancies = createAsyncThunk<VacancyType[]>(
   'vacancies/getVacancies',
   async () => await vacancyService.getVacancies(),
 );
+
+export const findVacancyById = createAsyncThunk('vacancies/findVacancyById', (userId: number) =>
+  vacancyService.findVacancyById(userId),
+);

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { useAppDispatch } from '@/shared/api/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import { addResume } from '@/entities/Resume/model/redux/resumeThunks';
+import ResponceCard from '@/entities/Vacancy/ui/ResponceCard';
+import { findVacancyById } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useNavigate } from 'react-router';
 
 export default function PersonCabinetPage(): React.JSX.Element {
@@ -12,6 +14,14 @@ export default function PersonCabinetPage(): React.JSX.Element {
   const handleClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);
   const dispatch = useAppDispatch();
+  const respones = useAppSelector((store) => store.vacancies.vacancies);
+  const userId = useAppSelector((store) => store.user.data?.id);
+
+  useEffect(() => {
+    if (userId) {
+      void dispatch(findVacancyById(userId));
+    }
+  }, [dispatch, userId]);
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -44,8 +54,11 @@ export default function PersonCabinetPage(): React.JSX.Element {
       </Modal>
       <Button onClick={handleShow}>Создать резюме</Button>
       <Button onClick={() => navigate('/myResumes')}>Мои резюме</Button>
+      <div>
+        {respones.map((resp) => (
+          <ResponceCard key={resp.id} resp={resp} />
+        ))}
+      </div>
     </div>
   );
 }
-
-// нужно сделать кнопку для создания резюме при котором будет открываться ResumeModal

@@ -19,10 +19,10 @@ class VacancyService {
     }
   }
 
-  async findVacancyById(id: string): Promise<VacancyType | null> {
+  async findVacancyById(id: number): Promise<VacancyType[]> {
     try {
-      const res = await this.client.get(`/vacancies/${id}`);
-      return vacancySchema.parse(res.data);
+      const res = await this.client.get(`/vacancies/${String(id)}`);
+      return vacancySchema.array().parse(res.data);
     } catch (err) {
       if (err instanceof ZodError) {
         console.log('Validation error in findVacancyById: ', err.issues);
