@@ -35,6 +35,9 @@ export default function NavBar(): React.JSX.Element {
                 <Nav.Link as={Link} to="/cabinet">
                   Личный кабинет
                 </Nav.Link>
+                <Nav.Link as={Link} to="/company">
+                  Компания
+                </Nav.Link>
                 <NavItem>
                   <Button onClick={logout}>Выход</Button>
                 </NavItem>
