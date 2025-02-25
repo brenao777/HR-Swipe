@@ -40,6 +40,15 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true,
       },
+      photo: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      status: {
+        type: Sequelize.ENUM,
+        values: ['pending', 'accepted', 'rejection'],
+        defaultValue: 'pending',
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -52,6 +61,7 @@ module.exports = {
       },
     });
   },
+  // eslint-disable-next-line no-unused-vars
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Resumes');
   },

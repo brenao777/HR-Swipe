@@ -9,8 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: DataTypes.INTEGER,
       vacancyId: DataTypes.INTEGER,
-      interested: DataTypes.BOOLEAN,
-      unInterested: DataTypes.BOOLEAN,
     },
     {
       sequelize,

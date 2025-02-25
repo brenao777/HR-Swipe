@@ -16,13 +16,6 @@ module.exports = {
       description: {
         type: Sequelize.STRING,
       },
-      conditionsId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Conditions',
-          key: 'id',
-        },
-      },
       location: {
         type: Sequelize.STRING,
       },
@@ -30,8 +23,23 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'Companies',
-          key: 'id'
-        }
+          key: 'id',
+        },
+      },
+      experience: {
+        type: Sequelize.TEXT,
+      },
+      format: {
+        type: Sequelize.ENUM(['Удаленно', 'Гибрид', 'Офис']),
+      },
+      schedule: {
+        type: Sequelize.ENUM(['Полная', 'Частичная', 'Проектная']),
+      },
+      from: {
+        type: Sequelize.INTEGER,
+      },
+      before: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

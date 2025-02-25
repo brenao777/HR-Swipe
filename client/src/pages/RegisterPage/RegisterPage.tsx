@@ -31,17 +31,34 @@ export default function RegisterPage(): React.JSX.Element {
     <main className={styles.main}>
       <h1 className={styles.title}>Регистрация</h1>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <input className={styles.input} type="text" {...register('name')} placeholder="Имя..." />
-        {errors.name && <p className={styles.text}>{errors.name.message}</p>}
-
+        <input
+          className={styles.input}
+          type="text"
+          {...register('firstName')}
+          placeholder="Имя..."
+        />
+        {errors.firstName && <p className={styles.text}>{errors.firstName.message}</p>}
+        <input
+          className={styles.input}
+          type="text"
+          {...register('secondName')}
+          placeholder="Фамилия..."
+        />
+        {errors.secondName && <p className={styles.text}>{errors.secondName.message}</p>}
         <input
           className={styles.input}
           type="email"
           {...register('email')}
           placeholder="Email..."
         />
-        {errors.email && <p className={styles.text}>{errors.email.message}</p>}
-
+        {errors.company && <p className={styles.text}>{errors.company.message}</p>}
+        <p>Вы компания?</p>
+        <input
+          className={styles.checkbox}
+          type="checkbox"
+          {...register('company')}
+          placeholder="Компания..."
+        />
         <input
           className={styles.input}
           type="password"

@@ -1,40 +1,106 @@
 import { getCompany } from '@/entities/Company/model/redux/companyThanks';
+import { getVacancies } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
-import React, { useEffect } from 'react';
-import { Card, Container, Row, Col } from 'react-bootstrap'; 
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export default function HrCompanyPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const { companys, loading, error } = useAppSelector((store) => store.company);
+  const { vacancies } = useAppSelector((store) => store.vacancies);
+
+  const [activeTab, setActiveTab] = useState<'company' | 'vacancies'>('company'); // управление кнопками
 
   useEffect(() => {
     void dispatch(getCompany());
+    void dispatch(getVacancies());
   }, [dispatch]);
 
   if (loading) {
-    return <div className="text-center mt-5">Загрузка...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <span className="visually-hidden">Загрузка...</span>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-center text-danger mt-5">Ошибка: {error}</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        error
+      </div>
+    );
   }
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center mb-4">Список компаний</h2>
-      <Row xs={1} md={2} lg={3} className="g-4"> 
+    <Container fluid className="vh-100 p-0">
+      <Row className="g-0 h-100">
         {companys.map((company) => (
-          <Col key={company.id}>
-            <Card style={{ width: '18rem' }} className="h-100 shadow-sm">
-              <Card.Img variant="top" src={company.logo} alt={company.title} style={{ height: '150px', objectFit: 'cover' }} />
-              <Card.Body>
-                <Card.Title>{company.title}</Card.Title>
-                <Card.Text>{company.description.slice(0, 100)}...</Card.Text>
-              </Card.Body>
-              <Card.Footer className="text-muted">
-                <strong>Локация:</strong> {company.location}
-              </Card.Footer>
-            </Card>
+          <Col key={company.id} xs={12} className="h-100">
+            <div className="d-flex flex-column h-100 p-4">
+              <div className="d-flex align-items-center mb-4">
+                <img
+                  src={company.logo}
+                  alt={company.title}
+                  className="rounded-circle me-3"
+                  style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+                />
+                <div>
+                  <span className="text-muted" style={{ fontSize: '0.9rem', opacity: 0.7 }}>
+                    Организация
+                  </span>
+                  <h2 className="mb-0">{company.title}</h2>
+                </div>
+
+                <div className="ms-auto d-flex gap-2">
+                  <Button
+                    variant={activeTab === 'company' ? 'primary' : 'outline-primary'}
+                    onClick={() => setActiveTab('company')}
+                  >
+                    О компании
+                  </Button>
+                  <Button
+                    variant={activeTab === 'vacancies' ? 'primary' : 'outline-primary'}
+                    onClick={() => setActiveTab('vacancies')}
+                  >
+                    Вакансии
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex-grow-1">
+                {activeTab === 'company' && (
+                  <div>
+                    <p style={{ whiteSpace: 'pre-line' }}>{company.description}</p>
+                    <p>
+                      <strong>Локация:</strong> {company.location}
+                    </p>
+                  </div>
+                )}
+
+                {activeTab === 'vacancies' && (
+                  <div className="mt-4">
+                    {vacancies.length > 0 ? (
+                      <div>
+                        {vacancies.map((vacancy) => (
+                          <div
+                            key={vacancy.id}
+                            className="border rounded p-3 mb-3"
+                            style={{ backgroundColor: '#f8f9fa' }}
+                          >
+                            <h3>{vacancy.title}</h3>
+                            <p><strong>Описание:</strong> {vacancy.description}</p>
+                            <p><strong>Локация:</strong> {vacancy.location}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-center">Нет доступных вакансий.</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
           </Col>
         ))}
       </Row>

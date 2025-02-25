@@ -8,7 +8,7 @@ const initialState: CompanyState = {
     error: null,
 };
 
-const companySlise = createSlice ({
+const companySlice = createSlice ({
     name: 'company',
     initialState,
     reducers: {},
@@ -29,4 +29,4 @@ const companySlise = createSlice ({
     },
 })
 
-export default companySlise.reducer;
+export default companySlice.reducer;

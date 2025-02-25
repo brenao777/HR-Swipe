@@ -15,7 +15,7 @@ const createResume = async (req, res) => {
   try {
     const { specialty, number, location, age, experience, coverLetter } = req.body;
     const { user } = res.locals;
-    // const { file } = req;
+    const { file } = req;
 
     // if (!specialty || !number || !age || !experience) {
     //   return res.status(400).json({ message: 'Некорректные данные' });
@@ -28,8 +28,12 @@ const createResume = async (req, res) => {
       age: Number(age),
       experience,
       coverLetter,
+      file,
       userId: user.id,
-      // file,
+      fullName: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
     });
     return res.status(201).json(newResume);
   } catch (error) {
@@ -40,18 +44,15 @@ const createResume = async (req, res) => {
 
 const getResumeById = async (req, res) => {
   try {
-    // const { resumeId } = req.params;
-    const { user } = res.locals;
-    const resume = await resumeService.findResumeIdById(user.id);
+    const userId = res.locals.user.id;
+    const resume = await resumeService.findResumeIdById(userId);
     if (!resume) {
       res.status(404).json({ message: 'Резюме не найдено!' });
     }
-    setTimeout(() => {
-      res.status(200).json(resume);
-    }, 1500);
+    res.status(200).json(resume);
   } catch (error) {
     console.error(error);
-    res.sendStatus(500);
+    res.status(500).send({ message: error.message });
   }
 };
 
@@ -76,7 +77,7 @@ const updateResume = async (req, res) => {
     const { resumeId } = req.params;
     const { number, specialty, location, experience, coverLetter } = req.body;
     const userId = res.locals.user.id;
-    // const { file } = req;
+    const { file } = req;
 
     const updatedResume = await resumeService.updateItemById(resumeId, userId, {
       number,
@@ -84,6 +85,7 @@ const updateResume = async (req, res) => {
       location,
       experience,
       coverLetter,
+      file,
     });
 
     if (!updatedResume.success) {
@@ -96,4 +98,10 @@ const updateResume = async (req, res) => {
   }
 };
 
-module.exports = { getAllResumes, createResume, getResumeById, deleteResume, updateResume };
+module.exports = {
+  getAllResumes,
+  createResume,
+  getResumeById,
+  deleteResume,
+  updateResume,
+};
