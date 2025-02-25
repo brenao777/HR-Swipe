@@ -20,7 +20,17 @@ const findVacancies = async (search) => {
   });
 };
 
-const createVacancy = async ({ title, description, location, userId }) =>
+const createVacancy = async ({
+  title,
+  description,
+  location,
+  companyId,
+  experience,
+  format,
+  schedule,
+  from,
+  before,
+}) =>
   // If you later add an 'img' field to Vacancy, uncomment and adjust the following:
   // const fileName = `${userId}-${new Date().getTime()}.webp`;
   // const filePath = path.join(__dirname, `../../public/${fileName}`);
@@ -30,7 +40,12 @@ const createVacancy = async ({ title, description, location, userId }) =>
     title,
     description,
     location,
-    userId, // Assuming Vacancy has a userId foreign key, adjust if not
+    companyId,
+    experience,
+    format,
+    schedule,
+    from,
+    before,
   });
 // const findVacancyById = async (vacancyId) =>
 //   Vacancy.findOne({ where: { id: vacancyId } });
@@ -66,7 +81,6 @@ const updateVacancyById = async (vacancyId, userId, updates) => {
   }
 
   if (vacancy.userId !== userId) {
-    // Assuming Vacancy has a userId field
     return {
       success: false,
       status: 403,

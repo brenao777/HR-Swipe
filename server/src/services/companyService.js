@@ -29,14 +29,13 @@ const createCompany = async ({ title, description, userId, logo, location }) => 
 };
 
 // Поиск компании по ID с проверкой userId
-const findCompanyIdById = async (companyId, userId) => {
-  return Company.findOne({
+const findCompanyIdById = async (companyId, userId) =>
+  Company.findOne({
     where: {
       id: companyId,
       userId, // Проверяем соответствие userId
     },
   });
-};
 
 // Удаление компании с проверкой userId
 const deleteCompanyById = async (companyId, userId) => {
@@ -47,7 +46,11 @@ const deleteCompanyById = async (companyId, userId) => {
   }
 
   if (company.userId !== userId) {
-    return { success: false, status: 403, message: 'У вас нет прав на удаление этой компании!' };
+    return {
+      success: false,
+      status: 403,
+      message: 'У вас нет прав на удаление этой компании!',
+    };
   }
 
   await Company.destroy({ where: { id: companyId } });
@@ -63,7 +66,11 @@ const updateCompanyById = async (companyId, userId, updates) => {
   }
 
   if (company.userId !== userId) {
-    return { success: false, status: 403, message: 'У вас нет прав на изменение этой компании!' };
+    return {
+      success: false,
+      status: 403,
+      message: 'У вас нет прав на изменение этой компании!',
+    };
   }
 
   await company.update({

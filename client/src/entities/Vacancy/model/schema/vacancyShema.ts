@@ -6,6 +6,9 @@ export const vacancySchema = z.object({
     description: z.string(),
     location: z.string(),
     companyId: z.number(),
+    experience: z.string(),
+    format: z.enum(['Удаленно', 'Гибрид', 'Офис']),
+    schedule: z.enum(['Полная', 'Частичная', 'Проектная']),
+    from: z.number(),
+    before: z.number(),
 })
-
-export const VacancyArraySchema = z.array(vacancySchema);

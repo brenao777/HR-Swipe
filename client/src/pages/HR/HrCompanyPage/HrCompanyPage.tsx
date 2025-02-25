@@ -40,7 +40,7 @@ export default function HrCompanyPage(): React.JSX.Element {
             <div className="d-flex flex-column h-100 p-4">
               <div className="d-flex align-items-center mb-4">
                 <img
-                  src={company.logo}
+                  src={`http://localhost:3000/${company.logo}`}
                   alt={company.title}
                   className="rounded-circle me-3"
                   style={{ width: '80px', height: '80px', objectFit: 'cover' }}
