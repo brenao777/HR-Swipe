@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { VacancyType } from '../types/vacancyTypes';
+import type { VacancyType, VacancyWithStatusType } from '../types/vacancyTypes';
 import vacancyService from '../../api/vacancyService';
 
 export const getVacancies = createAsyncThunk<VacancyType[]>(
@@ -9,4 +9,9 @@ export const getVacancies = createAsyncThunk<VacancyType[]>(
 
 export const findVacancyById = createAsyncThunk('vacancies/findVacancyById', (userId: number) =>
   vacancyService.findVacancyById(userId),
+);
+
+export const getVacanciesWithStatus = createAsyncThunk<VacancyWithStatusType[]>(
+  'vacancies/getVacanciesWithStatus',
+  async () => await vacancyService.getVacanciesWithStatus(),
 );
