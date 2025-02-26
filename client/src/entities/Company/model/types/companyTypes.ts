@@ -1,11 +1,12 @@
 import type { z } from 'zod';
-import type { CompanyArraySchema, CompanyObjectSchema } from "../schema/companyShema";
+import type { CompanyObjectSchema, companySchemaById } from '../schema/companyShema';
 
-export type CompanyObjectType = z.infer <typeof CompanyObjectSchema>
-export type CompanyArrayType = z.infer <typeof CompanyArraySchema>
+export type CompanyObjectType = z.infer<typeof CompanyObjectSchema>;
+export type CompanyByIdType = z.infer<typeof companySchemaById>;
 
 export type CompanyState = {
-    companys: CompanyArrayType;
-    loading: boolean;
-    error: null | string;
-}
+  company: CompanyObjectType | null;
+  loading: boolean;
+  error: null | string;
+  myCompany: CompanyByIdType | null;
+};

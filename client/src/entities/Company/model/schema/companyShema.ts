@@ -1,11 +1,19 @@
+import { vacancySchema } from '@/entities/Vacancy/model/schema/vacancyShema';
 import { z } from 'zod';
 
 export const CompanyObjectSchema = z.object({
-    id: z.number(),
-    title: z.string(),
-    description: z.string(),
-    logo: z.string(),
-    location: z.string(),
+  id: z.number(),
+  title: z.string(),
+  description: z.string(),
+  logo: z.string(),
+  location: z.string(),
 });
 
-export const CompanyArraySchema = z.array(CompanyObjectSchema);
+export const companySchemaById = z.object({
+  id: z.number(),
+  title: z.string(),
+  description: z.string(),
+  logo: z.string().optional(),
+  location: z.string(),
+  vacancies: z.array(vacancySchema).default([]),
+});

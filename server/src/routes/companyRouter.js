@@ -11,7 +11,7 @@ companyRouter
   .post(verifyAccessToken, companyController.createCompany); 
 
 companyRouter
-  .route('/:id')
+  .route('/:userId')
   .get(verifyAccessToken, companyController.getCompanyById) 
   .delete(verifyAccessToken, companyController.deleteCompany) 
   .put(verifyAccessToken, companyController.updateCompany); 

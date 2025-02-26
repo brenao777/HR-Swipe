@@ -16,28 +16,32 @@ export const useSwipeAnimation = (onSwipeLeft: () => void, onSwipeRight: () => v
 
       const onMouseMove = (moveEvent: MouseEvent) => {
         const deltaX = moveEvent.clientX - startX;
-        console.log('Moving:', deltaX);
+        // console.log('Moving:', deltaX);
         api.start({ x: deltaX, rotate: deltaX / 10 }); // Плавное движение
       };
 
       const onMouseUp = (upEvent: MouseEvent) => {
         const deltaX = upEvent.clientX - startX;
-        console.log('Swipe ended:', deltaX);
+        // console.log('Swipe ended:', deltaX);
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
 
         if (deltaX > 100) {
-          Promise.all(api.start({ x: 500, opacity: 0, rotate: 15 })).then(() => {
-            api.set({ x: 0, rotate: 0 });
-            api.start({ opacity: 1, rotate: 0 });
-            onSwipeRight();
-          });
+          Promise.all(api.start({ x: 500, opacity: 0, rotate: 15 }))
+            .then(() => {
+              api.set({ x: 0, rotate: 0 });
+              api.start({ opacity: 1, rotate: 0 });
+              onSwipeRight();
+            })
+            .catch((error) => console.error);
         } else if (deltaX < -100) {
-          Promise.all(api.start({ x: -500, opacity: 0, rotate: -15 })).then(() => {
-            api.set({ x: 0, rotate: 0 });
-            api.start({ opacity: 1, rotate: 0 });
-            onSwipeLeft();
-          });
+          Promise.all(api.start({ x: -500, opacity: 0, rotate: -15 }))
+            .then(() => {
+              api.set({ x: 0, rotate: 0 });
+              api.start({ opacity: 1, rotate: 0 });
+              onSwipeLeft();
+            })
+            .catch((error) => console.error);
         } else {
           void api.start({ x: 0, opacity: 1, rotate: 0 });
         }

@@ -12,7 +12,7 @@ export default function ResponceCard({ resp }: Props): React.JSX.Element {
       <p>{resp.description}</p>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span>Статус:</span>
-        <span style={{ marginLeft: 'auto' }}>{resp.}</span> {/* Добавляем статус */}
+        {/* <span style={{ marginLeft: 'auto' }}>{resp.}</span> Добавляем статус */}
       </div>
     </div>
   );

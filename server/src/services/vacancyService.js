@@ -47,8 +47,10 @@ const createVacancy = async ({
     from,
     before,
   });
-// const findVacancyById = async (vacancyId) =>
-//   Vacancy.findOne({ where: { id: vacancyId } });
+
+const findVacancyById = async (vacancyId) =>
+  Vacancy.findOne({ where: { id: vacancyId } });
+
 
 const deleteVacancyById = async (vacancyId, userId) => {
   const vacancy = await Vacancy.findByPk(vacancyId);
@@ -106,7 +108,7 @@ const updateVacancyById = async (vacancyId, userId, updates) => {
 module.exports = {
   findVacancies,
   createVacancy,
-  // findVacancyById,
+  findVacancyById,
   deleteVacancyById,
   updateVacancyById,
 };

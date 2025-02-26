@@ -1,19 +1,19 @@
 import { getCompany } from '@/entities/Company/model/redux/companyThanks';
-import { getVacancies } from '@/entities/Vacancy/model/redux/vacancyThunk';
+// import { getVacancies } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export default function HrCompanyPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
-  const { companys, loading, error } = useAppSelector((store) => store.company);
-  const { vacancies } = useAppSelector((store) => store.vacancies);
-
+  const { company, loading, error } = useAppSelector((store) => store.company);
+  // console.log(company)
+  // const { vacancies } = useAppSelector((store) => store.vacancies);
   const [activeTab, setActiveTab] = useState<'company' | 'vacancies'>('company'); // управление кнопками
 
   useEffect(() => {
     void dispatch(getCompany());
-    void dispatch(getVacancies());
+    // void dispatch(getVacancies());
   }, [dispatch]);
 
   if (loading) {
@@ -25,50 +25,45 @@ export default function HrCompanyPage(): React.JSX.Element {
   }
 
   if (error) {
-    return (
-      <div className="d-flex justify-content-center align-items-center vh-100">
-        error
-      </div>
-    );
+    return <div className="d-flex justify-content-center align-items-center vh-100">error</div>;
   }
 
   return (
     <Container fluid className="vh-100 p-0">
       <Row className="g-0 h-100">
-        {companys.map((company) => (
-          <Col key={company.id} xs={12} className="h-100">
-            <div className="d-flex flex-column h-100 p-4">
-              <div className="d-flex align-items-center mb-4">
-                <img
-                  src={`http://localhost:3000/${company.logo}`}
-                  alt={company.title}
-                  className="rounded-circle me-3"
-                  style={{ width: '80px', height: '80px', objectFit: 'cover' }}
-                />
-                <div>
-                  <span className="text-muted" style={{ fontSize: '0.9rem', opacity: 0.7 }}>
-                    Организация
-                  </span>
-                  <h2 className="mb-0">{company.title}</h2>
-                </div>
-
-                <div className="ms-auto d-flex gap-2">
-                  <Button
-                    variant={activeTab === 'company' ? 'primary' : 'outline-primary'}
-                    onClick={() => setActiveTab('company')}
-                  >
-                    О компании
-                  </Button>
-                  <Button
-                    variant={activeTab === 'vacancies' ? 'primary' : 'outline-primary'}
-                    onClick={() => setActiveTab('vacancies')}
-                  >
-                    Вакансии
-                  </Button>
-                </div>
+        <Col xs={12} className="h-100">
+          <div className="d-flex flex-column h-100 p-4">
+            <div className="d-flex align-items-center mb-4">
+              <img
+                src={`http://localhost:3000/${company?.logo}`}
+                alt={company?.title}
+                className="rounded-circle me-3"
+                style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+              />
+              <div>
+                <span className="text-muted" style={{ fontSize: '0.9rem', opacity: 0.7 }}>
+                  Организация
+                </span>
+                <h2 className="mb-0">{company?.title}</h2>
               </div>
 
-              <div className="flex-grow-1">
+              <div className="ms-auto d-flex gap-2">
+                <Button
+                  variant={activeTab === 'company' ? 'primary' : 'outline-primary'}
+                  onClick={() => setActiveTab('company')}
+                >
+                  О компании
+                </Button>
+                <Button
+                  variant={activeTab === 'vacancies' ? 'primary' : 'outline-primary'}
+                  onClick={() => setActiveTab('vacancies')}
+                >
+                  Вакансии
+                </Button>
+              </div>
+            </div>
+
+            {/* <div className="flex-grow-1">
                 {activeTab === 'company' && (
                   <div>
                     <p style={{ whiteSpace: 'pre-line' }}>{company.description}</p>
@@ -99,10 +94,9 @@ export default function HrCompanyPage(): React.JSX.Element {
                     )}
                   </div>
                 )}
-              </div>
-            </div>
-          </Col>
-        ))}
+              </div> */}
+          </div>
+        </Col>
       </Row>
     </Container>
   );

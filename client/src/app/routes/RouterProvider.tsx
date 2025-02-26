@@ -12,6 +12,7 @@ import ProtectedRoute from './ProtectedRouter';
 import FilterModal from '@/widgets/Modal/FilterModal/FilterModal';
 import Test from '@/entities/test/Test';
 import Chat from '@/widgets/Chat/ui/Chat';
+import HrPersonCabinet from '@/pages/HR/HrPesonCabinet/HrPersonCabinet';
 
 export default function RouterProvider(): React.JSX.Element {
   return (
@@ -21,6 +22,7 @@ export default function RouterProvider(): React.JSX.Element {
           <Route element={<ProtectedRoute allowedStatuses={['logged']} redirectTo="/login" />}>
             <Route index element={<VacancyPage />} />
             <Route path="/responses" element={<HrResponsesPage />} />
+            <Route path="/hrCabinet" element={<HrPersonCabinet />} />
             <Route path="/cabinet" element={<PersonCabinetPage />} />
             <Route path="/filter" element={<FilterModal />} />
             <Route path="/company" element={<HrCompanyPage />} />

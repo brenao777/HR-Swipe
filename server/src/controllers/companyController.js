@@ -43,17 +43,17 @@ const createCompany = async (req, res) => {
   }
 };
 
-// Получение компании по ID
+
 const getCompanyById = async (req, res) => {
   try {
-    const { companyId } = req.params;
+    const { userId } = req.params;
     const { user } = res.locals;
 
     if (!user) {
       return res.status(403).json({ message: 'Требуется авторизация' });
     }
 
-    const company = await companyService.findCompanyIdById(companyId, user.id);
+    const company = await companyService.findCompanyIdById(userId);
 
     if (!company) {
       return res.status(404).json({ message: 'Компания не найдена!' });

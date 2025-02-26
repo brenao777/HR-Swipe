@@ -6,7 +6,7 @@ import { useSwipeAnimation } from '@/shared/api/hooks/useSwipeAnimation';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import styles from './VacancyCard.module.scss';
-import { hideVacancy } from '@/entities/Vacancy/model/redux/vacancySlice';
+import { applyToVacancy, hideVacancy } from '@/entities/Vacancy/model/redux/vacancySlice';
 import { createResponse } from '@/entities/vacancyStatus/model/redux/vacancyStatusThunk';
 
 type VacancyCardProps = {
@@ -20,14 +20,14 @@ export default function VacancyCard({ vacancy }: VacancyCardProps): React.JSX.El
 
   const handleApply = async () => {
     console.log('Applying to vacancy:', vacancy.id);
+    dispatch(applyToVacancy(vacancy.id));
     await dispatch(createResponse(vacancy.id));
     setIsSwiped(true);
   };
   const handleHide = () => {
     console.log('Hiding vacancy:', vacancy.id);
-    console.log('СВАЙП НАПРАВО ------->');
-    setIsSwiped(true);
     dispatch(hideVacancy(vacancy.id));
+    setIsSwiped(true);
   };
   const { props, api, bind } = useSwipeAnimation(handleApply, handleHide);
 
