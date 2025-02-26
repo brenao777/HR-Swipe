@@ -35,6 +35,7 @@ module.exports = {
       schedule: {
         type: Sequelize.ENUM(['Полная', 'Частичная', 'Проектная']),
       },
+      workDuration: { type: Sequelize.ENUM(['1-3', '3-6', '6+']) },
       from: {
         type: Sequelize.INTEGER,
       },

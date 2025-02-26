@@ -18,7 +18,7 @@ export default function VacancyCard({ vacancy }: VacancyCardProps): React.JSX.El
   const [showModal, setShowModal] = useState(false);
   const [isSwiped, setIsSwiped] = useState(false);
 
-  const handleApply = async () => {
+  const handleApply = async (): Promise<void> => {
     console.log('Applying to vacancy:', vacancy.id);
     dispatch(applyToVacancy(vacancy.id));
     await dispatch(createResponse(vacancy.id));

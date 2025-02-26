@@ -4,8 +4,8 @@ const vacancyService = require('../services/vacancyService');
 
 const getAllVacancies = async (req, res) => {
   try {
-    const filters = req.query; // Получаем все параметры из запроса
-    const vacancies = await vacancyService.findVacancies(filters); // Передаем их в сервис
+    const filters = req.query; 
+    const vacancies = await vacancyService.findVacancies(filters); 
     return res.status(200).json(vacancies);
   } catch (error) {
     console.error('Ошибка при загрузке вакансий: ', error);
@@ -25,6 +25,8 @@ const createVacancy = async (req, res) => {
       schedule,
       from,
       before,
+      workDuration,
+      
     } = req.body;
 
     if (
@@ -36,7 +38,8 @@ const createVacancy = async (req, res) => {
       !format ||
       !schedule ||
       !from ||
-      !before
+      !before ||
+      !workDuration
     ) {
       return res.status(400).json({ message: 'Необходимо указать все данные!' });
     }
@@ -51,6 +54,7 @@ const createVacancy = async (req, res) => {
       schedule,
       from: Number(from),
       before: Number(before),
+      workDuration,
     });
     return res.status(201).json(newVacancy);
   } catch (error) {
