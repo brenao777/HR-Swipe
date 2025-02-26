@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import ProtectedRoute from './ProtectedRouter';
 import FilterModal from '@/widgets/Modal/FilterModal/FilterModal';
 import Test from '@/entities/test/Test';
+import Chat from '@/widgets/Chat/ui/Chat';
 
 export default function RouterProvider(): React.JSX.Element {
   return (
@@ -25,6 +26,7 @@ export default function RouterProvider(): React.JSX.Element {
             <Route path="/company" element={<HrCompanyPage />} />
             <Route path="/myResumes" element={<MyResumesPage />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/chat" element={<Chat />} />
           </Route>
           <Route element={<ProtectedRoute allowedStatuses={['guest']} redirectTo="/login" />}>
             <Route path="/register" element={<RegisterPage />} />

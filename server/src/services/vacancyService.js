@@ -5,17 +5,29 @@ const { Op } = require('sequelize');
 // const sharp = require('sharp');
 // const path = require('path');
 
-const findVacancies = async (search) => {
-  if (search && search.length !== 0) {
-    return Vacancy.findAll({
-      where: {
-        title: {
-          [Op.like]: `%${search}%`,
-        },
-      },
-    });
+const findVacancies = async (filters) => {
+  const query = {};
+  if (filters.title) {
+    query.title = { [Op.like]: `%${filters.title}%` };
   }
+  if (filters.from) {
+    query.from = { [Op.gte]: filters.from }; // Зарплата больше или равна "from"
+  }
+  if (filters.before) {
+    query.before = { [Op.lte]: filters.before }; // Зарплата меньше или равна "before"
+  }
+  if (filters.format) {
+    query.format = filters.format; // Точное совпадение формата работы
+  }
+  if (filters.schedule) {
+    query.schedule = filters.schedule; // Точное совпадение занятости
+  }
+  if (filters.experience) {
+    query.experience = { [Op.gt]: filters.experience }; // Опыт больше указанного значения
+  }
+
   return Vacancy.findAll({
+    where: query,
     order: [['id', 'DESC']],
   });
 };

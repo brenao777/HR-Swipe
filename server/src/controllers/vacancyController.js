@@ -4,8 +4,8 @@ const vacancyService = require('../services/vacancyService');
 
 const getAllVacancies = async (req, res) => {
   try {
-    const { search } = req.query;
-    const vacancies = await vacancyService.findVacancies(search);
+    const filters = req.query; // Получаем все параметры из запроса
+    const vacancies = await vacancyService.findVacancies(filters); // Передаем их в сервис
     return res.status(200).json(vacancies);
   } catch (error) {
     console.error('Ошибка при загрузке вакансий: ', error);
