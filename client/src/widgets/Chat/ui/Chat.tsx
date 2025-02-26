@@ -15,12 +15,11 @@ const socket = io('http://localhost:3000/');
 
 export default function Chat(): React.JSX.Element {
   const user = useAppSelector((store: RootState) => store.user.data);
-  console.log(user)
   const chat = useAppSelector((store: RootState) => store.chat);
   const [msg, setMsg] = useState('');
   const dispatch = useAppDispatch();
 
-  console.log(chat)
+  // console.log(chat)
 
   const sendMessage = (): void => {
     if (msg.trim()) {

@@ -1,11 +1,13 @@
 import type { z } from 'zod';
-import type { vacancySchema, vacancyStatusSchema } from '../schema/vacancyShema';
+import type { vacancyFormSchema, vacancySchema, vacancyStatusSchema } from '../schema/vacancyShema';
 
 export type VacancyType = z.infer<typeof vacancySchema>;
+export type VacancyFormType = z.infer<typeof vacancyFormSchema>;
 export type VacancyWithStatusType = z.infer<typeof vacancyStatusSchema>;
 
 export type VacancySliceType = {
-  vacancies: VacancyWithStatusType[];
+  vacancies: VacancyType[];
+  vacanciesWithStatus: VacancyWithStatusType[];
   hiddenVacancies: number[];
   currentIndex: number;
   loading: boolean;

@@ -43,17 +43,16 @@ const createCompany = async (req, res) => {
   }
 };
 
-// Получение компании по ID
 const getCompanyById = async (req, res) => {
   try {
-    const { companyId } = req.params;
+    const { userId } = req.params;
     const { user } = res.locals;
 
     if (!user) {
       return res.status(403).json({ message: 'Требуется авторизация' });
     }
 
-    const company = await companyService.findCompanyIdById(companyId, user.id);
+    const company = await companyService.findCompanyIdById(userId);
 
     if (!company) {
       return res.status(404).json({ message: 'Компания не найдена!' });
@@ -62,7 +61,7 @@ const getCompanyById = async (req, res) => {
     return res.status(200).json(company);
   } catch (error) {
     console.error(error);
-    return res.sendStatus(500);
+    return res.status(500).send({ message: error.message });
   }
 };
 
@@ -100,11 +99,12 @@ const updateCompany = async (req, res) => {
       return res.status(403).json({ message: 'Требуется авторизация' });
     }
 
-    const updatedCompany = await companyService.updateCompanyById(
-      companyId,
-      user.id,
-      { title, description, logo, location }
-    );
+    const updatedCompany = await companyService.updateCompanyById(companyId, user.id, {
+      title,
+      description,
+      logo,
+      location,
+    });
 
     if (!updatedCompany.success) {
       return res.status(updatedCompany.status).json({ message: updatedCompany.message });
@@ -117,4 +117,10 @@ const updateCompany = async (req, res) => {
   }
 };
 
-module.exports = { getAllCompany, createCompany, getCompanyById, deleteCompany, updateCompany };
+module.exports = {
+  getAllCompany,
+  createCompany,
+  getCompanyById,
+  deleteCompany,
+  updateCompany,
+};

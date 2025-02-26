@@ -10,7 +10,7 @@ vacancyRouter
 vacancyRouter
   .route('/:vacancyId')
   .get(vacancyController.getAllVacancies)
-  // .get(vacancyController.getVacancyById)
+  .get(vacancyController.getVacancyById)
   .delete(verifyAccessToken, vacancyController.deleteVacancy)
   .put(verifyAccessToken, vacancyController.updateVacancy);
 

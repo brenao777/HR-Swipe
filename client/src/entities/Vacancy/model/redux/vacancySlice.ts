@@ -1,10 +1,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type { VacancySliceType, VacancyType, VacancyWithStatusType } from '../types/vacancyTypes';
-import { findVacancyById, getVacancies, getVacanciesWithStatus } from './vacancyThunk';
+import type { VacancySliceType, VacancyWithStatusType } from '../types/vacancyTypes';
+import { getVacancies, getVacanciesWithStatus } from './vacancyThunk';
 
 const initialState: VacancySliceType = {
   vacancies: [],
+  vacanciesWithStatus: [],
   hiddenVacancies: [],
   currentIndex: 0,
   loading: false,
@@ -28,19 +29,19 @@ const vacanciesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // builder
-    //   .addCase(getVacancies.pending, (state) => {
-    //     state.loading = true;
-    //     state.error = null;
-    //   })
-    //   .addCase(getVacancies.fulfilled, (state, action) => {
-    //     state.vacancies = action.payload;
-    //     state.loading = false;
-    //   })
-    //   .addCase(getVacancies.rejected, (state, action) => {
-    //     state.loading = false;
-    //     state.error = action.payload as string;
-    //   });
+    builder
+      .addCase(getVacancies.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getVacancies.fulfilled, (state, action) => {
+        state.vacancies = action.payload;
+        state.loading = false;
+      })
+      .addCase(getVacancies.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
 
     // builder
     //   .addCase(findVacancyById.pending, (state) => {
@@ -63,7 +64,7 @@ const vacanciesSlice = createSlice({
       })
       .addCase(getVacanciesWithStatus.fulfilled, (state, action) => {
         console.log(action.payload, '---------');
-        state.vacancies = action.payload;
+        state.vacanciesWithStatus = action.payload;
         state.loading = false;
       })
       .addCase(getVacanciesWithStatus.rejected, (state, action) => {

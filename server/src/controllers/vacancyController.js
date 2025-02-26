@@ -26,7 +26,6 @@ const createVacancy = async (req, res) => {
       from,
       before,
     } = req.body;
-    // const { user } = res.locals;
 
     if (
       !title ||
@@ -46,12 +45,12 @@ const createVacancy = async (req, res) => {
       title,
       description,
       location,
-      companyId,
+      companyId: Number(companyId),
       experience,
       format,
       schedule,
-      from,
-      before,
+      from: Number(from),
+      before: Number(before),
     });
     return res.status(201).json(newVacancy);
   } catch (error) {
@@ -60,21 +59,20 @@ const createVacancy = async (req, res) => {
   }
 };
 
-// const getVacancyById = async (req, res) => {
-//   try {
-//     const { vacancyId } = req.params; // vacancyId — строка из URL
-//     const vacancy = await vacancyService.findVacancyById(vacancyId); // Передаём vacancyId
-//     if (!vacancy) {
-//       res.status(404).json({ message: 'Вакансия не найдена!' });
-//     }
-//     setTimeout(() => {
-//       res.status(200).json(vacancy);
-//     }, 1500);
-//   } catch (error) {
-//     console.error('Error in getVacancyById:', error);
-//     res.status(500).json({ message: error.message || 'Ошибка сервера' }); // Исправлен формат ответа
-//   }
-// };
+const getVacancyById = async (req, res) => {
+  try {
+    const { vacancyId } = req.params;
+    // const { user } = res.locals
+    const vacancy = await vacancyService.findVacancyById(vacancyId);
+    if (!vacancy) {
+      res.status(404).json({ message: 'Вакансия не найдена!' });
+    }
+    res.status(200).json(vacancy);
+  } catch (error) {
+    console.error('Error in getVacancyById:', error);
+    res.status(500).json({ message: error.message || 'Ошибка сервера' });
+  }
+};
 
 const deleteVacancy = async (req, res) => {
   try {
@@ -117,7 +115,7 @@ const updateVacancy = async (req, res) => {
 module.exports = {
   getAllVacancies,
   createVacancy,
-  // getVacancyById,
+  getVacancyById,
   deleteVacancy,
   updateVacancy,
 };

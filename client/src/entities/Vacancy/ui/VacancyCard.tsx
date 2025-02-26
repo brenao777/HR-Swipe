@@ -26,9 +26,8 @@ export default function VacancyCard({ vacancy }: VacancyCardProps): React.JSX.El
   };
   const handleHide = () => {
     console.log('Hiding vacancy:', vacancy.id);
-    console.log('СВАЙП НАПРАВО ------->');
-    setIsSwiped(true);
     dispatch(hideVacancy(vacancy.id));
+    setIsSwiped(true);
   };
   const { props, api, bind } = useSwipeAnimation(handleApply, handleHide);
 

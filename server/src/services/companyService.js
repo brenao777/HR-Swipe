@@ -1,4 +1,4 @@
-const { Company } = require('../../db/models');
+const { Company, Vacancy } = require('../../db/models');
 const { Op } = require('sequelize');
 
 // Поиск компаний с фильтрацией по userId
@@ -10,7 +10,7 @@ const findCompany = async (search, userId) => {
 
   query.userId = userId; // Фильтруем по userId
 
-  return Company.findAll({
+  return Company.findOne({
     where: query,
     order: [['id', 'DESC']],
   });
@@ -28,14 +28,16 @@ const createCompany = async ({ title, description, userId, logo, location }) => 
   return newCompany;
 };
 
-// Поиск компании по ID с проверкой userId
-const findCompanyIdById = async (companyId, userId) =>
-  Company.findOne({
-    where: {
-      id: companyId,
-      userId, // Проверяем соответствие userId
-    },
+const findCompanyIdById = async (userId) => {
+  const company = await Company.findOne({
+    where: { userId },
+    include: { model: Vacancy },
   });
+  if (company) {
+    company.vacancies = company.vacancies || []; // Гарантируем массив
+  }
+  return company;
+};
 
 // Удаление компании с проверкой userId
 const deleteCompanyById = async (companyId, userId) => {
