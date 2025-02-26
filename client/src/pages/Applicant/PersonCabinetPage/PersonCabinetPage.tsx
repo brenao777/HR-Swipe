@@ -53,11 +53,11 @@ export default function PersonCabinetPage(): React.JSX.Element {
       </Modal>
       <Button onClick={handleShow}>Создать резюме</Button>
       <Button onClick={() => navigate('/myResumes')}>Мои резюме</Button>
-      <div>
+      {/* <div>
         {respones.map((resp) => (
           <ResponceCard key={resp.id} resp={resp} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
