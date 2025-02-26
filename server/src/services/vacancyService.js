@@ -5,6 +5,7 @@ const { Op } = require('sequelize');
 // const sharp = require('sharp');
 // const path = require('path');
 
+
 const findVacancies = async (filters) => {
   const query = {};
 

@@ -18,3 +18,11 @@ export const companySchemaById = z.object({
   location: z.string(),
   Vacancies: z.array(vacancySchema)
 });
+
+export const CompanyFormSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  description: z.string(),
+  logo: z.instanceof(File),
+  location: z.string(),
+});

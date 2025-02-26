@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CompanyObjectSchema, companySchemaById } from '../schema/companyShema';
+import {  CompanyObjectSchema, companySchemaById } from '../schema/companyShema';
 import axiosInstance from '@/shared/api/axiosInstance';
 import { ZodError } from 'zod';
+import type { CompanyObjectType } from '../types/companyTypes';
 
 export const getCompany = createAsyncThunk('getCompany/company', async (_, { rejectWithValue }) => {
   try {
@@ -19,9 +20,8 @@ export const findCompanyById = createAsyncThunk(
       if (!userId) throw new Error('userId is undefined in findCompanyById');
       const res = await axiosInstance.get(`/company/${userId.toString()}`);
       console.log('Response from server:', res.data);
-      const result = companySchemaById.parse(res.data);
-      console.log(result)
-      return result
+      return companySchemaById.parse(res.data);
+      
     } catch (err) {
       if (err instanceof ZodError) {
         console.log('Validation error in findCompanyById: ', err.issues);
@@ -30,3 +30,18 @@ export const findCompanyById = createAsyncThunk(
     }
   },
 );
+
+export const addCompany = createAsyncThunk<
+  CompanyObjectType,
+  FormData,
+  { rejectValue: string }
+>('company/addCompany', async (adddata, { rejectWithValue }) => {
+  try {
+    const res = await axiosInstance.post('/company', adddata, {
+      headers: { 'Content-Type': 'multipart/form-data' }, 
+    });
+    return CompanyObjectSchema.parse(res.data); 
+  } catch (error) {
+    return rejectWithValue(error instanceof Error ? error.message : 'POLOMALOSY');
+  }
+});

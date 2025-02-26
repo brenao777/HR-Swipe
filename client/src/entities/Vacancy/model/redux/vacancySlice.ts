@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { VacancySliceType, VacancyWithStatusType } from '../types/vacancyTypes';
-import { getVacancies, getVacanciesWithStatus } from './vacancyThunk';
+import { createVacancy, getVacancies, getVacanciesWithStatus } from './vacancyThunk';
 
 const initialState: VacancySliceType = {
   vacancies: [],
@@ -10,6 +10,7 @@ const initialState: VacancySliceType = {
   currentIndex: 0,
   loading: false,
   error: null,
+  addvacancies: [],
 };
 
 const vacanciesSlice = createSlice({
@@ -57,6 +58,19 @@ const vacanciesSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       });
+      builder
+    .addCase(createVacancy.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(createVacancy.fulfilled, (state, action) => {
+      state.addvacancies.push(action.payload); 
+      state.loading = false;
+    })
+    .addCase(createVacancy.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
   },
 });
 

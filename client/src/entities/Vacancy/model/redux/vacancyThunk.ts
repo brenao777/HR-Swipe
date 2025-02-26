@@ -12,11 +12,14 @@ export const findVacancyById = createAsyncThunk('vacancies/findVacancyById', (us
   vacancyService.findVacancyById(userId),
 );
 
-export const createVacancy = createAsyncThunk('vacancies/createVacancy', (formData: FormData) => {
-  console.log(formData);
-  const data = vacancyFormSchema.parse(Object.fromEntries(formData));
-  return vacancyService.createVacancy(data);
-});
+export const createVacancy = createAsyncThunk(
+  'vacancies/createVacancy',
+  async ({ formData, companyId }: { formData: FormData; companyId: number }) => {
+    const data = vacancyFormSchema.parse(Object.fromEntries(formData));
+    console.log('Parsed Data:', data); // Логируем распарсенные данные
+    return vacancyService.createVacancy({ ...data, companyId });
+  }
+);
 
 export const getVacanciesWithStatus = createAsyncThunk<VacancyWithStatusType[]>(
   'vacancies/getVacanciesWithStatus',

@@ -15,11 +15,11 @@ const getAllVacancies = async (req, res) => {
 
 const createVacancy = async (req, res) => {
   try {
+    const {company} = req.params
     const {
       title,
       description,
       location,
-      companyId,
       experience,
       format,
       schedule,
@@ -33,7 +33,7 @@ const createVacancy = async (req, res) => {
       !title ||
       !description ||
       !location ||
-      !companyId ||
+      !company ||
       !experience ||
       !format ||
       !schedule ||
@@ -48,7 +48,7 @@ const createVacancy = async (req, res) => {
       title,
       description,
       location,
-      companyId: Number(companyId),
+      companyId: company,
       experience,
       format,
       schedule,

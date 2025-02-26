@@ -33,8 +33,8 @@ export const vacancyFormSchema = z.object({
   format: z.enum(['Удаленно', 'Гибрид', 'Офис']),
   schedule: z.enum(['Полная', 'Частичная', 'Проектная']),
   workDuration: z.enum(['1-3', '3-6', '6+']),
-  from: z.string(),
-  before: z.string(),
+  from: z.number(),
+  before: z.number(),
 });
 
 export const resumeStatusSchema = z.object({
