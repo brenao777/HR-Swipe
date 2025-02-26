@@ -1,6 +1,6 @@
 'use strict';
 
-const { Vacancy } = require('../../db/models');
+const { Vacancy, Resume, User } = require('../../db/models');
 const { Op } = require('sequelize');
 // const sharp = require('sharp');
 // const path = require('path');
@@ -75,8 +75,27 @@ const createVacancy = async ({
     workDuration,
   });
 
-const findVacancyById = async (vacancyId) =>
-  Vacancy.findOne({ where: { id: vacancyId } });
+const findVacancyById = async (vacancyId) => {
+  const vacancy = await Vacancy.findOne({
+    where: { id: vacancyId },
+    include: {
+      model: Resume,
+      include: {
+        model: User,
+        attributes: ['firstName', 'secondName'],
+      },
+    },
+  });
+
+  return vacancy.Resumes;
+};
+
+const findVacanciesByCompanyId = async (vacancyId) => {
+  const vacancies = await Vacancy.findAll({
+    where: { companyId: vacancyId },
+  });
+  return vacancies;
+}
 
 const deleteVacancyById = async (vacancyId, userId) => {
   const vacancy = await Vacancy.findByPk(vacancyId);
@@ -137,4 +156,5 @@ module.exports = {
   findVacancyById,
   deleteVacancyById,
   updateVacancyById,
+  findVacanciesByCompanyId
 };

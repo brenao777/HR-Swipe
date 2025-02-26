@@ -9,4 +9,6 @@ export type ResumeSliceType = {
   loading: boolean;
   error: string | null;
   resumesById: ResumeType[];
+  hiddenResumes: number[];
+  currentResumeIndex: number;
 };

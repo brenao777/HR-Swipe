@@ -1,13 +1,12 @@
 const { Resume, Vacancy } = require('../../db/models');
 
-async function getVacanciesWithResumeStatuses() {
+async function getVacanciesWithResumeStatuses(userId) {
   const status = await Vacancy.findAll({
-    include: [
-      {
-        model: Resume,
-        attributes: ['status'],
-      },
-    ],
+    include: {
+      where: { userId },
+      model: Resume,
+      attributes: ['status'],
+    },
   });
 
   return status;

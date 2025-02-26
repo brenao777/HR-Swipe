@@ -2,7 +2,8 @@ const resumeStatusService = require('../services/resumeStatusService');
 
 const getResumeStatuses = async (req, res) => {
   try {
-    const status = await resumeStatusService.getVacanciesWithResumeStatuses();
+    const { user } = res.locals;
+    const status = await resumeStatusService.getVacanciesWithResumeStatuses(user.id);
     if (!status) {
       res.status(404).json({ message: 'Статус не найден!' });
     }

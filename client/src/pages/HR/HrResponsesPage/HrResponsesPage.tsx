@@ -22,4 +22,3 @@ export default function HrResponsesPage(): React.JSX.Element {
   );
 }
 
-// на отклики можно нажать и откроется HrDetailsModal с описанием резюме соискателя

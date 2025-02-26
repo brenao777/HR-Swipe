@@ -74,19 +74,11 @@ const deleteResume = async (req, res) => {
 
 const updateResume = async (req, res) => {
   try {
-    const { resumeId } = req.params;
-    const { number, specialty, location, experience, coverLetter } = req.body;
-    const userId = res.locals.user.id;
-    const { file } = req;
-
-    const updatedResume = await resumeService.updateItemById(resumeId, userId, {
-      number,
-      specialty,
-      location,
-      experience,
-      coverLetter,
-      file,
-    });
+    const { id } = req.params;
+    const { status } = req.body;
+    console.log('req.body!!!!!!!!!!:', req.body.status);
+    console.log('req.params!!!!!!!!!:', req.params);
+    const updatedResume = await resumeService.updateResumeById(id, status);
 
     if (!updatedResume.success) {
       return res.status(updatedResume.status).json({ message: updatedResume.message });
@@ -94,7 +86,7 @@ const updateResume = async (req, res) => {
     return res.json(updatedResume.item);
   } catch (error) {
     console.error(error);
-    return res.sendStatus(500);
+    return res.status(500).send({ message: error.message });
   }
 };
 

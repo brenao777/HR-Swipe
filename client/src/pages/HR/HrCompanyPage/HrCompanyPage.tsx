@@ -1,5 +1,5 @@
 import { getCompany } from '@/entities/Company/model/redux/companyThanks';
-import { getVacancies } from '@/entities/Vacancy/model/redux/vacancyThunk';
+import { companyVacancy } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -9,10 +9,12 @@ export default function HrCompanyPage(): React.JSX.Element {
   const { company, loading, error } = useAppSelector((store) => store.company);
   const { vacancies } = useAppSelector((store) => store.vacancies);
   const [activeTab, setActiveTab] = useState<'company' | 'vacancies'>('company'); // управление кнопками
-console.log(vacancies)
+
   useEffect(() => {
     void dispatch(getCompany());
-    void dispatch(getVacancies());
+    if (company) {
+      void dispatch(companyVacancy(company.id));
+    }
   }, [dispatch]);
 
   if (loading) {
