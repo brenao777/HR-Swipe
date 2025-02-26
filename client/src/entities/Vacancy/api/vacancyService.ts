@@ -11,9 +11,10 @@ import type {
 class VacancyService {
   constructor(private readonly client: AxiosInstance) {}
 
-  async getVacancies(): Promise<VacancyType[]> {
+  async getVacancies(filters: Record<string, any> = {}): Promise<VacancyType[]> {
     try {
-      const res = await this.client.get('/vacancies');
+      const queryString = new URLSearchParams(filters).toString(); // Преобразуем объект в строку запроса
+      const res = await this.client.get(`/vacancies?${queryString}`);
       return vacancySchema.array().parse(res.data);
     } catch (err) {
       if (err instanceof ZodError) {

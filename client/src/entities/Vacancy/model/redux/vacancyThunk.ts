@@ -3,9 +3,9 @@ import type { VacancyType, VacancyWithStatusType } from '../types/vacancyTypes';
 import vacancyService from '../../api/vacancyService';
 import { vacancyFormSchema } from '../schema/vacancyShema';
 
-export const getVacancies = createAsyncThunk<VacancyType[]>(
+export const getVacancies = createAsyncThunk<VacancyType[], Record<string, unknown>>(
   'vacancies/getVacancies',
-  async () => await vacancyService.getVacancies(),
+  async (filters) => await vacancyService.getVacancies(filters),
 );
 
 export const findVacancyById = createAsyncThunk('vacancies/findVacancyById', (userId: number) =>

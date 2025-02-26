@@ -43,20 +43,6 @@ const vacanciesSlice = createSlice({
         state.error = action.payload as string;
       });
 
-    // builder
-    //   .addCase(findVacancyById.pending, (state) => {
-    //     state.loading = true;
-    //     state.error = null;
-    //   })
-    //   .addCase(findVacancyById.fulfilled, (state, action) => {
-    //     state.vacancies = action.payload;
-    //     state.loading = false;
-    //   })
-    //   .addCase(findVacancyById.rejected, (state, action) => {
-    //     state.loading = false;
-    //     state.error = action.payload as string;
-    //   });
-
     builder
       .addCase(getVacanciesWithStatus.pending, (state) => {
         state.loading = true;

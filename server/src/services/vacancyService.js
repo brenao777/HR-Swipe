@@ -7,23 +7,36 @@ const { Op } = require('sequelize');
 
 const findVacancies = async (filters) => {
   const query = {};
+
   if (filters.title) {
     query.title = { [Op.like]: `%${filters.title}%` };
   }
-  if (filters.from) {
-    query.from = { [Op.gte]: filters.from }; // Зарплата больше или равна "from"
-  }
-  if (filters.before) {
-    query.before = { [Op.lte]: filters.before }; // Зарплата меньше или равна "before"
-  }
   if (filters.format) {
-    query.format = filters.format; // Точное совпадение формата работы
+    query.format = filters.format;
+  }
+  if (filters.workDuration) {
+    query.workDuration = filters.workDuration;
   }
   if (filters.schedule) {
-    query.schedule = filters.schedule; // Точное совпадение занятости
+    query.schedule = filters.schedule;
+  }
+  if (filters.location) {
+    query.location = filters.location;
   }
   if (filters.experience) {
-    query.experience = { [Op.gt]: filters.experience }; // Опыт больше указанного значения
+    query.experience = { [Op.gte]: filters.experience };
+  }
+
+  // Фильтрация по диапазону зарплаты
+  if (filters.from || filters.before) {
+    query[Op.and] = [];
+
+    if (filters.from) {
+      query[Op.and].push({ from: { [Op.gte]: filters.from } }); // Минимальная зарплата >= from
+    }
+    if (filters.before) {
+      query[Op.and].push({ before: { [Op.lte]: filters.before } }); // Максимальная зарплата <= before
+    }
   }
 
   return Vacancy.findAll({
@@ -42,6 +55,7 @@ const createVacancy = async ({
   schedule,
   from,
   before,
+  workDuration,
 }) =>
   // If you later add an 'img' field to Vacancy, uncomment and adjust the following:
   // const fileName = `${userId}-${new Date().getTime()}.webp`;
@@ -58,11 +72,11 @@ const createVacancy = async ({
     schedule,
     from,
     before,
+    workDuration,
   });
 
 const findVacancyById = async (vacancyId) =>
   Vacancy.findOne({ where: { id: vacancyId } });
-
 
 const deleteVacancyById = async (vacancyId, userId) => {
   const vacancy = await Vacancy.findByPk(vacancyId);

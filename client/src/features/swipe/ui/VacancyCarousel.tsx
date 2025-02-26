@@ -16,7 +16,7 @@ export default function VacancyCarousel(): React.JSX.Element {
   }
 
   const currentVacancy = visibleVacancies[currentIndex];
-  // console.log('All Vacancies:', vacancies);
+  console.log('All Vacancies:', vacancies);
   console.log('Current Index:', currentIndex);
   console.log('Current Vacancy:', currentVacancy);
 
