@@ -2,7 +2,11 @@ import type { AxiosInstance } from 'axios';
 import axiosInstance from '@/shared/api/axiosInstance';
 import { ZodError } from 'zod';
 import { vacancySchema, vacancyStatusSchema } from '../model/schema/vacancyShema';
-import type { VacancyFormType, VacancyType, VacancyWithStatusType } from '../model/types/vacancyTypes';
+import type {
+  VacancyFormType,
+  VacancyType,
+  VacancyWithStatusType,
+} from '../model/types/vacancyTypes';
 
 class VacancyService {
   constructor(private readonly client: AxiosInstance) {}
@@ -42,6 +46,7 @@ class VacancyService {
       throw err;
     }
   }
+
   async getVacanciesWithStatus(): Promise<VacancyWithStatusType[]> {
     try {
       const res = await this.client.get('/status');
@@ -53,7 +58,6 @@ class VacancyService {
       throw err;
     }
   }
-
 }
 
 export default new VacancyService(axiosInstance);

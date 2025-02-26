@@ -31,7 +31,7 @@ const createCompany = async ({ title, description, userId, logo, location }) => 
 const findCompanyIdById = async (userId) => {
   const company = await Company.findOne({
     where: { userId },
-    include: { model: Vacancy, required: false },
+    include: { model: Vacancy },
   });
   if (company) {
     company.vacancies = company.vacancies || []; // Гарантируем массив

@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import { addResume } from '@/entities/Resume/model/redux/resumeThunks';
 import ResponceCard from '@/entities/Vacancy/ui/ResponceCard';
 import {
-  findVacancyById,
   getVacanciesWithStatus,
 } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useNavigate } from 'react-router';
@@ -17,7 +16,7 @@ export default function PersonCabinetPage(): React.JSX.Element {
   const handleClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);
   const dispatch = useAppDispatch();
-  const respones = useAppSelector((store) => store.vacancies.vacancies);
+  const respones = useAppSelector((store) => store.vacancies.vacanciesWithStatus);
 
   useEffect(() => {
     void dispatch(getVacanciesWithStatus());

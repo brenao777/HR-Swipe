@@ -27,7 +27,6 @@ export default function MyResumesList({ resume }: Props): React.JSX.Element {
           <Card.Text>Опыт работы - {resume.experience}</Card.Text>
           <Card.Text>Номер телефона - {resume.number}</Card.Text>
           <Card.Text>{resume.coverLetter}</Card.Text>
-          <Button variant="primary">Подробнее</Button>
         </Card.Body>
       </Card>
   );

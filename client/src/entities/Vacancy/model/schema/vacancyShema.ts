@@ -5,6 +5,7 @@ export const vacancySchema = z.object({
     title: z.string(),
     description: z.string(),
     location: z.string(),
+    companyId: z.number(),
     experience: z.string(),
     format: z.enum(['Удаленно', 'Гибрид', 'Офис']),
     schedule: z.enum(['Полная', 'Частичная', 'Проектная']),
@@ -22,10 +23,6 @@ export const vacancyFormSchema = z.object({
     from: z.string(),
     before: z.string(),
 })
-
-
-
-
 
 export const resumeStatusSchema = z.object({
     resumeId: z.number(),

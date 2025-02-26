@@ -19,7 +19,9 @@ export const findCompanyById = createAsyncThunk(
       if (!userId) throw new Error('userId is undefined in findCompanyById');
       const res = await axiosInstance.get(`/company/${userId.toString()}`);
       console.log('Response from server:', res.data);
-      return companySchemaById.parse(res.data);
+      const result = companySchemaById.parse(res.data);
+      console.log(result)
+      return result
     } catch (err) {
       if (err instanceof ZodError) {
         console.log('Validation error in findCompanyById: ', err.issues);

@@ -29,11 +29,11 @@ const companySlice = createSlice({
       })
       .addCase(findCompanyById.fulfilled, (state, action) => {
         state.myCompany = action.payload;
+        console.log('Payload in fulfilled:', action.payload);
         state.loading = false;
       })
       .addCase(findCompanyById.rejected, (state, action) => {
         state.loading = false;
-        console.log('SLICE ERROR ------------>', action.payload);
         state.error = action.payload as string;
       });
   },

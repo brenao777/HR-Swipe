@@ -24,7 +24,7 @@ export default function HrPersonCabinet(): React.JSX.Element {
 
   console.log('User:', user);
   console.log('My Company:', myCompany);
-  console.log('My Vacancies:', myCompany?.vacancies);
+  console.log('My Vacancies:', myCompany?.Vacancies);
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -144,7 +144,7 @@ export default function HrPersonCabinet(): React.JSX.Element {
         <p>{myCompany.description}</p>
         <h3>Вакансии:</h3>
         <div className={styles['vacancies-list']}>
-          {myCompany.vacancies.map((vacancy) => (
+          {myCompany.Vacancies.map((vacancy) => (
             <div key={vacancy.id} className={styles['vacancy-item']}>
               <h4>{vacancy.title}</h4>
               <p>{vacancy.description}</p>

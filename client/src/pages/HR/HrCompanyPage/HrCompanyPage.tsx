@@ -1,5 +1,5 @@
 import { getCompany } from '@/entities/Company/model/redux/companyThanks';
-// import { getVacancies } from '@/entities/Vacancy/model/redux/vacancyThunk';
+import { getVacancies } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -7,13 +7,12 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 export default function HrCompanyPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const { company, loading, error } = useAppSelector((store) => store.company);
-  // console.log(company)
-  // const { vacancies } = useAppSelector((store) => store.vacancies);
+  const { vacancies } = useAppSelector((store) => store.vacancies);
   const [activeTab, setActiveTab] = useState<'company' | 'vacancies'>('company'); // управление кнопками
-
+console.log(vacancies)
   useEffect(() => {
     void dispatch(getCompany());
-    // void dispatch(getVacancies());
+    void dispatch(getVacancies());
   }, [dispatch]);
 
   if (loading) {
@@ -63,12 +62,12 @@ export default function HrCompanyPage(): React.JSX.Element {
               </div>
             </div>
 
-            {/* <div className="flex-grow-1">
+            <div className="flex-grow-1">
                 {activeTab === 'company' && (
                   <div>
-                    <p style={{ whiteSpace: 'pre-line' }}>{company.description}</p>
+                    <p style={{ whiteSpace: 'pre-line' }}>{company?.description}</p>
                     <p>
-                      <strong>Локация:</strong> {company.location}
+                      <strong>Локация:</strong> {company?.location}
                     </p>
                   </div>
                 )}
@@ -94,7 +93,7 @@ export default function HrCompanyPage(): React.JSX.Element {
                     )}
                   </div>
                 )}
-              </div> */}
+              </div>
           </div>
         </Col>
       </Row>

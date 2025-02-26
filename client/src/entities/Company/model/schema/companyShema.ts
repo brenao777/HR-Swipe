@@ -1,3 +1,4 @@
+// eslint-disable-next-line fsd-layers/no-import-from-top
 import { vacancySchema } from '@/entities/Vacancy/model/schema/vacancyShema';
 import { z } from 'zod';
 
@@ -15,5 +16,5 @@ export const companySchemaById = z.object({
   description: z.string(),
   logo: z.string().optional(),
   location: z.string(),
-  vacancies: z.array(vacancySchema).default([]),
+  Vacancies: z.array(vacancySchema)
 });
