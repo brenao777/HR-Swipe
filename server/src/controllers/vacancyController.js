@@ -4,14 +4,27 @@ const vacancyService = require('../services/vacancyService');
 
 const getAllVacancies = async (req, res) => {
   try {
-    const filters = req.query; 
-    const vacancies = await vacancyService.findVacancies(filters); 
+    const filters = req.query;
+    const vacancies = await vacancyService.findVacancies(filters);
     return res.status(200).json(vacancies);
   } catch (error) {
     console.error('Ошибка при загрузке вакансий: ', error);
     return res.status(500).send({ message: error.message });
   }
 };
+
+const getVacanciesByCompanyId = async (req, res) => {
+  try {
+    const {vacancyId} = req.params;
+    console.log('companyId', vacancyId);
+    const vacancies = await vacancyService.findVacanciesByCompanyId(vacancyId);
+    return res.status(200).json(vacancies);
+  } catch (error) {
+    console.error('Ошибка при загрузке вакансий: ', error);
+    return res.status(500).send({ message: error.message });
+  }
+};
+
 
 const createVacancy = async (req, res) => {
   try {
@@ -26,7 +39,6 @@ const createVacancy = async (req, res) => {
       from,
       before,
       workDuration,
-      
     } = req.body;
 
     if (
@@ -66,7 +78,6 @@ const createVacancy = async (req, res) => {
 const getVacancyById = async (req, res) => {
   try {
     const { vacancyId } = req.params;
-    // const { user } = res.locals
     const vacancy = await vacancyService.findVacancyById(vacancyId);
     if (!vacancy) {
       res.status(404).json({ message: 'Вакансия не найдена!' });
@@ -112,7 +123,7 @@ const updateVacancy = async (req, res) => {
     return res.json(updatedVacancy.vacancy);
   } catch (error) {
     console.error(error);
-    return res.sendStatus(500);
+    return res.status(500).send({message: error.message})
   }
 };
 
@@ -122,4 +133,5 @@ module.exports = {
   getVacancyById,
   deleteVacancy,
   updateVacancy,
+  getVacanciesByCompanyId
 };

@@ -6,12 +6,14 @@ import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import { Form } from 'react-bootstrap';
 import styles from './HrPersonCabinet.module.scss';
 import { createVacancy } from '@/entities/Vacancy/model/redux/vacancyThunk';
+import { useNavigate } from 'react-router';
 
 export default function HrPersonCabinet(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
   const { myCompany, loading, error } = useAppSelector((store) => store.company);
   const user = useAppSelector((store) => store.user.data);
+  const navigate = useNavigate()
 
   const handleClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);
@@ -31,7 +33,7 @@ export default function HrPersonCabinet(): React.JSX.Element {
     const formData = new FormData(e.currentTarget);
     console.log('Raw FormData:', Object.fromEntries(formData.entries()));
     void dispatch(createVacancy(formData));
-    // handleClose()
+    handleClose()
   };
 
   if (loading) return <div>Загрузка...</div>;
@@ -149,6 +151,7 @@ export default function HrPersonCabinet(): React.JSX.Element {
               <h4>{vacancy.title}</h4>
               <p>{vacancy.description}</p>
               <p>Местоположение: {vacancy.location}</p>
+              <Button onClick={() => navigate(`/oneVacancyPage/${vacancy.id.toString()}`)}>Отклики</Button>
             </div>
           ))}
         </div>

@@ -1,19 +1,32 @@
-// import type { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { ResumeSliceType } from '../types/resumeTypes';
 import { addResume, getResumeById, getResumes } from './resumeThunks';
+// eslint-disable-next-line fsd-layers/no-import-from-top
+import { findVacancyById } from '@/entities/Vacancy/model/redux/vacancyThunk';
 
 const initialState: ResumeSliceType = {
   resumes: [],
   loading: false,
   error: null,
-  resumesById: []
+  resumesById: [],
+  hiddenResumes: [],
+  currentResumeIndex: 0,
 };
 
 const resumeSlice = createSlice({
   name: 'resume',
   initialState,
-  reducers: {},
+  reducers: {
+    applyToResume(state, action: PayloadAction<number>) {
+      state.currentResumeIndex += 1; // Переход к следующему резюме
+      console.log('Отклик на резюме -', action.payload);
+    },
+    hideResume(state, action: PayloadAction<number>) {
+      state.hiddenResumes.push(action.payload);
+      state.currentResumeIndex += 1; // Переход к следующему резюме
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -39,8 +52,13 @@ const resumeSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.resumesById = action.payload;
+      })
+      .addCase(findVacancyById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.resumesById = action.payload;
       });
   },
 });
-
+export const { applyToResume, hideResume } = resumeSlice.actions;
 export default resumeSlice;

@@ -8,8 +8,21 @@ export const getVacancies = createAsyncThunk<VacancyType[], Record<string, unkno
   async (filters) => await vacancyService.getVacancies(filters),
 );
 
-export const findVacancyById = createAsyncThunk('vacancies/findVacancyById', (userId: number) =>
-  vacancyService.findVacancyById(userId),
+export const findVacancyById = createAsyncThunk(
+  'vacancies/findVacancyById',
+  async (vacancyId: number) => {
+    const res = await vacancyService.findVacancyById(vacancyId);
+    return res;
+  },
+);
+
+export const companyVacancy = createAsyncThunk<VacancyType[]>(
+  'vacancies/companyVacancy',
+  async (companyId: number) => {
+    const res = await vacancyService.findCompanyVacancies(companyId);
+    console.log(res)
+    return res;
+  },
 );
 
 export const createVacancy = createAsyncThunk('vacancies/createVacancy', (formData: FormData) => {

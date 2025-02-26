@@ -82,33 +82,15 @@ const deleteResumeById = async (resumeId, userId) => {
   return { success: true, status: 200, message: 'Резюме успешно удален!' };
 };
 
-const updateResumeById = async (resumeId, userId, updates) => {
-  const resume = await Resume.findOne({ where: { id: resumeId } });
-  const fileName = resume.img;
-  const filePath = path.join(__dirname, `../../public/${fileName}`);
-  await sharp(updates.file.buffer).webp().toFile(filePath);
+const updateResumeById = async (id, status) => {
+  const resume = await Resume.findOne({ where: { id } });
 
   if (!resume) {
     return { success: false, status: 404, message: 'Резюме не найдено!' };
   }
 
-  if (resume.userId !== userId) {
-    return {
-      success: false,
-      status: 403,
-      message: 'У вас нет прав на изменение этого товара!',
-    };
-  }
-
   await resume.update({
-    number: updates.number || resume.number,
-    specialty: updates.specialty || resume.specialty,
-    location: updates.location || resume.location,
-    age: updates.age || resume.age,
-    experience: updates.experience || resume.experience,
-    coverLetter: updates.coverLetter || resume.coverLetter,
-    userId: updates.userId || resume.userId,
-    photo: resume.photo,
+    status,
   });
 
   return { success: true, resume };

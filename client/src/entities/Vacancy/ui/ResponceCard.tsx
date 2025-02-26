@@ -6,14 +6,14 @@ type Props = {
 };
 
 export default function ResponceCard({ resp }: Props): React.JSX.Element {
-
+console.log('ResponceCard ==================>', resp)
   return (
     <div>
       <h2>{resp.title}</h2>
       <p>{resp.description}</p>
+      <p>{resp.location}</p>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>Статус:</span>
-        <span style={{ marginLeft: 'auto' }}>{resp.Resumes[0]?.status}</span>{' '}
+        <h5>Статус: {resp.Resumes[0]?.status}</h5>
         {/* Добавляем статус */}
       </div>
     </div>
