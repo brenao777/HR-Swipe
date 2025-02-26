@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type { VacancySliceType, VacancyType } from '../types/vacancyTypes';
-import { findVacancyById, getVacancies } from './vacancyThunk';
+import type { VacancySliceType, VacancyType, VacancyWithStatusType } from '../types/vacancyTypes';
+import { findVacancyById, getVacancies, getVacanciesWithStatus } from './vacancyThunk';
 
 const initialState: VacancySliceType = {
   vacancies: [],
@@ -15,7 +15,7 @@ const vacanciesSlice = createSlice({
   name: 'vacancies',
   initialState,
   reducers: {
-    setVacancies(state, action: PayloadAction<VacancyType[]>) {
+    setVacancies(state, action: PayloadAction<VacancyWithStatusType[]>) {
       state.vacancies = action.payload;
     },
     applyToVacancy(state, action: PayloadAction<number>) {
@@ -28,30 +28,45 @@ const vacanciesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(getVacancies.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(getVacancies.fulfilled, (state, action) => {
-        state.vacancies = action.payload;
-        state.loading = false;
-      })
-      .addCase(getVacancies.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      });
+    // builder
+    //   .addCase(getVacancies.pending, (state) => {
+    //     state.loading = true;
+    //     state.error = null;
+    //   })
+    //   .addCase(getVacancies.fulfilled, (state, action) => {
+    //     state.vacancies = action.payload;
+    //     state.loading = false;
+    //   })
+    //   .addCase(getVacancies.rejected, (state, action) => {
+    //     state.loading = false;
+    //     state.error = action.payload as string;
+    //   });
+
+    // builder
+    //   .addCase(findVacancyById.pending, (state) => {
+    //     state.loading = true;
+    //     state.error = null;
+    //   })
+    //   .addCase(findVacancyById.fulfilled, (state, action) => {
+    //     state.vacancies = action.payload;
+    //     state.loading = false;
+    //   })
+    //   .addCase(findVacancyById.rejected, (state, action) => {
+    //     state.loading = false;
+    //     state.error = action.payload as string;
+    //   });
 
     builder
-      .addCase(findVacancyById.pending, (state) => {
+      .addCase(getVacanciesWithStatus.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(findVacancyById.fulfilled, (state, action) => {
+      .addCase(getVacanciesWithStatus.fulfilled, (state, action) => {
+        console.log(action.payload, '---------');
         state.vacancies = action.payload;
         state.loading = false;
       })
-      .addCase(findVacancyById.rejected, (state, action) => {
+      .addCase(getVacanciesWithStatus.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

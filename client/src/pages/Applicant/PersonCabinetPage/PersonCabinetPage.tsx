@@ -4,7 +4,10 @@ import Button from 'react-bootstrap/Button';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import { addResume } from '@/entities/Resume/model/redux/resumeThunks';
 import ResponceCard from '@/entities/Vacancy/ui/ResponceCard';
-import { findVacancyById } from '@/entities/Vacancy/model/redux/vacancyThunk';
+import {
+  findVacancyById,
+  getVacanciesWithStatus,
+} from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useNavigate } from 'react-router';
 
 export default function PersonCabinetPage(): React.JSX.Element {
@@ -15,13 +18,10 @@ export default function PersonCabinetPage(): React.JSX.Element {
   const handleShow = (): void => setShow(true);
   const dispatch = useAppDispatch();
   const respones = useAppSelector((store) => store.vacancies.vacancies);
-  const userId = useAppSelector((store) => store.user.data?.id);
 
   useEffect(() => {
-    if (userId) {
-      void dispatch(findVacancyById(userId));
-    }
-  }, [dispatch, userId]);
+    void dispatch(getVacanciesWithStatus());
+  }, []);
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();

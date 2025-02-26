@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { VacancyType } from '../types/vacancyTypes';
+import type { VacancyType, VacancyWithStatusType } from '../types/vacancyTypes';
 import vacancyService from '../../api/vacancyService';
 import { vacancyFormSchema } from '../schema/vacancyShema';
 
@@ -17,3 +17,8 @@ export const createVacancy = createAsyncThunk('vacancies/createVacancy', (formDa
   const data = vacancyFormSchema.parse(Object.fromEntries(formData));
   return vacancyService.createVacancy(data);
 });
+
+export const getVacanciesWithStatus = createAsyncThunk<VacancyWithStatusType[]>(
+  'vacancies/getVacanciesWithStatus',
+  async () => await vacancyService.getVacanciesWithStatus(),
+);
