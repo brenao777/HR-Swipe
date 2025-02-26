@@ -6,9 +6,7 @@ type Props = {
 };
 
 export default function ResponceCard({ resp }: Props): React.JSX.Element {
-  if (resp.Resumes[0]) {
-    console.log(resp);
-  }
+
   return (
     <div>
       <h2>{resp.title}</h2>
