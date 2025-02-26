@@ -9,3 +9,4 @@ export default function FilterModal(): React.JSX.Element {
 }
 
 
+// Выпадающий список в поиске названия вакансий, format(режим работы) и schedule(занятость) с выбором в виде кнопок
