@@ -1,6 +1,6 @@
 import type { CompanyState } from '../types/companyTypes';
 import { createSlice } from '@reduxjs/toolkit';
-import { findCompanyById, getCompany } from './companyThanks';
+import { addCompany, findCompanyById, getCompany } from './companyThanks';
 
 const initialState: CompanyState = {
   company: null,
@@ -35,7 +35,10 @@ const companySlice = createSlice({
       .addCase(findCompanyById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      });
+      })
+      .addCase(addCompany.fulfilled, (state, {payload}) => {
+        state.company=(payload);
+      })
   },
 });
 
