@@ -15,7 +15,7 @@ export const addResume = createAsyncThunk('resume/addResume', (formData: FormDat
 
 export const updateResumeStatus = createAsyncThunk(
   'resume/updateResumeStatus',
-  async ({status, resumeId}: {status: string, resumeId: number}): Promise<void> => {
-    await resumeService.editResumeStatus({status, resumeId});
+  async ({status, resumeId, vacancyId}: {status: string, resumeId: number, vacancyId: number}): Promise<void> => {
+    await resumeService.editResumeStatus({status, resumeId, vacancyId});
   },
 );

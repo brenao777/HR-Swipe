@@ -49,9 +49,9 @@ class ResumeService {
     await this.client.delete(`/resume/${id.toString()}`);
   }
 
-  async editResumeStatus({status, resumeId}: {status: string, resumeId: number}): Promise<void> {
+  async editResumeStatus({status, resumeId, vacancyId}: {status: string, resumeId: number, vacancyId: number}): Promise<void> {
     try {
-      await this.client.put(`/resume/${resumeId.toString()}`, {status});
+      await this.client.put(`/status/${resumeId.toString()}`, {status, vacancyId});
     } catch (err) {
       if (err instanceof ZodError) {
         console.log('Validation error in addResumes: ', err.issues);

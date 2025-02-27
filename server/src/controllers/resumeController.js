@@ -72,28 +72,26 @@ const deleteResume = async (req, res) => {
   }
 };
 
-const updateResume = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { status } = req.body;
-    console.log('req.body!!!!!!!!!!:', req.body.status);
-    console.log('req.params!!!!!!!!!:', req.params);
-    const updatedResume = await resumeService.updateResumeById(id, status);
+// const updateResume = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { status } = req.body;
+//     const updatedResume = await resumeService.updateResumeById(id, status);
 
-    if (!updatedResume.success) {
-      return res.status(updatedResume.status).json({ message: updatedResume.message });
-    }
-    return res.json(updatedResume.item);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send({ message: error.message });
-  }
-};
+//     if (!updatedResume.success) {
+//       return res.status(updatedResume.status).json({ message: updatedResume.message });
+//     }
+//     return res.json(updatedResume.item);
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).send({ message: error.message });
+//   }
+// };
 
 module.exports = {
   getAllResumes,
   createResume,
   getResumeById,
   deleteResume,
-  updateResume,
+  // updateResume,
 };

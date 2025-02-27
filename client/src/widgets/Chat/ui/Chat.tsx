@@ -1,5 +1,5 @@
 import type { RootState } from '@/app/store/store';
-import { message } from '@/entities/Chat/model/redux/chatSlice';
+import { message, setChatHistory } from '@/entities/Chat/model/redux/chatSlice';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
@@ -19,21 +19,29 @@ export default function Chat(): React.JSX.Element {
   const [msg, setMsg] = useState('');
   const dispatch = useAppDispatch();
 
-  // console.log(chat)
-
   const sendMessage = (): void => {
     if (msg.trim()) {
-      socket.emit('chat', { message: msg, name: user?.name });
+      const newMessage = { message: msg, name: user?.name ?? 'Человек' };
+      socket.emit('chat', newMessage);
       setMsg('');
     }
   };
 
   useEffect(() => {
+    // Получение истории чата при подключении
+    socket.on('chatHistory', (history: ChatMessage[]) => {
+      dispatch(setChatHistory(history));
+    });
+
+    // Получение новых сообщений
     socket.on('chat', (data: ChatMessage) => {
       dispatch(message(data));
     });
+
+    // Очистка слушателей при размонтировании
     return () => {
-      socket.off('chat'); // Очистка слушателя при размонтировании
+      socket.off('chatHistory');
+      socket.off('chat');
     };
   }, [dispatch]);
 

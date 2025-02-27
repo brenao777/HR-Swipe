@@ -29,9 +29,6 @@ export default function NavBar(): React.JSX.Element {
                 <Nav.Link as={Link} to="/">
                   Вакансии
                 </Nav.Link>
-                <Nav.Link as={Link} to="/responses">
-                  Отклики
-                </Nav.Link>
                 <Nav.Link as={Link} to="/cabinet">
                   Личный кабинет
                 </Nav.Link>

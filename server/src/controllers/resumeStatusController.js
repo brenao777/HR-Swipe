@@ -14,6 +14,20 @@ const getResumeStatuses = async (req, res) => {
   }
 };
 
+const editResumeStatus = async (req, res) => {
+  try {
+    const resumeId = req.params.id;
+    const { status, vacancyId } = req.body;
+    const updateStatus = await resumeStatusService.editResumeStatus(resumeId, status, vacancyId);
+
+    res.status(200).json(updateStatus);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: error.message });
+  }
+};
+
 module.exports = {
   getResumeStatuses,
+  editResumeStatus,
 };
