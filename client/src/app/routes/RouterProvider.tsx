@@ -13,6 +13,7 @@ import FilterModal from '@/widgets/Modal/FilterModal/FilterModal';
 import Test from '@/entities/test/Test';
 import Chat from '@/widgets/Chat/ui/Chat';
 import HrPersonCabinet from '@/pages/HR/HrPesonCabinet/HrPersonCabinet';
+import HrResponesModalPage from '@/pages/HR/HrResponsesPage/HrResponesModalPage';
 
 export default function RouterProvider(): React.JSX.Element {
   return (
@@ -29,6 +30,8 @@ export default function RouterProvider(): React.JSX.Element {
             <Route path="/myResumes" element={<MyResumesPage />} />
             <Route path="/test" element={<Test />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/modal" element={<HrResponesModalPage />} />
+
           </Route>
           <Route element={<ProtectedRoute allowedStatuses={['guest']} redirectTo="/login" />}>
             <Route path="/register" element={<RegisterPage />} />

@@ -2,6 +2,7 @@ import { getResumes } from '@/entities/Resume/model/redux/resumeThunks';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import ResumeList from '@/widgets/resumeList/ResumeList';
 import React, { useEffect } from 'react';
+import HrResponesModalPage from './HrResponesModalPage';
 
 export default function HrResponsesPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ export default function HrResponsesPage(): React.JSX.Element {
       {resumes.map((resume) => (
         <div key={resume.id}>
           <ResumeList resume={resume} />
+          <HrResponesModalPage resume={resume} />
         </div>
       ))}
     </>
