@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+
 export const vacancySchema = z.object({
   id: z.number(),
   title: z.string(),
@@ -12,6 +13,10 @@ export const vacancySchema = z.object({
   workDuration: z.enum(['1-3', '3-6', '6+']),
   from: z.number(),
   before: z.number(),
+  Company: z.object({
+    title: z.string().optional(),
+    logo: z.string().optional(),
+  })
 });
 
 export const vacancySchem = z.object({
@@ -74,4 +79,8 @@ export const vacancyStatusSchema = z.object({
   from: z.number(),
   before: z.number(),
   Resumes: z.array(resumeSchema),
+  Company: z.object({
+    title: z.string().optional(),
+    logo: z.string().optional(),
+  })
 });

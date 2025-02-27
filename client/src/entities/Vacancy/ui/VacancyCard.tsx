@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { animated, to } from '@react-spring/web';
-import { useAppDispatch } from '@/shared/api/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import type { VacancyType } from '../model/types/vacancyTypes';
 import { useSwipeAnimation } from '@/shared/api/hooks/useSwipeAnimation';
 import Button from 'react-bootstrap/Button';
@@ -8,6 +8,8 @@ import Modal from 'react-bootstrap/Modal';
 import styles from './VacancyCard.module.scss';
 import { applyToVacancy, hideVacancy } from '@/entities/Vacancy/model/redux/vacancySlice';
 import { createResponse } from '@/entities/vacancyStatus/model/redux/vacancyStatusThunk';
+import { getCompany } from '@/entities/Company/model/redux/companyThanks';
+import { Link } from 'react-router';
 
 type VacancyCardProps = {
   vacancy: VacancyType;
@@ -40,6 +42,7 @@ export default function VacancyCard({ vacancy }: VacancyCardProps): React.JSX.El
       api.start({ opacity: 1, rotate: 0 });
       setIsSwiped(false);
     }
+    
   }, [isSwiped, api]);
 
   return (
@@ -69,6 +72,14 @@ export default function VacancyCard({ vacancy }: VacancyCardProps): React.JSX.El
           <Modal.Title>{vacancy.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
+        <p>
+        <strong>Компания:</strong> 
+          <img src={`http://localhost:3000/${vacancy.Company.logo}`}/>
+          <Link to={`/company`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              {vacancy.Company.title}
+            </Link>
+          </p>
           <p>
             <strong>Описание:</strong> {vacancy.description}
           </p>

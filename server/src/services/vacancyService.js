@@ -1,6 +1,6 @@
 'use strict';
 
-const { Vacancy } = require('../../db/models');
+const { Vacancy, Company } = require('../../db/models');
 const { Op } = require('sequelize');
 // const sharp = require('sharp');
 // const path = require('path');
@@ -42,6 +42,10 @@ const findVacancies = async (filters) => {
 
   return Vacancy.findAll({
     where: query,
+    include: { 
+      model: Company,
+      attributes: ['title', 'logo'], 
+    },
     order: [['id', 'DESC']],
   });
 };
