@@ -82,24 +82,24 @@ const deleteResumeById = async (resumeId, userId) => {
   return { success: true, status: 200, message: 'Резюме успешно удален!' };
 };
 
-const updateResumeById = async (id, status) => {
-  const resume = await Resume.findOne({ where: { id } });
+// const updateResumeById = async (id, status) => {
+//   const resume = await Resume.findOne({ where: { id } });
 
-  if (!resume) {
-    return { success: false, status: 404, message: 'Резюме не найдено!' };
-  }
+//   if (!resume) {
+//     return { success: false, status: 404, message: 'Резюме не найдено!' };
+//   }
 
-  await resume.update({
-    status,
-  });
+//   await resume.update({
+//     status,
+//   });
 
-  return { success: true, resume };
-};
+//   return { success: true, resume };
+// };
 
 module.exports = {
   findResume,
   createResume,
   findResumeIdById,
   deleteResumeById,
-  updateResumeById,
+  // updateResumeById,
 };

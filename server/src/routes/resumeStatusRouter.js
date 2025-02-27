@@ -6,4 +6,9 @@ resumeStatusRouter
   .route('/')
   .get(verifyAccessToken, resumeStatusController.getResumeStatuses);
 
+  resumeStatusRouter
+  .route('/:id')
+  // .get(verifyAccessToken, resumeStatusController.getResumeStatusById)
+  .put(verifyAccessToken, resumeStatusController.editResumeStatus)
+
 module.exports = resumeStatusRouter;

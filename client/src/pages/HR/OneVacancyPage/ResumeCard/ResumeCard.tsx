@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import styles from './ResumeCard.module.scss';
 import { applyToResume, hideResume } from '@/entities/Resume/model/redux/resumeSlice';
 import { updateResumeStatus } from '@/entities/Resume/model/redux/resumeThunks';
+import { useParams } from 'react-router';
 
 type ResumeCardProps = {
   resume: ResumeType;
@@ -17,17 +18,29 @@ export default function ResumeCard({ resume }: ResumeCardProps): React.JSX.Eleme
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState(false);
   const [isSwiped, setIsSwiped] = useState(false);
+  const { vacancyId } = useParams();
+
+  console.log(vacancyId);
 
   // Обработчики свайпа
   const handleApply = () => {
-    console.log('Отклик на резюме:', resume.id);
-    void dispatch(updateResumeStatus({ status: 'accepted', resumeId: resume.id }));
+    console.log('Приглашение:', resume.id);
+    void dispatch(
+      updateResumeStatus({ status: 'accepted', resumeId: resume.id, vacancyId: Number(vacancyId) }),
+    );
     dispatch(applyToResume(resume.id));
     setIsSwiped(true);
   };
 
   const handleHide = () => {
-    console.log('Скрытие резюме:', resume.id);
+    console.log('Отказ:', resume.id);
+    void dispatch(
+      updateResumeStatus({
+        status: 'rejection',
+        resumeId: resume.id,
+        vacancyId: Number(vacancyId),
+      }),
+    );
     dispatch(hideResume(resume.id));
     setIsSwiped(true);
   };
@@ -62,13 +75,17 @@ export default function ResumeCard({ resume }: ResumeCardProps): React.JSX.Eleme
         <h2 className={styles.name}>
           {resume.User.firstName} {resume.User.secondName}
         </h2>
-        <p className={styles.experience}>Опыт: {resume.experience} лет</p>
+        <img
+          className={styles.responsePhoto}
+          src={`http://localhost:3000/${resume.photo}`}
+          alt={resume.User.firstName}
+        />
+        <p className={styles.experience}>Опыт: {resume.experience}</p>
         <p className={styles.age}>Возраст: {resume.age}</p>
         <p className={styles.number}>Контакты: {resume.number}</p>
         <Button variant="primary" onClick={handleShowDetails} className={styles.detailsButton}>
           Подробнее
         </Button>
-        <div className={styles.instructions}>Свайп влево — откликнуться, вправо — скрыть</div>
       </animated.div>
 
       <Modal show={showModal} onHide={handleCloseModal}>
@@ -78,6 +95,11 @@ export default function ResumeCard({ resume }: ResumeCardProps): React.JSX.Eleme
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <img
+            className={styles.responseModalPhoto}
+            src={`http://localhost:3000/${resume.photo}`}
+            alt={resume.User.firstName}
+          />
           <p>
             <strong>Опыт:</strong> {resume.experience} лет
           </p>

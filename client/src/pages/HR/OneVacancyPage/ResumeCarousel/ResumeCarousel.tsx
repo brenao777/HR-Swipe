@@ -15,7 +15,7 @@ export default function ResumeCarousel(): React.JSX.Element {
 
   // Если индекс выходит за пределы массива видимых резюме
   if (currentResumeIndex >= visibleResumes.length) {
-    return <div className={styles.noResumes}>Резюме больше нет!</div>;
+    return <div className={styles.noResumes}>Откликов больше нет!</div>;
   }
 
   const currentResume = visibleResumes[currentResumeIndex];
@@ -24,8 +24,11 @@ export default function ResumeCarousel(): React.JSX.Element {
   console.log('Текущее резюме:', currentResume);
 
   return (
-    <div className={styles.carouselContainer}>
-      <ResumeCard resume={currentResume} />
-    </div>
+    <>
+      <h2 className={styles.instructions}>Свайп влево — откликнуться, вправо — скрыть</h2>
+      <div className={styles.carouselContainer}>
+        <ResumeCard resume={currentResume} />
+      </div>
+    </>
   );
 }

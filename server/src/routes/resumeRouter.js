@@ -12,6 +12,6 @@ resumeRouter
   .route('/:id')
   .get(verifyAccessToken, resumeController.getResumeById)
   .delete(verifyAccessToken, resumeController.deleteResume)
-  .put(verifyAccessToken, resumeController.updateResume);
+  // .put(verifyAccessToken, resumeController.updateResume);
 
 module.exports = resumeRouter;

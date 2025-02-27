@@ -1,6 +1,6 @@
 'use strict';
 
-const { Vacancy, Resume, User } = require('../../db/models');
+const { Vacancy, Resume, User, ResumeStatus } = require('../../db/models');
 const { Op } = require('sequelize');
 // const sharp = require('sharp');
 // const path = require('path');
@@ -76,8 +76,8 @@ const createVacancy = async ({
   });
 
 const findVacancyById = async (vacancyId) => {
-  const vacancy = await Vacancy.findOne({
-    where: { id: vacancyId },
+  const resumes = await ResumeStatus.findAll({
+    where: { vacancyId },
     include: {
       model: Resume,
       include: {
@@ -87,7 +87,22 @@ const findVacancyById = async (vacancyId) => {
     },
   });
 
-  return vacancy.Resumes;
+  const formattedData = resumes.map((item) => ({
+    id: item.Resume.id,
+    userId: item.Resume.userId,
+    number: item.Resume.number,
+    specialty: item.Resume.specialty,
+    location: item.Resume.location,
+    age: item.Resume.age,
+    experience: item.Resume.experience,
+    coverLetter: item.Resume.coverLetter,
+    photo: item.Resume.photo,
+    User: {
+      firstName: item.Resume.User.firstName,
+      secondName: item.Resume.User.secondName,
+    },
+  }));
+  return formattedData;
 };
 
 const findVacanciesByCompanyId = async (vacancyId) => {
@@ -95,7 +110,7 @@ const findVacanciesByCompanyId = async (vacancyId) => {
     where: { companyId: vacancyId },
   });
   return vacancies;
-}
+};
 
 const deleteVacancyById = async (vacancyId, userId) => {
   const vacancy = await Vacancy.findByPk(vacancyId);
@@ -156,5 +171,5 @@ module.exports = {
   findVacancyById,
   deleteVacancyById,
   updateVacancyById,
-  findVacanciesByCompanyId
+  findVacanciesByCompanyId,
 };

@@ -37,27 +37,29 @@ export const vacancyFormSchema = z.object({
   before: z.string(),
 });
 
-export const resumeStatusSchema = z.object({
-  resumeId: z.number(),
-  vacancyId: z.number(),
-});
+// export const resumeStatusSchema = z.object({
+//   resumeId: z.number(),
+//   vacancyId: z.number(),
+// });
 
-export const resumeSchema = z.object({
-  status: z.enum(['pending', 'accepted', 'rejection']),
-  ResumeStatus: resumeStatusSchema,
-});
+// export const resumeSchema = z.object({
+//   status: z.enum(['pending', 'accepted', 'rejection']),
+//   ResumeStatus: resumeStatusSchema,
+// });
 
 export const vacancyStatusSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  description: z.string(),
-  location: z.string(),
-  companyId: z.number(),
-  experience: z.string(),
-  format: z.enum(['Удаленно', 'Гибрид', 'Офис']),
-  schedule: z.enum(['Полная', 'Частичная', 'Проектная']),
-  workDuration: z.enum(['1-3', '3-6', '6+']),
-  from: z.number(),
-  before: z.number(),
-  Resumes: z.array(resumeSchema),
+  status: z.string(),
+  Vacancy: z.object({
+    id: z.number(),
+    title: z.string(),
+    description: z.string(),
+    location: z.string(),
+    companyId: z.number(),
+    experience: z.string(),
+    format: z.enum(['Удаленно', 'Гибрид', 'Офис']),
+    schedule: z.enum(['Полная', 'Частичная', 'Проектная']),
+    workDuration: z.enum(['1-3', '3-6', '6+']),
+    from: z.number(),
+    before: z.number(),
+  }),
 });
