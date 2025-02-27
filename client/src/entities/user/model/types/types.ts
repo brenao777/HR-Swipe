@@ -5,7 +5,10 @@ import type { registerSchema } from '../schema/schema';
 
 export type User = {
   id: number;
-  name: string;
+  firstName: string;
+  secondName: string;
+  email: string;
+  company: boolean;
 };
 
 export type UserState = {

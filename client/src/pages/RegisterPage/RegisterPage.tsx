@@ -21,12 +21,20 @@ export default function RegisterPage(): React.JSX.Element {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = (data: RegisterFormData): void => {
-    void dispatch(submitHandler(data));
-    reset();
-    void redirect('/');
-  };
+  const onSubmit = async (data: RegisterFormData): Promise<void> => {
+    try {
+      await dispatch(submitHandler(data)).unwrap();
+      reset();
 
+      if (data.company) {
+        void redirect('/addcompany');
+      } else {
+        void redirect('/');
+      }
+    } catch (error) {
+      console.error('Ошибка регистрации:', error);
+    }
+  };
   return (
     <main className={styles.main}>
       <h1 className={styles.title}>Регистрация</h1>

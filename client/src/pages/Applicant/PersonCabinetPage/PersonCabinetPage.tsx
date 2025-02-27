@@ -6,6 +6,7 @@ import { addResume } from '@/entities/Resume/model/redux/resumeThunks';
 import ResponceCard from '@/entities/Vacancy/ui/ResponceCard';
 import { getVacanciesWithStatus } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useNavigate } from 'react-router';
+import styles from './PersonCabinetPage.module.scss';
 
 export default function PersonCabinetPage(): React.JSX.Element {
   const [show, setShow] = useState(false);
@@ -31,9 +32,9 @@ export default function PersonCabinetPage(): React.JSX.Element {
 
   return (
     <div>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className={styles.modal}>
         <Modal.Header closeButton>
-          <Modal.Title>Создать резюме</Modal.Title>
+          <Modal.Title className={styles.modalTitle}>Создать резюме</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={onSubmit}>

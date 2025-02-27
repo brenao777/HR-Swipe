@@ -5,7 +5,6 @@ const { Op } = require('sequelize');
 // const sharp = require('sharp');
 // const path = require('path');
 
-
 const findVacancies = async (filters) => {
   const query = {};
 
@@ -42,9 +41,9 @@ const findVacancies = async (filters) => {
 
   return Vacancy.findAll({
     where: query,
-    include: { 
+    include: {
       model: Company,
-      attributes: ['title', 'logo'], 
+      attributes: ['title', 'logo'],
     },
     order: [['id', 'DESC']],
   });

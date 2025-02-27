@@ -38,6 +38,7 @@ class VacancyService {
     }
   }
 
+
   async findVacancyById(vacancyId: number): Promise<ResumeType[]> {
     try {
       const res = await this.client.get(`/vacancies/${String(vacancyId)}`);
