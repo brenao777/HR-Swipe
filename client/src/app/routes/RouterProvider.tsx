@@ -20,11 +20,11 @@ export default function RouterProvider(): React.JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route element={<ProtectedRoute allowedStatuses={['logged']} redirectTo="/login" />}>
+          <Route element={<ProtectedRoute allowedStatuses={['logged']} redirectTo="/" />}>
             <Route index element={<VacancyPage />} />
             <Route path="/oneVacancyPage/:vacancyId" element={<OneVacancyPage />} />
-            <Route path="/addcompany" element={<HrAddCompanyPage />} />
             <Route path="/hrCabinet" element={<HrPersonCabinet />} />
+            <Route path="/addcompany" element={<HrAddCompanyPage />} />
             <Route path="/cabinet" element={<PersonCabinetPage />} />
             <Route path="/filter" element={<FilterModal />} />
             <Route path="/company" element={<HrCompanyPage />} />

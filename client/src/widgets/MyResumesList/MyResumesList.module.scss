@@ -1,5 +1,54 @@
+.card {
+  width: 100%; /* карточка будет адаптироваться по ширине */
+  max-width: 400px; /* максимальная ширина карточки */
+  margin: 20px auto; /* отступы для центрирования карточки */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* тень для карточки */
+  border-radius: 8px; /* скругленные углы карточки */
+}
 
 .photo {
-  border-radius: 10px;
-  max-width: 200px;
+  width: 100%; /* изображение будет адаптироваться по ширине */
+  height: auto; /* сохраняем пропорции изображения */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px; /* скругляем верхние углы изображения */
+}
+
+.card-header {
+  background-color: #f8f9fa; /* светлый фон для заголовка */
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #6c757d; /* более светлый цвет для текста */
+  margin-bottom: 10px; /* отступы между строками текста */
+}
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 90%; /* карточка будет занимать 90% экрана на мобильных */
+  }
+
+  .card-header {
+    font-size: 1.1rem;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
 }

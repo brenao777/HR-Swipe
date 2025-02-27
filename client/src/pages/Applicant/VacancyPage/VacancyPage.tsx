@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
+import styles from './VacancyPage.module.scss';
 
 export default function VacancyPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -51,9 +52,9 @@ export default function VacancyPage(): React.JSX.Element {
     <div>
       <Button onClick={handleShow}>Фильтр</Button>
       <VacancyCarousel />
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className={styles.modal}>
         <Modal.Header closeButton>
-          <Modal.Title>Фильтр вакансий</Modal.Title>
+          <Modal.Title className={styles.modalTitle}>Фильтр вакансий</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -108,9 +109,9 @@ export default function VacancyPage(): React.JSX.Element {
             </select>
 
             <select name="workDuration" value={filters.workDuration} onChange={handleFilterChange}>
-              <option value="1-3">1-3</option>
-              <option value="3-6">3-6</option>
-              <option value="6+">6+</option>
+              <option value="1-3">1-3 лет</option>
+              <option value="3-6">3-6 лет</option>
+              <option value="6+">6+ лет</option>
             </select>
 
             <Button onClick={handleApplyFilters}>Применить фильтры</Button>

@@ -17,9 +17,9 @@ const vacanciesSlice = createSlice({
   name: 'vacancies',
   initialState,
   reducers: {
-    setVacancies(state, action: PayloadAction<VacancyWithStatusType[]>) {
-      state.vacancies = action.payload;
-    },
+    // setVacancies(state, action: PayloadAction<VacancyWithStatusType[]>) {
+    //   state.vacancies = action.payload;
+    // },
     applyToVacancy(state, action: PayloadAction<number>) {
       state.currentIndex += 1; // Переход к следующей вакансии
       console.log('Отклик на вакансию -', action.payload); // Здесь можно добавить API-запрос
@@ -65,7 +65,7 @@ const vacanciesSlice = createSlice({
       })
       .addCase(createVacancy.fulfilled, (state, action) => {
         console.log(action.payload, '---------'); // Здесь можно добавить API-запрос
-        state.vacancies.push(action.payload);
+        // state.vacancies.unshift(action.payload);
         state.loading = false;
       })
       .addCase(createVacancy.rejected, (state, action) => {

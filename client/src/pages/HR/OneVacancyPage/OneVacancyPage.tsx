@@ -27,7 +27,6 @@ export default function OneVacancyPage(): React.JSX.Element {
 
   return (
     <div>
-      <h1>Отклики</h1>
       <ResumeCarousel />
     </div>
   );
