@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { VacancySliceType, VacancyWithStatusType } from '../types/vacancyTypes';
-import { getVacancies, getVacanciesWithStatus } from './vacancyThunk';
+import { createVacancy, getVacancies, getVacanciesWithStatus } from './vacancyThunk';
 
 const initialState: VacancySliceType = {
   vacancies: [],
@@ -10,15 +10,16 @@ const initialState: VacancySliceType = {
   currentIndex: 0,
   loading: false,
   error: null,
+  addvacancies: [],
 };
 
 const vacanciesSlice = createSlice({
   name: 'vacancies',
   initialState,
   reducers: {
-    setVacancies(state, action: PayloadAction<VacancyWithStatusType[]>) {
-      state.vacancies = action.payload;
-    },
+    // setVacancies(state, action: PayloadAction<VacancyWithStatusType[]>) {
+    //   state.vacancies = action.payload;
+    // },
     applyToVacancy(state, action: PayloadAction<number>) {
       state.currentIndex += 1; // Переход к следующей вакансии
       console.log('Отклик на вакансию -', action.payload); // Здесь можно добавить API-запрос
@@ -43,20 +44,6 @@ const vacanciesSlice = createSlice({
         state.error = action.payload as string;
       });
 
-    // builder
-    //   .addCase(findVacancyById.pending, (state) => {
-    //     state.loading = true;
-    //     state.error = null;
-    //   })
-    //   .addCase(findVacancyById.fulfilled, (state, action) => {
-    //     state.vacancies = action.payload;
-    //     state.loading = false;
-    //   })
-    //   .addCase(findVacancyById.rejected, (state, action) => {
-    //     state.loading = false;
-    //     state.error = action.payload as string;
-    //   });
-
     builder
       .addCase(getVacanciesWithStatus.pending, (state) => {
         state.loading = true;
@@ -68,6 +55,20 @@ const vacanciesSlice = createSlice({
         state.loading = false;
       })
       .addCase(getVacanciesWithStatus.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+    builder
+      .addCase(createVacancy.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createVacancy.fulfilled, (state, action) => {
+        console.log(action.payload, '---------'); // Здесь можно добавить API-запрос
+        // state.vacancies.unshift(action.payload);
+        state.loading = false;
+      })
+      .addCase(createVacancy.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

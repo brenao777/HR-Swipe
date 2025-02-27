@@ -18,12 +18,14 @@ export default function MyResumesPage(): React.JSX.Element {
 
   return (
     <div>
-      <h1 style={{ display: 'flex', justifyContent: 'center' }}>Мои резюме</h1>
-      {resumes.map((resume) => (
-        <div key={resume.id} className={styles.container}>
-          <MyResumesList resume={resume} />
-        </div>
-      ))}
+      <h1 className={styles.title}>Мои резюме</h1>
+      <div className={styles.container}>
+        {resumes.map((resume) => (
+          <div key={resume.id} className={styles.resumeItem}>
+            <MyResumesList resume={resume} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

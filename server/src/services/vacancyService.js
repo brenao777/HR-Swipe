@@ -1,33 +1,50 @@
 'use strict';
 
-const { Vacancy } = require('../../db/models');
+const { Vacancy, Company, Resume, User, ResumeStatus } = require('../../db/models');
 const { Op } = require('sequelize');
 // const sharp = require('sharp');
 // const path = require('path');
 
 const findVacancies = async (filters) => {
   const query = {};
+
   if (filters.title) {
     query.title = { [Op.like]: `%${filters.title}%` };
   }
-  if (filters.from) {
-    query.from = { [Op.gte]: filters.from }; // Зарплата больше или равна "from"
-  }
-  if (filters.before) {
-    query.before = { [Op.lte]: filters.before }; // Зарплата меньше или равна "before"
-  }
   if (filters.format) {
-    query.format = filters.format; // Точное совпадение формата работы
+    query.format = filters.format;
+  }
+  if (filters.workDuration) {
+    query.workDuration = filters.workDuration;
   }
   if (filters.schedule) {
-    query.schedule = filters.schedule; // Точное совпадение занятости
+    query.schedule = filters.schedule;
+  }
+  if (filters.location) {
+    query.location = filters.location;
   }
   if (filters.experience) {
-    query.experience = { [Op.gt]: filters.experience }; // Опыт больше указанного значения
+    query.experience = { [Op.gte]: filters.experience };
+  }
+
+  // Фильтрация по диапазону зарплаты
+  if (filters.from || filters.before) {
+    query[Op.and] = [];
+
+    if (filters.from) {
+      query[Op.and].push({ from: { [Op.gte]: filters.from } }); // Минимальная зарплата >= from
+    }
+    if (filters.before) {
+      query[Op.and].push({ before: { [Op.lte]: filters.before } }); // Максимальная зарплата <= before
+    }
   }
 
   return Vacancy.findAll({
     where: query,
+    include: {
+      model: Company,
+      attributes: ['title', 'logo'],
+    },
     order: [['id', 'DESC']],
   });
 };
@@ -42,6 +59,7 @@ const createVacancy = async ({
   schedule,
   from,
   before,
+  workDuration,
 }) =>
   // If you later add an 'img' field to Vacancy, uncomment and adjust the following:
   // const fileName = `${userId}-${new Date().getTime()}.webp`;
@@ -58,11 +76,45 @@ const createVacancy = async ({
     schedule,
     from,
     before,
+    workDuration,
   });
 
-const findVacancyById = async (vacancyId) =>
-  Vacancy.findOne({ where: { id: vacancyId } });
+const findVacancyById = async (vacancyId) => {
+  const resumes = await ResumeStatus.findAll({
+    where: { vacancyId },
+    include: {
+      model: Resume,
+      include: {
+        model: User,
+        attributes: ['firstName', 'secondName'],
+      },
+    },
+  });
 
+  const formattedData = resumes.map((item) => ({
+    id: item.Resume.id,
+    userId: item.Resume.userId,
+    number: item.Resume.number,
+    specialty: item.Resume.specialty,
+    location: item.Resume.location,
+    age: item.Resume.age,
+    experience: item.Resume.experience,
+    coverLetter: item.Resume.coverLetter,
+    photo: item.Resume.photo,
+    User: {
+      firstName: item.Resume.User.firstName,
+      secondName: item.Resume.User.secondName,
+    },
+  }));
+  return formattedData;
+};
+
+const findVacanciesByCompanyId = async (vacancyId) => {
+  const vacancies = await Vacancy.findAll({
+    where: { companyId: vacancyId },
+  });
+  return vacancies;
+};
 
 const deleteVacancyById = async (vacancyId, userId) => {
   const vacancy = await Vacancy.findByPk(vacancyId);
@@ -123,4 +175,5 @@ module.exports = {
   findVacancyById,
   deleteVacancyById,
   updateVacancyById,
+  findVacanciesByCompanyId,
 };

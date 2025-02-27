@@ -15,7 +15,7 @@ export default function HrAddCompanyPage(): React.JSX.Element {
       if (!formData.get('title') || !formData.get('description') || !formData.get('location')) {
         throw new Error('All fields are required');
       }
-      await dispatch(addCompany(formData));
+      void dispatch(addCompany(formData));
       void navigate('/hrCabinet');
     } catch (error) {
       console.error('Ошибка при создании компании', error);

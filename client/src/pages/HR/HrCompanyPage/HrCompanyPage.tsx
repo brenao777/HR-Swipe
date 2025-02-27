@@ -1,19 +1,21 @@
-import { getCompany } from '@/entities/Company/model/redux/companyThanks';
-import { getVacancies } from '@/entities/Vacancy/model/redux/vacancyThunk';
+import { findCompanyById, getCompany } from '@/entities/Company/model/redux/companyThanks';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export default function HrCompanyPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
-  const { company, loading, error } = useAppSelector((store) => store.company);
-  const { vacancies } = useAppSelector((store) => store.vacancies);
+  const { myCompany, loading, error } = useAppSelector((store) => store.company);
+  const user = useAppSelector((store) => store.user.data);
+
   const [activeTab, setActiveTab] = useState<'company' | 'vacancies'>('company'); // управление кнопками
-console.log(vacancies)
+
   useEffect(() => {
     void dispatch(getCompany());
-    void dispatch(getVacancies());
-  }, [dispatch]);
+    if (user?.id && !loading) {
+      void dispatch(findCompanyById(user.id));
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -34,8 +36,8 @@ console.log(vacancies)
           <div className="d-flex flex-column h-100 p-4">
             <div className="d-flex align-items-center mb-4">
               <img
-                src={`http://localhost:3000/${company?.logo}`}
-                alt={company?.title}
+                src={`http://localhost:3000/${myCompany?.logo}`}
+                alt={myCompany?.title}
                 className="rounded-circle me-3"
                 style={{ width: '80px', height: '80px', objectFit: 'cover' }}
               />
@@ -43,7 +45,7 @@ console.log(vacancies)
                 <span className="text-muted" style={{ fontSize: '0.9rem', opacity: 0.7 }}>
                   Организация
                 </span>
-                <h2 className="mb-0">{company?.title}</h2>
+                <h2 className="mb-0">{myCompany?.title}</h2>
               </div>
 
               <div className="ms-auto d-flex gap-2">
@@ -63,37 +65,41 @@ console.log(vacancies)
             </div>
 
             <div className="flex-grow-1">
-                {activeTab === 'company' && (
-                  <div>
-                    <p style={{ whiteSpace: 'pre-line' }}>{company?.description}</p>
-                    <p>
-                      <strong>Локация:</strong> {company?.location}
-                    </p>
-                  </div>
-                )}
+              {activeTab === 'company' && (
+                <div>
+                  <p style={{ whiteSpace: 'pre-line' }}>{myCompany?.description}</p>
+                  <p>
+                    <strong>Локация:</strong> {myCompany?.location}
+                  </p>
+                </div>
+              )}
 
-                {activeTab === 'vacancies' && (
-                  <div className="mt-4">
-                    {vacancies.length > 0 ? (
-                      <div>
-                        {vacancies.map((vacancy) => (
-                          <div
-                            key={vacancy.id}
-                            className="border rounded p-3 mb-3"
-                            style={{ backgroundColor: '#f8f9fa' }}
-                          >
-                            <h3>{vacancy.title}</h3>
-                            <p><strong>Описание:</strong> {vacancy.description}</p>
-                            <p><strong>Локация:</strong> {vacancy.location}</p>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-center">Нет доступных вакансий.</p>
-                    )}
-                  </div>
-                )}
-              </div>
+              {activeTab === 'vacancies' && (
+                <div className="mt-4">
+                  {myCompany.Vacancies.length > 0 ? (
+                    <div>
+                      {myCompany?.Vacancies.map((vacancy) => (
+                        <div
+                          key={vacancy.id}
+                          className="border rounded p-3 mb-3"
+                          style={{ backgroundColor: '#f8f9fa' }}
+                        >
+                          <h3>{vacancy.title}</h3>
+                          <p>
+                            <strong>Описание:</strong> {vacancy.description}
+                          </p>
+                          <p>
+                            <strong>Локация:</strong> {vacancy.location}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-center">Нет доступных вакансий.</p>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </Col>
       </Row>

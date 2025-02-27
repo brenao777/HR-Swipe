@@ -3,10 +3,10 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Vacancy extends Model {
-    static associate({ User, Company, VacancyStatus, ResumeStatus, Resume }) {
+    static associate({ User, Company, VacancyStatus, ResumeStatus }) {
       this.belongsToMany(User, { through: VacancyStatus, foreignKey: 'vacancyId' });
       this.belongsTo(Company, { foreignKey: 'companyId' });
-      this.belongsToMany(Resume, { through: ResumeStatus, foreignKey: 'vacancyId' });
+      this.hasMany(ResumeStatus, { foreignKey: 'vacancyId' });
     }
   }
   Vacancy.init(
@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       companyId: DataTypes.INTEGER,
       experience: DataTypes.TEXT,
       format: DataTypes.ENUM(['Удаленно', 'Гибрид', 'Офис']),
+      workDuration: DataTypes.ENUM(['1-3', '3-6', '6+']),
       schedule: DataTypes.ENUM(['Полная', 'Частичная', 'Проектная']),
       from: DataTypes.INTEGER,
       before: DataTypes.INTEGER,

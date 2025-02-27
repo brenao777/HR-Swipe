@@ -88,9 +88,11 @@ export default function ResumeCard({ resume }: ResumeCardProps): React.JSX.Eleme
         </Button>
       </animated.div>
 
+
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>
+            {' '}
             {resume.User.firstName} {resume.User.secondName}
           </Modal.Title>
         </Modal.Header>
@@ -101,15 +103,27 @@ export default function ResumeCard({ resume }: ResumeCardProps): React.JSX.Eleme
             alt={resume.User.firstName}
           />
           <p>
-            <strong>Опыт:</strong> {resume.experience} лет
+            <strong>ФИО:</strong> {resume.User.firstName} {resume.User.secondName}
+          </p>
+          <p></p>
+          <p>
+            <strong>Номер телефона:</strong> {resume.number}
           </p>
           <p>
-            <strong>Возраст:</strong> {resume.age}
+            <strong>Age:</strong> {resume.age}
           </p>
           <p>
-            <strong>Контакты:</strong> {resume.number}
+            <strong>Местоположение:</strong> {resume.location}
           </p>
-          {/* Добавьте дополнительные поля резюме, если они есть */}
+          <p>
+            <strong>Специальность:</strong> {resume.specialty}
+          </p>
+          <p>
+            <strong>Опыт работы:</strong> {resume.experience}
+          </p>
+          <p>
+            <strong>О себе:</strong> {resume.coverLetter}
+          </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>

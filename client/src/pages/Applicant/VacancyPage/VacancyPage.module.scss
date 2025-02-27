@@ -1,0 +1,133 @@
+// VacancyPage.module.scss
+
+.modal {
+    :global(.modal-content) {
+      border-radius: 8px;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  
+    :global(.modal-header) {
+      border-bottom: 1px solid #e9ecef;
+      padding-bottom: 10px;
+  
+      .modalTitle {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #333;
+      }
+  
+      :global(.btn-close) {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+      }
+    }
+  
+    :global(.modal-body) {
+      padding: 20px;
+  
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+  
+        input,
+        select {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ced4da;
+          border-radius: 4px;
+          font-size: 1rem;
+          color: #495057;
+          background-color: #f8f9fa;
+          transition: border-color 0.2s ease-in-out;
+  
+          &:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+          }
+  
+          &::placeholder {
+            color: #6c757d;
+            font-style: italic;
+          }
+        }
+  
+        select {
+          appearance: none;
+          background: #f8f9fa url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M7.247 11.14L2.451 6.658C1.885 6.013 2.345 5 3.204 5h9.592c0.859 0 1.32 1.013 0.753 1.658L8.753 11.14a0.5 0.5 0 0 1-0.506 0z"/></svg>') no-repeat right 10px center;
+          cursor: pointer;
+        }
+  
+        button {
+          align-self: flex-start;
+          padding: 8px 16px;
+          font-size: 1rem;
+          font-weight: 500;
+          color: #fff;
+          background-color: #007bff;
+          border: none;
+          border-radius: 4px;
+          transition: background-color 0.2s ease-in-out;
+  
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+      }
+    }
+  
+    :global(.modal-footer) {
+      border-top: 1px solid #e9ecef;
+      padding-top: 10px;
+  
+      button {
+        padding: 8px 16px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #fff;
+        background-color: #6c757d;
+        border: none;
+        border-radius: 4px;
+        transition: background-color 0.2s ease-in-out;
+  
+        &:hover {
+          background-color: #5a6268;
+        }
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 576px) {
+    :global(.modal-dialog) {
+      margin: 10px;
+    }
+  
+    :global(.modal-body) {
+      form {
+        gap: 10px;
+  
+        input,
+        select {
+          font-size: 0.9rem;
+          padding: 8px;
+        }
+  
+        button {
+          width: 100%;
+          padding: 10px;
+        }
+      }
+    }
+  
+    :global(.modal-footer) {
+      button {
+        width: 100%;
+        padding: 10px;
+      }
+    }
+  }

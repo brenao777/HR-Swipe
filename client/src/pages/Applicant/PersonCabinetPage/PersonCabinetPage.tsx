@@ -4,10 +4,9 @@ import Button from 'react-bootstrap/Button';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import { addResume } from '@/entities/Resume/model/redux/resumeThunks';
 import ResponceCard from '@/entities/Vacancy/ui/ResponceCard';
-import {
-  getVacanciesWithStatus,
-} from '@/entities/Vacancy/model/redux/vacancyThunk';
+import { getVacanciesWithStatus } from '@/entities/Vacancy/model/redux/vacancyThunk';
 import { useNavigate } from 'react-router';
+import styles from './PersonCabinetPage.module.scss';
 
 export default function PersonCabinetPage(): React.JSX.Element {
   const [show, setShow] = useState(false);
@@ -17,6 +16,8 @@ export default function PersonCabinetPage(): React.JSX.Element {
   const handleShow = (): void => setShow(true);
   const dispatch = useAppDispatch();
   const respones = useAppSelector((store) => store.vacancies.vacanciesWithStatus);
+
+  console.log(respones);
 
   useEffect(() => {
     void dispatch(getVacanciesWithStatus());
@@ -31,9 +32,9 @@ export default function PersonCabinetPage(): React.JSX.Element {
 
   return (
     <div>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className={styles.modal}>
         <Modal.Header closeButton>
-          <Modal.Title>Создать резюме</Modal.Title>
+          <Modal.Title className={styles.modalTitle}>Создать резюме</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={onSubmit}>
@@ -55,7 +56,7 @@ export default function PersonCabinetPage(): React.JSX.Element {
       <Button onClick={() => navigate('/myResumes')}>Мои резюме</Button>
       <div>
         {respones.map((resp) => (
-          <ResponceCard key={resp.id} resp={resp} />
+          <ResponceCard key={resp.Vacancy.id} resp={resp} />
         ))}
       </div>
     </div>

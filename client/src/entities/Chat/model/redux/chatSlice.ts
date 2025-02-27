@@ -15,8 +15,10 @@ const chatSlice = createSlice({
     message: (state, action: PayloadAction<ChatState>) => {
       state.push(action.payload);
     },
+    // Новый редюсер для установки полной истории
+    setChatHistory: (state, action: PayloadAction<ChatState[]>) => action.payload, // Заменяем текущее состояние на полную историю
   },
 });
 
-export const { message } = chatSlice.actions;
+export const { message, setChatHistory } = chatSlice.actions;
 export default chatSlice;

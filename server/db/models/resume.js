@@ -3,9 +3,9 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Resume extends Model {
-    static associate({ User, Vacancy, ResumeStatus }) {
+    static associate({ User, ResumeStatus }) {
       this.belongsTo(User, { foreignKey: 'userId' });
-      this.belongsToMany(Vacancy, { through: ResumeStatus, foreignKey: 'resumeId' });
+      this.hasMany(ResumeStatus, { foreignKey: 'resumeId' });
     }
   }
   Resume.init(
@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       experience: DataTypes.TEXT,
       coverLetter: DataTypes.TEXT,
       photo: DataTypes.STRING,
-      status: DataTypes.ENUM(['pending', 'accepted', 'rejection']),
     },
     {
       sequelize,

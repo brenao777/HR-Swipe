@@ -908,6 +908,7 @@ module.exports = {
         before: 150000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Backend разработчик',
@@ -921,6 +922,7 @@ module.exports = {
         before: 180000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Fullstack разработчик',
@@ -934,6 +936,7 @@ module.exports = {
         before: 200000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Мобильный разработчик',
@@ -947,6 +950,7 @@ module.exports = {
         before: 160000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'DevOps инженер',
@@ -960,6 +964,7 @@ module.exports = {
         before: 210000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'QA инженер',
@@ -973,6 +978,7 @@ module.exports = {
         before: 130000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'UI/UX дизайнер',
@@ -986,6 +992,7 @@ module.exports = {
         before: 140000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Системный администратор',
@@ -999,6 +1006,7 @@ module.exports = {
         before: 120000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Бизнес-аналитик',
@@ -1012,6 +1020,7 @@ module.exports = {
         before: 150000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Маркетолог',
@@ -1025,6 +1034,7 @@ module.exports = {
         before: 130000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'SEO-специалист',
@@ -1038,6 +1048,7 @@ module.exports = {
         before: 120000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Контент-менеджер',
@@ -1051,6 +1062,7 @@ module.exports = {
         before: 100000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Аналитик данных',
@@ -1064,6 +1076,7 @@ module.exports = {
         before: 140000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по безопасности',
@@ -1077,6 +1090,7 @@ module.exports = {
         before: 180000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Сетевой инженер',
@@ -1090,6 +1104,7 @@ module.exports = {
         before: 160000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Разработчик игр',
@@ -1103,6 +1118,7 @@ module.exports = {
         before: 190000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по тестированию',
@@ -1116,6 +1132,7 @@ module.exports = {
         before: 120000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Руководитель проектов',
@@ -1129,6 +1146,7 @@ module.exports = {
         before: 220000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Копирайтер',
@@ -1142,6 +1160,7 @@ module.exports = {
         before: 90000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по работе с клиентами',
@@ -1155,6 +1174,7 @@ module.exports = {
         before: 100000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Маркетинговый аналитик',
@@ -1168,6 +1188,7 @@ module.exports = {
         before: 140000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Специалист по PR',
@@ -1181,6 +1202,7 @@ module.exports = {
         before: 130000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Специалист по контенту',
@@ -1194,6 +1216,7 @@ module.exports = {
         before: 100000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по социальным медиа',
@@ -1207,6 +1230,7 @@ module.exports = {
         before: 120000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по email-маркетингу',
@@ -1220,6 +1244,7 @@ module.exports = {
         before: 110000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по видеомаркетингу',
@@ -1233,6 +1258,7 @@ module.exports = {
         before: 120000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по графическому дизайну',
@@ -1246,6 +1272,7 @@ module.exports = {
         before: 130000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по мобильному маркетингу',
@@ -1259,6 +1286,7 @@ module.exports = {
         before: 120000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по пользовательскому опыту',
@@ -1272,6 +1300,7 @@ module.exports = {
         before: 150000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Курьер',
@@ -1285,6 +1314,7 @@ module.exports = {
         before: 60000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '1-3',
       },
       {
         title: 'Кассир',
@@ -1298,6 +1328,7 @@ module.exports = {
         before: 70000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '1-3',
       },
       {
         title: 'Продавец-консультант',
@@ -1311,6 +1342,7 @@ module.exports = {
         before: 65000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '1-3',
       },
       {
         title: 'Секретарь',
@@ -1324,6 +1356,7 @@ module.exports = {
         before: 70000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Администратор',
@@ -1337,6 +1370,7 @@ module.exports = {
         before: 75000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '1-3',
       },
       {
         title: 'Специалист по кадровым вопросам',
@@ -1350,6 +1384,7 @@ module.exports = {
         before: 100000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Финансовый аналитик',
@@ -1363,6 +1398,7 @@ module.exports = {
         before: 170000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Специалист по продажам',
@@ -1376,6 +1412,7 @@ module.exports = {
         before: 120000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '3-6',
       },
       {
         title: 'Специалист по логистике',
@@ -1389,6 +1426,7 @@ module.exports = {
         before: 130000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
       {
         title: 'Тренер по продажам',
@@ -1402,6 +1440,7 @@ module.exports = {
         before: 160000,
         createdAt: new Date(),
         updatedAt: new Date(),
+        workDuration: '6+',
       },
     ]);
 
@@ -1416,7 +1455,6 @@ module.exports = {
         coverLetter:
           'Я увлеченный разработчик с глубокими знаниями JavaScript и Node.js.',
         photo: '6-1740227174147.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1429,7 +1467,6 @@ module.exports = {
         experience: '2 года разработки интерфейсов на React.',
         coverLetter: 'Я креативный разработчик с опытом работы в команде.',
         photo: '6-1740227174148.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1442,7 +1479,6 @@ module.exports = {
         experience: '4 года разработки API на Node.js.',
         coverLetter: 'Я опытный разработчик с акцентом на производительность.',
         photo: '6-1740227174149.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1455,7 +1491,6 @@ module.exports = {
         experience: '3 года работы с React и Node.js.',
         coverLetter: 'Я универсальный разработчик, который любит решать сложные задачи.',
         photo: '6-1740227174150.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1468,7 +1503,6 @@ module.exports = {
         experience: '2 года разработки приложений на Flutter.',
         coverLetter: 'Я страстный разработчик мобильных приложений.',
         photo: '6-1740227174151.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1481,7 +1515,6 @@ module.exports = {
         experience: '3 года в тестировании программного обеспечения.',
         coverLetter: 'Я внимательный к деталям тестировщик с опытом автоматизации.',
         photo: '6-1740227174152.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1494,7 +1527,6 @@ module.exports = {
         experience: '2 года создания пользовательских интерфейсов.',
         coverLetter: 'Я креативный дизайнер с акцентом на пользовательский опыт.',
         photo: '6-1740227174153.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1507,7 +1539,6 @@ module.exports = {
         experience: '4 года поддержки серверов и сетевой инфраструктуры.',
         coverLetter: 'Я опытный администратор с навыками в облачных технологиях.',
         photo: '6-1740227174154.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1520,7 +1551,6 @@ module.exports = {
         experience: '3 года анализа бизнес-процессов.',
         coverLetter: 'Я аналитик с сильными коммуникативными навыками.',
         photo: '6-1740227174155.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1533,7 +1563,6 @@ module.exports = {
         experience: '2 года в digital marketing.',
         coverLetter: 'Я маркетолог с креативным подходом к стратегиям.',
         photo: '6-1740227174156.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1546,7 +1575,6 @@ module.exports = {
         experience: '3 года оптимизации сайтов для поисковых систем.',
         coverLetter: 'Я специалист, который знает, как повысить видимость сайта.',
         photo: '6-1740227174157.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1559,7 +1587,6 @@ module.exports = {
         experience: '2 года создания и управления контентом.',
         coverLetter: 'Я креативный писатель с опытом в digital.',
         photo: '6-1740227174158.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1572,7 +1599,6 @@ module.exports = {
         experience: '3 года работы с аналитикой и отчетностью.',
         coverLetter: 'Я аналитик с глубокими знаниями SQL и Python.',
         photo: '6-1740227174159.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1585,7 +1611,6 @@ module.exports = {
         experience: '4 года в области кибербезопасности.',
         coverLetter: 'Я эксперт по безопасности с опытом в защите данных.',
         photo: '6-1740227174160.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1598,7 +1623,6 @@ module.exports = {
         experience: '3 года проектирования сетевых решений.',
         coverLetter: 'Я сетевой инженер с навыками в настройке маршрутизаторов.',
         photo: '6-1740227174161.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1611,7 +1635,6 @@ module.exports = {
         experience: '2 года разработки игр на Unity.',
         coverLetter: 'Я страстный разработчик игр с креативным подходом.',
         photo: '6-1740227174162.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1624,7 +1647,6 @@ module.exports = {
         experience: '3 года в тестировании программного обеспечения.',
         coverLetter: 'Я тестировщик с вниманием к деталям и опытом автоматизации.',
         photo: '6-1740227174163.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1637,7 +1659,6 @@ module.exports = {
         experience: '5 лет управления проектами в IT.',
         coverLetter: 'Я лидер, который вдохновляет команду на успех.',
         photo: '6-1740227174164.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1650,7 +1671,6 @@ module.exports = {
         experience: '2 года создания текстов для веба.',
         coverLetter: 'Я креативный писатель с опытом в контент-маркетинге.',
         photo: '6-1740227174165.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1664,7 +1684,6 @@ module.exports = {
         coverLetter:
           'Я ориентированный на клиента специалист с отличными навыками общения.',
         photo: '6-1740227174166.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1677,7 +1696,6 @@ module.exports = {
         experience: '2 года анализа рынка и конкурентной среды.',
         coverLetter: 'Я аналитик с сильными навыками в маркетинговых исследованиях.',
         photo: '6-1740227174167.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1690,7 +1708,6 @@ module.exports = {
         experience: '3 года разработки PR-стратегий.',
         coverLetter: 'Я PR-специалист с опытом работы в медиа.',
         photo: '6-1740227174168.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1703,7 +1720,6 @@ module.exports = {
         experience: '2 года создания контента для сайтов.',
         coverLetter: 'Я креативный контент-менеджер с хорошими навыками написания.',
         photo: '6-1740227174169.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1716,7 +1732,6 @@ module.exports = {
         experience: '3 года управления аккаунтами в социальных сетях.',
         coverLetter: 'Я специалист с опытом в digital marketing и SMM.',
         photo: '6-1740227174170.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1729,7 +1744,6 @@ module.exports = {
         experience: '2 года создания email-кампаний.',
         coverLetter: 'Я маркетолог с опытом в email-маркетинге.',
         photo: '6-1740227174171.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1742,7 +1756,6 @@ module.exports = {
         experience: '3 года создания видеоконтента.',
         coverLetter: 'Я видеомаркетолог с хорошими навыками монтажа.',
         photo: '6-1740227174172.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1755,7 +1768,6 @@ module.exports = {
         experience: '2 года создания графических материалов.',
         coverLetter: 'Я дизайнер с креативным подходом к проектам.',
         photo: '6-1740227174173.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1768,7 +1780,6 @@ module.exports = {
         experience: '3 года разработки мобильных рекламных кампаний.',
         coverLetter: 'Я специалист с опытом в мобильном маркетинге.',
         photo: '6-1740227174174.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1781,7 +1792,6 @@ module.exports = {
         experience: '3 года улучшения пользовательского опыта.',
         coverLetter: 'Я UX-специалист с акцентом на анализ пользовательских данных.',
         photo: '6-1740227174175.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1794,7 +1804,6 @@ module.exports = {
         experience: 'Не требуется.',
         coverLetter: 'Я ответственный и пунктуальный курьер.',
         photo: '6-1740227174176.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1807,7 +1816,6 @@ module.exports = {
         experience: 'Не требуется.',
         coverLetter: 'Я внимательный и ответственный кассир.',
         photo: '6-1740227174177.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1820,7 +1828,6 @@ module.exports = {
         experience: 'Не требуется.',
         coverLetter: 'Я общительный и отзывчивый продавец.',
         photo: '6-1740227174178.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1833,7 +1840,6 @@ module.exports = {
         experience: 'Не требуется.',
         coverLetter: 'Я организованный и ответственный секретарь.',
         photo: '6-1740227174179.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1846,16 +1852,28 @@ module.exports = {
         experience: 'Два года на React, Redux, FSD.',
         coverLetter: '3 года опыта в должности администратора офиса, отвечал за организацию рабочего процесса, делопроизводство и взаимодействие с клиентами. Обладаю навыками планирования и распределения рабочего времени, умением расставлять приоритеты и эффективно решать возникающие задачи. Опыт работы с офисной техникой, программным обеспечением и ведением документооборота. Отличные коммуникативные навыки, умение находить общий язык с людьми разного уровня и статуса. Ответственный, внимательный к деталям, способный работать как самостоятельно, так и в команде.',
         photo: '6-1740227174180.webp',
-        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
     ]);
+
+
+    await queryInterface.bulkInsert('ResumeStatuses', [
+      {
+        resumeId: 1,
+        vacancyId: 1,
+        status: 'pending',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ])
+
   },
 
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Users', null, {});
     await queryInterface.bulkDelete('Vacancies', null, {});
     await queryInterface.bulkDelete('Resumes', null, {});
+    await queryInterface.bulkDelete('ResumeStatuses', null, {});
   },
 };

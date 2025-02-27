@@ -1,16 +1,43 @@
-const { Resume, Vacancy } = require('../../db/models');
+const { Vacancy, Resume, ResumeStatus, User } = require('../../db/models');
 
-async function getVacanciesWithResumeStatuses() {
-  const status = await Vacancy.findAll({
-    include: [
-      {
-        model: Resume,
-        attributes: ['status'],
+async function getVacanciesWithResumeStatuses(userId) {
+  // const vacancy = await Vacancy.findAll({
+  //   include: {
+  //     where: { userId },
+  //     // model: Resume,
+  //     // attributes: ['status'],
+  //   },
+  // });
+  const user = await User.findByPk(userId, {
+    include: {
+      model: Resume,
+      include: {
+        model: ResumeStatus,
+        include: {
+          model: Vacancy,
+        },
       },
-    ],
+    },
   });
 
-  return status;
+  const result = user.Resumes.map((resume) =>
+    resume.ResumeStatuses.map((statusObj) => ({
+      status: statusObj.status,
+      Vacancy: statusObj.Vacancy,
+    })),
+  ).flat();
+  // const status = await ResumeStatus.findAll({
+  //   include: {
+  //     model: Vacancy,
+  //   },
+  //   where: { resumeId },
+  // });
+  return result;
 }
 
-module.exports = { getVacanciesWithResumeStatuses };
+async function editResumeStatus(resumeId, status, vacancyId) {
+  const newStatus = await ResumeStatus.update( { status }, { where: { resumeId, vacancyId } });
+  return newStatus;
+}
+
+module.exports = { getVacanciesWithResumeStatuses, editResumeStatus };

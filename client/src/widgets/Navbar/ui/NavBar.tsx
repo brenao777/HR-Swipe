@@ -9,6 +9,7 @@ import { Link } from 'react-router';
 
 export default function NavBar(): React.JSX.Element {
   const status = useAppSelector((store) => store.user.status);
+  const user = useAppSelector((store) => store.user.data);
   const { logoutHandler } = useUser();
 
   const logout = async (): Promise<void> => {
@@ -19,36 +20,44 @@ export default function NavBar(): React.JSX.Element {
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          HR-Swipe
+          HR-Swipe {user?.firstName}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {status === 'logged' && (
               <>
-                <Nav.Link as={Link} to="/">
-                  Вакансии
-                </Nav.Link>
-                <Nav.Link as={Link} to="/responses">
-                  Отклики
-                </Nav.Link>
-                <Nav.Link as={Link} to="/cabinet">
-                  Личный кабинет
-                </Nav.Link>
-                <Nav.Link as={Link} to="/company">
-                  Компания
-                </Nav.Link>
-                <Nav.Link as={Link} to="/hrCabinet">
-                  HR
-                </Nav.Link>
-                <Nav.Link as={Link} to="/chat">
-                  Чат
-                </Nav.Link>
-                <NavItem>
-                  <Button onClick={logout}>Выход</Button>
-                </NavItem>
+                {user?.company ? (
+                  <>
+                    <Nav.Link as={Link} to="/company">
+                      Компания
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/hrCabinet">
+                      Личный кабинет
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/chat">
+                      Чат
+                    </Nav.Link>
+                    <NavItem>
+                      <Button onClick={logout}>Выход</Button>
+                    </NavItem>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link as={Link} to="/">
+                      Вакансии
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/cabinet">
+                      Личный кабинет
+                    </Nav.Link>
+                    <NavItem>
+                      <Button onClick={logout}>Выход</Button>
+                    </NavItem>
+                  </>
+                )}
               </>
             )}
+
             {status === 'guest' && (
               <>
                 <Nav.Link as={Link} to="/login">
