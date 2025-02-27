@@ -58,19 +58,20 @@ const vacanciesSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       });
-      builder
-    .addCase(createVacancy.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(createVacancy.fulfilled, (state, action) => {
-      state.addvacancies.push(action.payload); 
-      state.loading = false;
-    })
-    .addCase(createVacancy.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload as string;
-    });
+    builder
+      .addCase(createVacancy.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createVacancy.fulfilled, (state, action) => {
+        console.log(action.payload, '---------'); // Здесь можно добавить API-запрос
+        state.vacancies.push(action.payload);
+        state.loading = false;
+      })
+      .addCase(createVacancy.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
   },
 });
 

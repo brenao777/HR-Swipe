@@ -15,8 +15,8 @@ const getAllVacancies = async (req, res) => {
 
 const createVacancy = async (req, res) => {
   try {
-    const {company} = req.params
     const {
+      companyId,
       title,
       description,
       location,
@@ -30,10 +30,10 @@ const createVacancy = async (req, res) => {
     } = req.body;
 
     if (
+      !companyId ||
       !title ||
       !description ||
       !location ||
-      !company ||
       !experience ||
       !format ||
       !schedule ||
@@ -48,7 +48,7 @@ const createVacancy = async (req, res) => {
       title,
       description,
       location,
-      companyId: company,
+      companyId,
       experience,
       format,
       schedule,

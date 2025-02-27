@@ -36,6 +36,11 @@ export default function HrPersonCabinet(): React.JSX.Element {
     }
     console.log('Raw FormData:', Object.fromEntries(formData.entries()));
     void dispatch(createVacancy({formData, companyId:myCompany.id}));
+    if(!user?.id){
+      alert('Компания не найдена!');
+      return;
+    }
+    void dispatch(findCompanyById(user.id));
     handleClose()
   };
 
@@ -87,13 +92,13 @@ export default function HrPersonCabinet(): React.JSX.Element {
             <div className={styles['form-group']}>
               <label>Требуемый опыт работы:</label>
               <label>
-                <input type="radio" name="format" value="1-3" /> 1-3
+                <input type="radio" name="workDuration" value="1-3" /> 1-3
               </label>
               <label>
-                <input type="radio" name="format" value="3-6" /> 3-6
+                <input type="radio" name="workDuration" value="3-6" /> 3-6
               </label>
               <label>
-                <input type="radio" name="format" value="6+" /> 6+
+                <input type="radio" name="workDuration" value="6+" /> 6+
               </label>
             </div>
             <div className={styles['form-group']}>

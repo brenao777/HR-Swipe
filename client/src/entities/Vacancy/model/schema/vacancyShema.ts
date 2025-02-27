@@ -14,6 +14,20 @@ export const vacancySchema = z.object({
   before: z.number(),
 });
 
+export const vacancySchem = z.object({
+  id: z.number(),
+  title: z.string(),
+  description: z.string(),
+  location: z.string(),
+  companyId: z.number(),
+  experience: z.string(),
+  format: z.enum(['Удаленно', 'Гибрид', 'Офис']),
+  schedule: z.enum(['Полная', 'Частичная', 'Проектная']),
+  workDuration: z.enum(['1-3', '3-6', '6+']),
+  from: z.string(),
+  before: z.string(),
+});
+
 export const vacancySearchSchema = z.object({
   title: z.string().optional(),
   from: z.string().optional(),
@@ -33,8 +47,8 @@ export const vacancyFormSchema = z.object({
   format: z.enum(['Удаленно', 'Гибрид', 'Офис']),
   schedule: z.enum(['Полная', 'Частичная', 'Проектная']),
   workDuration: z.enum(['1-3', '3-6', '6+']),
-  from: z.number(),
-  before: z.number(),
+  from: z.string(),
+  before: z.string(),
 });
 
 export const resumeStatusSchema = z.object({

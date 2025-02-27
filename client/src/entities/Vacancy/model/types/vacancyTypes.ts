@@ -13,5 +13,5 @@ export type VacancySliceType = {
   currentIndex: number;
   loading: boolean;
   error: string | null;
-  addvacancies: VacancyFormType[]
+  addvacancies: VacancyType[]
 };
