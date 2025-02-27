@@ -6,6 +6,8 @@ export type VacancyFormType = z.infer<typeof vacancyFormSchema>;
 export type VacancyWithStatusType = z.infer<typeof vacancyStatusSchema>;
 export type VacancySearchType = z.infer<typeof vacancySearchSchema>
 
+
+
 export type VacancySliceType = {
   vacancies: VacancyType[];
   vacanciesWithStatus: VacancyWithStatusType[];

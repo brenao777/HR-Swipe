@@ -7,6 +7,8 @@ import type {
   VacancyType,
   VacancyWithStatusType,
 } from '../model/types/vacancyTypes';
+import { resumeSchema } from '@/entities/Resume/model/schema/resumeSchema';
+import type { ResumeType } from '@/entities/Resume/model/types/resumeTypes';
 
 class VacancyService {
   constructor(private readonly client: AxiosInstance) {}
@@ -24,10 +26,23 @@ class VacancyService {
     }
   }
 
-  async findVacancyById(id: number): Promise<VacancyType[]> {
+  async findCompanyVacancies(vacancyId: number): Promise<VacancyType[]> {
     try {
-      const res = await this.client.get(`/vacancies/${String(id)}`);
+      const res = await this.client.get(`/vacancies/${vacancyId.toString()}`);
       return vacancySchema.array().parse(res.data);
+    } catch (err) {
+      if (err instanceof ZodError) {
+        console.log('Validation error in getVacancies: ', err.issues);
+      }
+      throw err;
+    }
+  }
+
+  async findVacancyById(vacancyId: number): Promise<ResumeType[]> {
+    try {
+      const res = await this.client.get(`/vacancies/${String(vacancyId)}`);
+      console.log('findVacancyById------->', res.data);
+      return resumeSchema.array().parse(res.data);
     } catch (err) {
       if (err instanceof ZodError) {
         console.log('Validation error in findVacancyById: ', err.issues);

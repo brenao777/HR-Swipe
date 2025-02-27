@@ -8,7 +8,6 @@ import Modal from 'react-bootstrap/Modal';
 import styles from './VacancyCard.module.scss';
 import { applyToVacancy, hideVacancy } from '@/entities/Vacancy/model/redux/vacancySlice';
 import { createResponse } from '@/entities/vacancyStatus/model/redux/vacancyStatusThunk';
-import { getCompany } from '@/entities/Company/model/redux/companyThanks';
 import { Link } from 'react-router';
 
 type VacancyCardProps = {
@@ -75,10 +74,7 @@ export default function VacancyCard({ vacancy }: VacancyCardProps): React.JSX.El
 
         <p>
         <strong>Компания:</strong> 
-          <img src={`http://localhost:3000/${vacancy.Company.logo}`}/>
-          <Link to={`/company`} style={{ textDecoration: 'none', color: 'inherit' }}>
-              {vacancy.Company.title}
-            </Link>
+          
           </p>
           <p>
             <strong>Описание:</strong> {vacancy.description}
