@@ -31,8 +31,18 @@ export default function HrPersonCabinet(): React.JSX.Element {
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    console.log('Raw FormData:', Object.fromEntries(formData.entries())) // Логируем данные
+    if (!myCompany?.id) {
+      alert('Компания не найдена!');
+      return;
+    }
     console.log('Raw FormData:', Object.fromEntries(formData.entries()));
-    void dispatch(createVacancy(formData));
+    void dispatch(createVacancy({formData, companyId:myCompany.id}));
+    if(!user?.id){
+      alert('Компания не найдена!');
+      return;
+    }
+    void dispatch(findCompanyById(user.id));
     handleClose()
   };
 
@@ -75,19 +85,23 @@ export default function HrPersonCabinet(): React.JSX.Element {
             </div>
             <div className={styles['form-group']}>
               <input
-                type="number"
-                placeholder="ID Компании"
-                name="companyId"
+                type="text"
+                placeholder="Опыт работы"
+                name="experience"
                 className={styles['form-control']}
               />
             </div>
             <div className={styles['form-group']}>
-              <input
-                type="text"
-                placeholder="Требуемый опыт"
-                name="experience"
-                className={styles['form-control']}
-              />
+              <label>Требуемый опыт работы:</label>
+              <label>
+                <input type="radio" name="workDuration" value="1-3" /> 1-3
+              </label>
+              <label>
+                <input type="radio" name="workDuration" value="3-6" /> 3-6
+              </label>
+              <label>
+                <input type="radio" name="workDuration" value="6+" /> 6+
+              </label>
             </div>
             <div className={styles['form-group']}>
               <label>Формат работы:</label>

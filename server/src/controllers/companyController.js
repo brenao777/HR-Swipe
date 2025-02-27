@@ -21,19 +21,20 @@ const getAllCompany = async (req, res) => {
 // Создание новой компании
 const createCompany = async (req, res) => {
   try {
-    const { title, description, logo, location } = req.body;
+    const { title, description,  location } = req.body;
     const { user } = res.locals;
+    const { file } = req;
 
-    if (!title || !description || !logo || !location) {
-      return res.status(400).json({ message: 'Некорректные данные' });
-    }
+    // if (!title || !description  || !location) {
+    //   return res.status(400).json({ message: 'Некорректные данные' });
+    // }
 
     const newCompany = await companyService.createCompany({
       title,
       description,
-      userId: user.id,
-      logo,
+      file,
       location,
+      userId: user.id,
     });
 
     return res.status(201).json(newCompany);

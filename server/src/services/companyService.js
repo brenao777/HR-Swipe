@@ -1,5 +1,7 @@
 const { Company, Vacancy } = require('../../db/models');
 const { Op } = require('sequelize');
+const sharp = require('sharp');
+const path = require('path');
 
 // Поиск компаний с фильтрацией по userId
 const findCompany = async (search, userId) => {
@@ -17,15 +19,29 @@ const findCompany = async (search, userId) => {
 };
 
 // Создание новой компании
-const createCompany = async ({ title, description, userId, logo, location }) => {
-  const newCompany = await Company.create({
+// const createCompany = async ({ title, description, userId, logo, location }) => {
+//   const newCompany = await Company.create({
+//     title,
+//     description,
+//     userId,
+//     logo,
+//     location,
+//   });
+//   return newCompany;
+// };
+const createCompany = async ({ title, description, userId, file, location }) => {
+  const fileName = `${userId}-${new Date().getTime()}.webp`;
+  const filePath = path.join(__dirname, `../../public/${fileName}`);
+  await sharp(file.buffer).webp().toFile(filePath);
+
+  const newResume = Company.create({
     title,
     description,
     userId,
-    logo,
+    logo: fileName,
     location,
   });
-  return newCompany;
+  return newResume;
 };
 
 const findCompanyIdById = async (userId) => {

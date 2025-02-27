@@ -51,13 +51,13 @@ class VacancyService {
     }
   }
 
-  async createVacancy(newVacancy: VacancyFormType): Promise<VacancyType> {
+  async createVacancy(newVacancy: VacancyFormType & { companyId: number }): Promise<VacancyType> {
     try {
       const res = await this.client.post('/vacancies', newVacancy);
       return vacancySchema.parse(res.data);
     } catch (err) {
       if (err instanceof ZodError) {
-        console.log('Validation error in findVacancyById: ', err.issues);
+        console.log('Validation error in createVacancy: ', err.issues);
       }
       throw err;
     }

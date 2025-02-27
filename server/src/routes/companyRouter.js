@@ -1,14 +1,14 @@
 const { verifyAccessToken } = require('../middlewares/verifyTokens');
 const express = require('express');
 const companyController = require('../controllers/companyController');
-
+const upload = require('../middlewares/multer');
 const companyRouter = express.Router();
 
 
 companyRouter
   .route('/')
   .get(verifyAccessToken, companyController.getAllCompany) 
-  .post(verifyAccessToken, companyController.createCompany); 
+  .post(verifyAccessToken, upload.single('logo'), companyController.createCompany); 
 
 companyRouter
   .route('/:userId')

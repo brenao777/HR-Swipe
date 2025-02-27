@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { VacancySliceType, VacancyWithStatusType } from '../types/vacancyTypes';
-import { companyVacancy, getVacancies, getVacanciesWithStatus } from './vacancyThunk';
+import { createVacancy, getVacancies, getVacanciesWithStatus } from './vacancyThunk';
 
 const initialState: VacancySliceType = {
   vacancies: [],
@@ -10,6 +10,7 @@ const initialState: VacancySliceType = {
   currentIndex: 0,
   loading: false,
   error: null,
+  addvacancies: [],
 };
 
 const vacanciesSlice = createSlice({
@@ -56,20 +57,21 @@ const vacanciesSlice = createSlice({
       .addCase(getVacanciesWithStatus.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      }).
-      addCase(companyVacancy.pending, (state) => {
+      });
+    builder
+      .addCase(createVacancy.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(companyVacancy.fulfilled, (state, action) => {
-        state.vacancies = action.payload;
+      .addCase(createVacancy.fulfilled, (state, action) => {
+        console.log(action.payload, '---------'); // Здесь можно добавить API-запрос
+        state.vacancies.push(action.payload);
         state.loading = false;
       })
-      .addCase(companyVacancy.rejected, (state, action) => {
+      .addCase(createVacancy.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
-
   },
 });
 
