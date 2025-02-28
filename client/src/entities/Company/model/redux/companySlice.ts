@@ -1,6 +1,7 @@
 import type { CompanyState } from '../types/companyTypes';
 import { createSlice } from '@reduxjs/toolkit';
 import { addCompany, findCompanyById, getCompany } from './companyThanks';
+import { deleteVacancy } from '@/entities/Vacancy/model/redux/vacancyThunk';
 
 const initialState: CompanyState = {
   company: null,
@@ -36,9 +37,14 @@ const companySlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      .addCase(addCompany.fulfilled, (state, {payload}) => {
-        state.company=(payload);
+      .addCase(addCompany.fulfilled, (state, { payload }) => {
+        state.company = payload;
       })
+      .addCase(deleteVacancy.fulfilled, (state, action) => {
+        state.myCompany = state.myCompany?.Vacancies.filter(
+          (vacancy) => vacancy.id !== action.payload,
+        );
+      });
   },
 });
 

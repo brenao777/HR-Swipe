@@ -21,7 +21,7 @@ export default function Chat(): React.JSX.Element {
 
   const sendMessage = (): void => {
     if (msg.trim()) {
-      const newMessage = { message: msg, name: user?.name ?? 'Человек' };
+      const newMessage = { message: msg, name: user?.firstName ?? 'Человек' };
       socket.emit('chat', newMessage);
       setMsg('');
     }

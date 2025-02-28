@@ -69,14 +69,14 @@ const getCompanyById = async (req, res) => {
 // Удаление компании
 const deleteCompany = async (req, res) => {
   try {
-    const { companyId } = req.params;
+    const { vacancyId } = req.params;
     const { user } = res.locals;
 
     if (!user) {
       return res.status(403).json({ message: 'Требуется авторизация' });
     }
 
-    const result = await companyService.deleteCompanyById(companyId, user.id);
+    const result = await companyService.deleteCompanyById(vacancyId, user.id);
 
     if (!result.success) {
       return res.status(result.status).json({ message: result.message });

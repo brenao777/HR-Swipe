@@ -116,25 +116,14 @@ const findVacanciesByCompanyId = async (vacancyId) => {
   return vacancies;
 };
 
-const deleteVacancyById = async (vacancyId, userId) => {
+const deleteVacancyById = async (vacancyId) => {
   const vacancy = await Vacancy.findByPk(vacancyId);
+  console.log(vacancy, 'ddddddddddddddddd')
   if (!vacancy) {
     return { success: false, status: 404, message: 'Вакансия не найдена!' };
   }
-  if (vacancy.userId !== userId) {
-    // Assuming Vacancy has a userId field
-    return {
-      success: false,
-      status: 403,
-      message: 'У вас нет прав на удаление этой вакансии!',
-    };
-  }
 
-  await Vacancy.destroy({
-    where: {
-      id: vacancyId,
-    },
-  });
+  await vacancy.destroy();
 
   return { success: true, status: 200, message: 'Вакансия успешно удалена!' };
 };

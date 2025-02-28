@@ -26,6 +26,18 @@ class VacancyService {
     }
   }
 
+  async deleteVacancy(vacancyId: number): Promise<void> {
+    try {
+      await this.client.delete(`/vacancies/${vacancyId.toString()}`);
+      console.log('deleteVacancy ============>', vacancyId);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        console.log('Validation error in deleteVacancy: ', error.issues);
+      }
+      throw error;
+    }
+  }
+
   async findCompanyVacancies(vacancyId: number): Promise<VacancyType[]> {
     try {
       const res = await this.client.get(`/vacancies/${vacancyId.toString()}`);
@@ -37,7 +49,6 @@ class VacancyService {
       throw err;
     }
   }
-
 
   async findVacancyById(vacancyId: number): Promise<ResumeType[]> {
     try {

@@ -11,17 +11,17 @@ import styles from './PersonCabinetPage.module.scss';
 export default function PersonCabinetPage(): React.JSX.Element {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
-  const handleClose = (): void => setShow(false);
-  const handleShow = (): void => setShow(true);
   const dispatch = useAppDispatch();
-  const respones = useAppSelector((store) => store.vacancies.vacanciesWithStatus);
+  const responses = useAppSelector((store) => store.vacancies.vacanciesWithStatus);
 
-  console.log(respones);
+  console.log(responses);
 
   useEffect(() => {
     void dispatch(getVacanciesWithStatus());
-  }, []);
+  }, [dispatch]);
+
+  const handleClose = (): void => setShow(false);
+  const handleShow = (): void => setShow(true);
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -31,34 +31,71 @@ export default function PersonCabinetPage(): React.JSX.Element {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
+      <div className={styles.buttonContainer}>
+        <Button onClick={handleShow} className={styles.createResumeBtn}>
+          Создать резюме
+        </Button>
+        <Button onClick={() => navigate('/myResumes')} className={styles.myResumesBtn}>
+          Мои резюме
+        </Button>
+      </div>
       <Modal show={show} onHide={handleClose} className={styles.modal}>
         <Modal.Header closeButton>
           <Modal.Title className={styles.modalTitle}>Создать резюме</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={onSubmit}>
-            <input type="number" placeholder="Возраст" name="age" />
-            <input type="text" placeholder="Должность" name="specialty" />
-            <input type="text" placeholder="Опыт работы" name="experience" />
-            <input type="text" placeholder="Местоположение" name="location" />
-            <input type="number" placeholder="Номер" name="number" />
-            <input type="text" placeholder="Сопроводительное письмо" name="coverLetter" />
-            <input type="file" placeholder="Сопроводительное письмо" name="photo" />
-            <button type="submit">Опубликовать резюме</button>
+          <form onSubmit={onSubmit} className={styles.resumeForm}>
+            <input type="number" placeholder="Возраст" name="age" className={styles.formInput} />
+            <input
+              type="text"
+              placeholder="Должность"
+              name="specialty"
+              className={styles.formInput}
+            />
+            <input
+              type="text"
+              placeholder="Опыт работы"
+              name="experience"
+              className={styles.formInput}
+            />
+            <input
+              type="text"
+              placeholder="Местоположение"
+              name="location"
+              className={styles.formInput}
+            />
+            <input type="number" placeholder="Номер" name="number" className={styles.formInput} />
+            <input
+              type="text"
+              placeholder="Сопроводительное письмо"
+              name="coverLetter"
+              className={styles.formInput}
+            />
+            <input type="file" name="photo" className={styles.formInput} />
+            <button type="submit" className={styles.submitBtn}>
+              Опубликовать резюме
+            </button>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={handleClose}>Закрыть</button>
+          <button onClick={handleClose} className={styles.closeBtn}>
+            Закрыть
+          </button>
         </Modal.Footer>
       </Modal>
-      <Button onClick={handleShow}>Создать резюме</Button>
-      <Button onClick={() => navigate('/myResumes')}>Мои резюме</Button>
-      <div>
-        {respones.map((resp) => (
-          <ResponceCard key={resp.Vacancy.id} resp={resp} />
-        ))}
-      </div>
+      {responses.length <= 0 ? (
+        <h1 className={styles.NoRes}>У вас пока нет откликов на вакансии.</h1>
+      ) : (
+        <>
+          <h1 className={styles.titleRes}>Ваши отклики</h1>
+          <div className={styles.responses}>
+            {responses.map((resp) => (
+              <ResponceCard key={resp.Vacancy.id} resp={resp} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

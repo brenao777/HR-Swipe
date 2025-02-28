@@ -1,0 +1,105 @@
+.card {
+  background: #fff; /* Белый фон */
+  border-radius: var(--radius); /* Закругления */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Тень */
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Отступы между элементами */
+}
+
+.title {
+  font-family: var(--font-heading); /* Raleway */
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-purple); /* Фиолетовый заголовок */
+  margin: 0;
+}
+
+.description,
+.experience,
+.location {
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1rem;
+  color: var(--text-dark); /* Темный текст */
+  margin: 5px 0;
+}
+
+.statusContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Отступ между текстом и кнопкой */
+  margin-top: 10px;
+}
+
+.statusAccepted {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Отступ между текстом и кнопкой в случае accepted */
+}
+
+.statusText {
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-dark);
+
+  /* Разные цвета для разных статусов */
+  .card:has(&) &.statusText {
+    color: #19d438; /* Зеленый для accepted */
+  }
+  .card:has(&[data-status='pending']) &.statusText {
+    color: #19d438; /* Оранжевый для pending */
+  }
+  .card:has(&[data-status='rejection']) &.statusText {
+    color: #ff4d4f; /* Красный для rejection */
+  }
+}
+
+.chatButton {
+  padding: 10px 20px;
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--primary-purple); /* Фиолетовый фон */
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--accent-purple); /* Светлее при ховере */
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 576px) {
+  .card {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .description,
+  .experience,
+  .location,
+  .statusText {
+    font-size: 0.9rem;
+  }
+
+  .chatButton {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .statusContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
