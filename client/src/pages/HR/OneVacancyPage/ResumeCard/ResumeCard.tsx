@@ -73,16 +73,16 @@ export default function ResumeCard({ resume }: ResumeCardProps): React.JSX.Eleme
         {...bind}
       >
         <h2 className={styles.name}>
-          {resume.User.firstName} {resume.User.secondName}
+         {resume.User.firstName} {resume.User.secondName}
         </h2>
         <img
           className={styles.responsePhoto}
           src={`http://localhost:3000/${resume.photo}`}
           alt={resume.User.firstName}
         />
-        <p className={styles.experience}>Опыт: {resume.experience}</p>
         <p className={styles.age}>Возраст: {resume.age}</p>
         <p className={styles.number}>Контакты: {resume.number}</p>
+        <p className={styles.number}>Должность: {resume.specialty}</p>
         <Button variant="primary" onClick={handleShowDetails} className={styles.detailsButton}>
           Подробнее
         </Button>

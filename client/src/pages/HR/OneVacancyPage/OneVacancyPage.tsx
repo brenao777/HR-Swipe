@@ -31,34 +31,3 @@ export default function OneVacancyPage(): React.JSX.Element {
     </div>
   );
 }
-
-// import { findVacancyById } from '@/entities/Vacancy/model/redux/vacancyThunk';
-// import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
-// import React, { useEffect } from 'react';
-// import { useParams } from 'react-router';
-
-// export default function OneVacancyPage(): React.JSX.Element {
-//   const dispatch = useAppDispatch();
-//   const vacancyId = useParams();
-//   const resumes = useAppSelector((store) => store.resume.resumesById);
-
-//   console.log(resumes);
-//   useEffect(() => {
-//     void dispatch(findVacancyById(Number(vacancyId.vacancyId)));
-//   }, []);
-
-//   return (
-//     <div>
-//       {resumes.map((resume) => (
-//         <div key={resume.id}>
-//           <p>
-//             {resume.User.firstName} {resume.User.secondName}
-//           </p>
-//           <p>{resume.experience}</p>
-//           <p>{resume.age}</p>
-//           <p>{resume.number}</p>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }

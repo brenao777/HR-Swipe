@@ -57,14 +57,14 @@ const findCompanyIdById = async (userId) => {
 };
 
 // Удаление компании с проверкой userId
-const deleteCompanyById = async (companyId, userId) => {
-  const company = await Company.findByPk(companyId);
+const deleteCompanyById = async (vacancyId, userId) => {
+  const vacancy = await Vacancy.findByPk(vacancyId);
 
-  if (!company) {
+  if (!vacancy) {
     return { success: false, status: 404, message: 'Компания не найдена!' };
   }
 
-  if (company.userId !== userId) {
+  if (vacancy.userId !== userId) {
     return {
       success: false,
       status: 403,
@@ -72,7 +72,7 @@ const deleteCompanyById = async (companyId, userId) => {
     };
   }
 
-  await Company.destroy({ where: { id: companyId } });
+  await Vacancy.destroy({ where: { id: vacancyId } });
   return { success: true, status: 200, message: 'Компания успешно удалена!' };
 };
 

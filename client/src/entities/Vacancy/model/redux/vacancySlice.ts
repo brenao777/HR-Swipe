@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type { VacancySliceType, VacancyWithStatusType } from '../types/vacancyTypes';
+import type { VacancySliceType } from '../types/vacancyTypes';
 import { createVacancy, getVacancies, getVacanciesWithStatus } from './vacancyThunk';
 
 const initialState: VacancySliceType = {
@@ -11,22 +11,26 @@ const initialState: VacancySliceType = {
   loading: false,
   error: null,
   addvacancies: [],
+  openModal: false,
 };
 
 const vacanciesSlice = createSlice({
   name: 'vacancies',
   initialState,
   reducers: {
-    // setVacancies(state, action: PayloadAction<VacancyWithStatusType[]>) {
-    //   state.vacancies = action.payload;
-    // },
     applyToVacancy(state, action: PayloadAction<number>) {
       state.currentIndex += 1; // Переход к следующей вакансии
-      console.log('Отклик на вакансию -', action.payload); // Здесь можно добавить API-запрос
+      console.log('Отклик на вакансию -', action.payload);
     },
     hideVacancy(state, action: PayloadAction<number>) {
       state.hiddenVacancies.push(action.payload);
       state.currentIndex += 1; // Переход к следующей вакансии
+    },
+    filterButton(state, action: PayloadAction<boolean>) {
+      state.openModal = action.payload;
+    },
+    handleShow(state) {
+      state.openModal = !state.openModal;
     },
   },
   extraReducers: (builder) => {
@@ -75,5 +79,5 @@ const vacanciesSlice = createSlice({
   },
 });
 
-export const { setVacancies, applyToVacancy, hideVacancy } = vacanciesSlice.actions;
+export const { handleShow, applyToVacancy, hideVacancy } = vacanciesSlice.actions;
 export default vacanciesSlice;

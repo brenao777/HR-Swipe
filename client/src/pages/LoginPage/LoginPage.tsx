@@ -28,28 +28,31 @@ export default function LoginPage(): React.JSX.Element {
   }
 
   return (
-    <main className={styles.main}>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <input
-          className={styles.input}
-          type="email"
-          {...register('email')}
-          placeholder="bob@bob.com"
-        />
-        {errors.email && <p className={styles.text}>{errors.email.message}</p>}
+    <>
+      <main className={styles.main}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <h1 className={styles.title}>Войти</h1>
+          <input
+            className={styles.input}
+            type="email"
+            {...register('email')}
+            placeholder="Почта"
+          />
+          {errors.email && <p className={styles.text}>{errors.email.message}</p>}
 
-        <input
-          className={styles.input}
-          type="password"
-          {...register('password')}
-          placeholder="your password"
-        />
-        {errors.password && <p className={styles.text}>{errors.password.message}</p>}
+          <input
+            className={styles.input}
+            type="password"
+            {...register('password')}
+            placeholder="Пароль"
+          />
+          {errors.password && <p className={styles.text}>{errors.password.message}</p>}
 
-        <button className={styles.button} type="submit">
-          Вход
-        </button>
-      </form>
-    </main>
+          <button className={styles.button} type="submit">
+            Вход
+          </button>
+        </form>
+      </main>
+    </>
   );
 }

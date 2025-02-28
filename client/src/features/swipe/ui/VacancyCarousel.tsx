@@ -3,8 +3,15 @@ import { useAppSelector } from '@/shared/api/hooks/hooks';
 import type { RootState } from '@/app/store/store';
 import VacancyCard from '@/entities/Vacancy/ui/VacancyCard';
 import styles from './VacancyCarousel.module.scss';
+import type { SpringValue } from '@react-spring/web';
 
-export default function VacancyCarousel(): React.JSX.Element {
+type VacancyCarouselProps = {
+  onBackgroundChange?: (style: { backgroundColor: SpringValue<string> }) => void;
+};
+
+export default function VacancyCarousel({
+  onBackgroundChange,
+}: VacancyCarouselProps): React.JSX.Element {
   const { vacancies, hiddenVacancies, currentIndex } = useAppSelector(
     (state: RootState) => state.vacancies,
   );
@@ -21,8 +28,13 @@ export default function VacancyCarousel(): React.JSX.Element {
   console.log('Current Vacancy:', currentVacancy);
 
   return (
-    <div className={styles.carouselContainer}>
-      <VacancyCard vacancy={currentVacancy} />
-    </div>
+    <>
+      {vacancies.length < 40 && (
+        <h3 className={styles.findedVacancies}>Найдено: {vacancies.length} вакансии</h3>
+      )}
+      <div className={styles.carouselContainer}>
+        <VacancyCard vacancy={currentVacancy} onBackgroundChange={onBackgroundChange} />
+      </div>
+    </>
   );
 }

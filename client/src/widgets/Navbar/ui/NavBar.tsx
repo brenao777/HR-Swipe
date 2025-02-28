@@ -1,76 +1,99 @@
 import { useUser } from '@/entities/user/hooks/userHook';
-import { useAppSelector } from '@/shared/api/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import React from 'react';
-import { Button, NavItem } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router';
+import styles from './NavBar.module.scss';
+import { handleShow } from '@/entities/Vacancy/model/redux/vacancySlice';
 
 export default function NavBar(): React.JSX.Element {
   const status = useAppSelector((store) => store.user.status);
   const user = useAppSelector((store) => store.user.data);
   const { logoutHandler } = useUser();
+  const dispatch = useAppDispatch();
+  const openModal = useAppSelector((state) => state.vacancies.openModal);
 
   const logout = async (): Promise<void> => {
     await logoutHandler();
   };
 
-  return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand as={Link} to="/">
-          HR-Swipe {user?.firstName}
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            {status === 'logged' && (
-              <>
-                {user?.company ? (
-                  <>
-                    <Nav.Link as={Link} to="/company">
-                      Компания
-                    </Nav.Link>
-                    <Nav.Link as={Link} to="/hrCabinet">
-                      Личный кабинет
-                    </Nav.Link>
-                    <Nav.Link as={Link} to="/chat">
-                      Чат
-                    </Nav.Link>
-                    <NavItem>
-                      <Button onClick={logout}>Выход</Button>
-                    </NavItem>
-                  </>
-                ) : (
-                  <>
-                    <Nav.Link as={Link} to="/">
-                      Вакансии
-                    </Nav.Link>
-                    <Nav.Link as={Link} to="/cabinet">
-                      Личный кабинет
-                    </Nav.Link>
-                    <NavItem>
-                      <Button onClick={logout}>Выход</Button>
-                    </NavItem>
-                  </>
-                )}
-              </>
-            )}
+  // const toggleMenu = (): void => setIsOpen((prev) => !prev);
 
-            {status === 'guest' && (
-              <>
-                <Nav.Link as={Link} to="/login">
+  return (
+    <nav className={styles.navbar}>
+      <div className={styles.navbarContainer}>
+        <Link to="/" className={styles.brand}>
+          HR-Swipe
+        </Link>
+        <ul className={`${styles.nav} ${openModal ? styles.navOpen : ''}`}>
+          {status === 'logged' && (
+            <>
+              {user?.company ? (
+                <>
+                  <li>
+                    <Link to="/company" className={styles.navLink}>
+                      Компания
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/hrCabinet" className={styles.navLink}>
+                      Личный кабинет
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/chat" className={styles.navLink}>
+                      Чат
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/" className={styles.navLink}>
+                      Вакансии
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/cabinet" className={styles.navLink}>
+                      Личный кабинет
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={() => dispatch(handleShow())} className={styles.logoutBtn}>
+                      Фильтр
+                    </button>
+                  </li>
+                </>
+              )}
+            </>
+          )}
+          {status === 'guest' && (
+            <>
+              <li>
+                <Link to="/login" className={styles.navLink}>
                   Войти
-                </Nav.Link>
-                <Nav.Link as={Link} to="/register">
+                </Link>
+              </li>
+              <li>
+                <Link to="/register" className={styles.navLink}>
                   Регистрация
-                </Nav.Link>
-              </>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+        {status === 'logged' && (
+          <button onClick={logout} className={styles.logoutBtn}>
+            Выход
+          </button>
+        )}
+        <button
+          className={`${styles.toggle} ${openModal ? styles.toggleOpen : ''}`}
+          onClick={() => dispatch(handleShow())}
+          aria-label="Toggle menu"
+        >
+          <span className={styles.hamburger}></span>
+        </button>
+      </div>
+    </nav>
   );
 }

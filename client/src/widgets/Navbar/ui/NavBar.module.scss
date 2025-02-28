@@ -1,0 +1,170 @@
+.navbar {
+  background-color: var(--light-purple); /* Светло-фиолетовый фон */
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+.navbarContainer {
+  display: flex;
+  justify-content: space-between; /* Логотип слева, кнопка справа */
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  /* Убедимся, что дочерние элементы занимают только необходимое пространство */
+  > * {
+    flex-shrink: 0;
+  }
+}
+
+.brand {
+  font-family: var(--font-heading); /* Raleway для логотипа */
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-purple); /* Фиолетовый логотип */
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--accent-purple); /* Светлее при ховере */
+  }
+}
+
+.toggle {
+  display: none; /* Скрыт на десктопе */
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+
+  .hamburger {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-purple);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 3px;
+      background-color: var(--primary-purple);
+      transition: all 0.3s ease-in-out;
+    }
+
+    &::before {
+      top: -8px;
+    }
+
+    &::after {
+      bottom: -8px;
+    }
+  }
+}
+
+.toggleOpen {
+  .hamburger {
+    background: transparent;
+
+    &::before {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    &::after {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Центрируем ссылки внутри nav */
+  gap: 20px; /* Отступ между ссылками */
+  list-style: none;
+  margin: 0 auto; /* Центрируем nav внутри navbarContainer */
+  padding: 0;
+  flex-grow: 1; /* Позволяет nav занимать оставшееся пространство */
+}
+
+.navLink {
+  font-family: var(--font-primary); /* Montserrat для ссылок */
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dark); /* Темный текст */
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--primary-purple); /* Фиолетовый фон при ховере */
+    color: #fff; /* Белый текст */
+  }
+
+  &.active {
+    background-color: var(--accent-purple); /* Светлее для активной ссылки */
+    color: #fff;
+  }
+}
+
+.logoutBtn {
+  font-family: var(--font-primary); /* Montserrat для кнопки */
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dark); /* Черный текст по умолчанию */
+  background-color: transparent; /* Прозрачный фон по умолчанию */
+  border: none;
+  border-radius: var(--radius);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--primary-purple); /* Фиолетовый фон при ховере */
+    color: #fff; /* Белый текст при ховере */
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 991px) {
+  .toggle {
+    display: block; /* Показываем бургер на мобильных */
+  }
+
+  .navbarContainer {
+    flex-wrap: wrap; /* Позволяем элементам переноситься */
+  }
+
+  .nav {
+    display: none; /* Скрываем меню по умолчанию */
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 20px;
+    background-color: var(--light-purple);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .navOpen {
+    display: flex; /* Показываем меню, когда открыто */
+  }
+
+  .navLink,
+  .logoutBtn {
+    width: 100%;
+    text-align: left;
+    padding: 10px 20px;
+  }
+
+  .logoutBtn {
+    margin-top: 10px; /* Отступ сверху для кнопки выхода в мобильном меню */
+  }
+}
