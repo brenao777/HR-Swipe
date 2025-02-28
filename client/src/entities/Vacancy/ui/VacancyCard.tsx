@@ -58,6 +58,15 @@ function VacancyCard({ vacancy, onBackgroundChange }: VacancyCardProps): React.J
   const handleShowDetails = (): void => setShowModal(true);
   const handleCloseModal = (): void => setShowModal(false);
 
+  // Функция для обрезки текста требований
+  const renderExperience = () => {
+    const text = vacancy.experience || '';
+    if (text.length > 200) {
+      return `${text.slice(0, 200)}...`;
+    }
+    return text;
+  };
+
   return (
     <>
       <animated.div
@@ -77,7 +86,7 @@ function VacancyCard({ vacancy, onBackgroundChange }: VacancyCardProps): React.J
         <p className={styles.salary}>от {vacancy.from}₽</p>
         <p className={styles.location}>Город: {vacancy.location}</p>
         <p className={styles.experience}>
-          <strong>Требования:</strong> {vacancy.experience}
+          <strong>Требования:</strong> {renderExperience()}
         </p>
         <div className={styles.instructions}>Свайп влево — откликнуться, вправо — скрыть</div>
         <button onClick={handleShowDetails} className={styles.detailsButton}>

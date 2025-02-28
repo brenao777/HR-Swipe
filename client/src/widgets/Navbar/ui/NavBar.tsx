@@ -21,9 +21,9 @@ export default function NavBar(): React.JSX.Element {
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContainer}>
-        <Link to="/" className={styles.brand}>
+        <h1 className={styles.brand}>
           HR-Swipe
-        </Link>
+        </h1>
         <ul className={`${styles.nav} ${openModal ? styles.navOpen : ''}`}>
           {status === 'logged' && (
             <>

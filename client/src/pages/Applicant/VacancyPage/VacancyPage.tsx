@@ -12,7 +12,7 @@ import { handleShow } from '@/entities/Vacancy/model/redux/vacancySlice';
 
 export default function VacancyPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((state) => state.vacancies);
+  const { error } = useAppSelector((state) => state.vacancies);
   const openModal = useAppSelector((state) => state.vacancies.openModal);
   const [backgroundStyle, setBackgroundStyle] = useState<{ backgroundColor: SpringValue<string> }>({
     backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -27,7 +27,6 @@ export default function VacancyPage(): React.JSX.Element {
     experience: '',
     workDuration: '',
   });
-
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFilters((prev) => ({
@@ -50,21 +49,13 @@ export default function VacancyPage(): React.JSX.Element {
     void dispatch(getVacancies(filters));
   }, [dispatch]);
 
-  if (loading) {
-    return <div>Загрузка вакансий...</div>;
-  }
-
   if (error) {
     return <div>Ошибка: {error}</div>;
   }
 
   return (
     <>
-      <div className={styles.filterBtnContainer}>
-        {/* <Button className={styles.filterBtn} onClick={handleShow}>
-          Фильтры
-        </Button> */}
-      </div>
+      <div className={styles.filterBtnContainer}></div>
       <animated.div style={backgroundStyle}>
         <VacancyCarousel onBackgroundChange={handleBackgroundChange} />
         <Modal show={openModal} onHide={() => dispatch(handleShow())} className={styles.modal}>

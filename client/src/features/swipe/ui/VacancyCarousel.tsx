@@ -29,8 +29,8 @@ export default function VacancyCarousel({
 
   return (
     <>
-      {vacancies.length < 40 && (
-        <h3 className={styles.findedVacancies}>Найдено: {vacancies.length} вакансии</h3>
+      {vacancies.length < 39 && (
+        <h3 className={styles.findedVacancies}>Найдено: {vacancies.length} вакансий</h3>
       )}
       <div className={styles.carouselContainer}>
         <VacancyCard vacancy={currentVacancy} onBackgroundChange={onBackgroundChange} />

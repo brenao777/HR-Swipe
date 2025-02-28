@@ -44,16 +44,15 @@
   font-size: 1.4rem;
   font-weight: 500;
   margin: 0;
-  color: var(--text-dark);
 
-  /* Разные цвета для разных статусов */
-  .card:has(&) &.statusText {
+  /* Разные цвета для разных статусов через data-status */
+  &[data-status='accepted'] {
     color: #19d438; /* Зеленый для accepted */
   }
-  .card:has(&[data-status='pending']) &.statusText {
-    color: #19d438; /* Оранжевый для pending */
+  &[data-status='pending'] {
+    color: #8b8b8b; /* Оранжевый для pending */
   }
-  .card:has(&[data-status='rejection']) &.statusText {
+  &[data-status='rejection'] {
     color: #ff4d4f; /* Красный для rejection */
   }
 }
