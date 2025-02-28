@@ -37,8 +37,8 @@ export default function RegisterPage(): React.JSX.Element {
   };
   return (
     <main className={styles.main}>
-      <h1 className={styles.title}>Регистрация</h1>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <h1 className={styles.title}>Регистрация</h1>
         <input
           className={styles.input}
           type="text"
@@ -59,14 +59,7 @@ export default function RegisterPage(): React.JSX.Element {
           {...register('email')}
           placeholder="Email..."
         />
-        {errors.company && <p className={styles.text}>{errors.company.message}</p>}
-        <p>Вы компания?</p>
-        <input
-          className={styles.checkbox}
-          type="checkbox"
-          {...register('company')}
-          placeholder="Компания..."
-        />
+
         <input
           className={styles.input}
           type="password"
@@ -74,6 +67,11 @@ export default function RegisterPage(): React.JSX.Element {
           placeholder="Пароль..."
         />
         {errors.password && <p className={styles.text}>{errors.password.message}</p>}
+        {errors.company && <p className={styles.text}>{errors.company.message}</p>}
+        <div className={styles.isCompany}>
+          <p className={styles.isCompanyText}>Компания?</p>
+          <input className={styles.checkbox} type="checkbox" {...register('company')} />
+        </div>
 
         <button className={styles.button}>Зарегистрироваться</button>
       </form>

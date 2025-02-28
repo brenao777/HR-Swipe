@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Raleway:wght@100..900&display=swap');
+
+/* Глобальные переменные */
+:root {
+  --font-primary: 'Montserrat', 'Arial', sans-serif;
+  --font-heading: 'Raleway', 'Arial', sans-serif;
+  --primary-purple: #6b48ff;
+  --light-purple: #f2efff;
+  --accent-purple: #8a63ff;
+  --text-dark: #333;
+  --radius: 12px;
+}
+
+/* Основной стиль для страницы */
+body {
+  font-family: var(--font-primary);
+  font-weight: 400; /* Обычный вес для текста */
+  background-color: var(--light-purple);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+  font-size: 1rem; /* Базовый размер текста */
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700; /* Жирный вес для заголовков */
+  color: var(--primary-purple); /* Фиолетовый цвет для заголовков */
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+/* Элементы интерфейса */
+button, input, select, textarea {
+  font-family: var(--font-primary);
+  font-weight: 500; /* Средний вес для кнопок и форм */
+}
+
+/* Мелкий текст */
+p, label, span, .vacancyDescription, .vacancyLocation {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+}

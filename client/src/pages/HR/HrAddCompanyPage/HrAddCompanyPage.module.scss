@@ -1,28 +1,45 @@
 .main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background-color: var(--light-purple); /* Светло-фиолетовый фон */
+  padding: 20px;
 }
 
 .title {
+  font-family: var(--font-heading); /* Raleway для заголовка */
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-purple); /* Фиолетовый заголовок */
+  margin-bottom: 20px;
   text-align: center;
-  font-family: var(--font-primary);
-
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10%;
-  gap: 15px;
-  max-width: 400px; /* Ограничение ширины формы */
+  gap: 20px; /* Отступ между группами */
+  max-width: 500px; /* Ограничение ширины формы */
   width: 100%;
-  padding: 20px;
+  padding: 25px;
   background-color: #fff; /* Белый фон для формы */
   border-radius: var(--radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Отступ между label и input */
+}
+
+.label {
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dark);
 }
 
 .input {
@@ -49,6 +66,24 @@
   }
 }
 
+.inputFile {
+  padding: 10px; /* Специальный стиль для input[type="file"] */
+  border: 1px solid #ced4da;
+  border-radius: var(--radius);
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-dark);
+  background-color: #fff;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 5px rgba(138, 99, 255, 0.3);
+  }
+}
+
 .button {
   height: 50px; /* Единая высота с инпутами */
   padding: 10px;
@@ -67,9 +102,20 @@
   }
 }
 
-.text {
-  font-family: var(--font-primary); /* Montserrat */
-  font-size: 0.9rem;
-  color: #ff4d4f; /* Красный цвет для ошибок */
-  margin: 0;
+/* Адаптивность */
+@media (max-width: 576px) {
+  .form {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .input,
+  .inputFile,
+  .button {
+    height: 45px; /* Уменьшаем высоту на мобильных */
+    font-size: 0.9rem;
+  }
 }

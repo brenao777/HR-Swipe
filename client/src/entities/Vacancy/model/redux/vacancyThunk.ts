@@ -16,25 +16,24 @@ export const findVacancyById = createAsyncThunk(
   },
 );
 
-export const companyVacancy = createAsyncThunk<VacancyType[]>(
-  'vacancies/companyVacancy',
-  async (companyId: number) => {
-    const res = await vacancyService.findCompanyVacancies(companyId);
-    console.log(res)
-    return res;
-  },
-);
-
 export const createVacancy = createAsyncThunk(
   'vacancies/createVacancy',
   async ({ formData, companyId }: { formData: FormData; companyId: number }) => {
     const data = vacancyFormSchema.parse(Object.fromEntries(formData));
     console.log('Parsed Data:', data); // Логируем распарсенные данные
     return vacancyService.createVacancy({ ...data, companyId });
-  }
+  },
 );
 
 export const getVacanciesWithStatus = createAsyncThunk<VacancyWithStatusType[]>(
   'vacancies/getVacanciesWithStatus',
   async () => await vacancyService.getVacanciesWithStatus(),
+);
+
+export const deleteVacancy = createAsyncThunk(
+  'vacancies/deleteVacancy',
+  async (vacancyId: number) => {
+    await vacancyService.deleteVacancy(vacancyId);
+    return vacancyId;
+  },
 );

@@ -1,59 +1,117 @@
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 80vh;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--light-purple); /* Светло-фиолетовый фон */
+  padding: 20px;
 }
 
 .title {
-  font-size: 3rem;
-  margin-bottom: 20px;
+  text-align: center;
+  font-family: var(--font-primary);
+}
+
+.isCompany {
+  display: flex;
+  justify-content: center;
+  gap: 1vh;
+}
+
+.isCompanyText {
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+  max-width: 400px; /* Ограничение ширины формы */
   width: 100%;
-  max-width: 400px; /* Максимальная ширина формы */
   padding: 20px;
-  background-color: #ffffff; /* Белый фон для формы */
-  border-radius: 8px; /* Закругленные углы */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень для формы */
+  background-color: #fff; /* Белый фон для формы */
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .input {
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc; /* Серый цвет рамки */
-  border-radius: 4px; /* Закругленные углы */
-  font-size: 16px; /* Размер шрифта */
-  transition: border-color 0.3s; /* Плавный переход цвета рамки */
+  height: 50px; /* Единая высота */
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: var(--radius);
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-dark);
+  background-color: #fff;
+  transition: border-color 0.2s ease-in-out;
 
   &:focus {
-    border-color: #4caf50; /* Цвет рамки при фокусе */
-    outline: none; /* Убираем стандартный контур */
+    outline: none;
+    border-color: var(--accent-purple); /* Фиолетовый акцент при фокусе */
+    box-shadow: 0 0 5px rgba(138, 99, 255, 0.3);
+  }
+
+  &::placeholder {
+    color: #6c757d;
+    font-style: italic;
+  }
+}
+
+.checkbox {
+  width: 25px; /* Размер чекбокса */
+  height: 45px;
+  accent-color: var(--primary-purple); /* Фиолетовый цвет чекбокса */
+}
+
+.button {
+  height: 50px; /* Единая высота с инпутами */
+  padding: 10px;
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--primary-purple); /* Фиолетовый фон */
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--accent-purple); /* Светлее при ховере */
   }
 }
 
 .text {
-  color: red; /* Цвет текста ошибок */
-  font-size: 0.875rem; /* Размер шрифта для ошибок */
-  margin-top: -5px; /* Отрицательный отступ для близости к полю */
-  margin-bottom: 10px; /* Отступ снизу */
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 0.9rem;
+  color: #ff4d4f; /* Красный цвет для ошибок */
+  margin: 0;
 }
 
-.button {
-  padding: 12px;
-  background-color: #4caf50; /* Зеленый фон кнопки */
-  color: white; /* Цвет текста кнопки */
-  border: none; /* Без рамки */
-  border-radius: 4px; /* Закругленные углы */
-  cursor: pointer; /* Указатель при наведении */
-  font-size: 16px; /* Размер шрифта */
-  transition: background-color 0.3s; /* Плавный переход цвета фона */
+/* Стили для текста "Вы компания?" */
+.form > p {
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin: 10px 0 0 0;
+}
 
-  &:hover {
-    background-color: #45a049; /* Темнее при наведении */
+/* Адаптивность */
+@media (max-width: 576px) {
+  .form {
+    padding: 15px;
+  }
+
+  .input,
+  .button {
+    height: 45px; /* Уменьшаем высоту на мобильных */
+    font-size: 0.9rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
   }
 }

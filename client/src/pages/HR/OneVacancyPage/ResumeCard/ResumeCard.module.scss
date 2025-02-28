@@ -1,12 +1,12 @@
 .resumeCard {
-  width: 90vw;              // 90% ширины экрана
+  width: 60vw;              // 90% ширины экрана
   height: 85vh;             // 85% высоты экрана
-  max-width: 600px;         // максимальная ширина для больших экранов
+  max-width: 450px;         // максимальная ширина для больших экранов
   max-height: 800px;        // максимальная высота для больших экранов
   background: white;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 30px;
+  padding: 20px;
   text-align: center;
   cursor: grab;
   user-select: none;

@@ -92,16 +92,14 @@ const getVacancyById = async (req, res) => {
 const deleteVacancy = async (req, res) => {
   try {
     const { vacancyId } = req.params;
-    const userId = res.locals.user.id;
-
-    const result = await vacancyService.deleteVacancyById(vacancyId, userId);
+    const result = await vacancyService.deleteVacancyById(vacancyId);
     if (!result.success) {
       return res.status(result.status).json({ message: result.message });
     }
     return res.status(200).json({ message: 'Вакансия успешно удалена' });
   } catch (error) {
     console.error('Ошибка при удалении вакансии: ', error);
-    return res.sendStatus(500);
+    return res.status(500).send({ message: error.message });
   }
 };
 

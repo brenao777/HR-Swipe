@@ -1,37 +1,186 @@
 .vacancyCard {
-  width: 300px;
-  height: 500px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 50vh;
+  height: 75vh;
+  background: #fff; /* Белый фон */
+  border-radius: var(--radius); /* Закругления */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Тень */
   padding: 20px;
   text-align: center;
   cursor: grab;
   user-select: none;
   position: relative;
-  z-index: 1; 
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Отступы между элементами */
+}
+
+.title {
+  font-family: var(--font-heading); /* Raleway */
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-purple); /* Фиолетовый заголовок */
+  margin: 0;
+}
+
+.description,
+.workDuration,
+.salary,
+.location,
+.experience {
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1rem;
+  color: var(--text-dark); /* Темный текст */
+  margin: 5px 0;
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+.instructions {
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 0.9rem;
+  color: #666; /* Серый цвет для инструкций */
+  margin-top: 50%; /* Прижимаем инструкции к низу перед кнопкой */
+}
+
+.detailsButton {
+  padding: 10px 20px;
+  font-family: var(--font-primary); /* Montserrat */
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--primary-purple); /* Фиолетовый фон */
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: auto; /* Закрепляем кнопку внизу карточки */
+
+  &:hover {
+    background-color: var(--accent-purple); /* Светлее при ховере */
+  }
+}
+
+/* Стили для Bootstrap Modal */
+.modal {
+  :global(.modal-content) {
+    background-color: var(--light-purple); /* Светло-фиолетовый фон */
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+
+  .modalHeader {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    :global(.btn-close) {
+      font-size: 1.5rem;
+      color: var(--text-dark);
+      background: none;
+      border: none;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: var(--primary-purple); /* Фиолетовый при ховере */
+      }
+    }
+  }
+
+  .modalTitle {
+    font-family: var(--font-heading); /* Raleway */
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-purple); /* Фиолетовый заголовок */
+    margin: 0;
+  }
+
+  .modalBody {
+    font-family: var(--font-primary); /* Montserrat */
+    font-size: 1rem;
+    color: var(--text-dark);
+    padding: 20px 0;
+
+    p {
+      margin: 10px 0;
+
+      strong {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .modalFooter {
+    border-top: 1px solid #e9ecef;
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .modalCloseButton {
+    padding: 10px 20px;
+    font-family: var(--font-primary); /* Montserrat */
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    background-color: var(--primary-purple); /* Фиолетовый фон */
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: var(--accent-purple); /* Светлее при ховере */
+    }
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 576px) {
+  .vacancyCard {
+    width: 100%; /* Полная ширина на мобильных */
+    height: auto; /* Автоматическая высота */
+    padding: 15px;
+  }
 
   .title {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.25rem;
   }
 
-  .description {
-    font-size: 1rem;
-    margin-bottom: 10px;
+  .description,
+  .workDuration,
+  .salary,
+  .location,
+  .experience {
+    font-size: 0.9rem;
   }
 
-  .location {
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
-
-  .detailsButton {
-    margin-bottom: 20px;
+  .detailsButton,
+  .modalCloseButton {
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 
   .instructions {
-    font-size: 14px;
-    color: #666;
+    font-size: 0.8rem;
+  }
+
+  .modal {
+    :global(.modal-dialog) {
+      margin: 10px;
+    }
+
+    .modalTitle {
+      font-size: 1.25rem;
+    }
+
+    .modalBody {
+      font-size: 0.9rem;
+    }
   }
 }
