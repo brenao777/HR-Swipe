@@ -144,8 +144,7 @@
 
 .responses {
   margin: 2vh;
-  padding: 2vh;
-  border: 1px solid var(--primary-purple); /* Фиолетовая рамка */
+  // border: 1px solid var(--primary-purple); /* Фиолетовая рамка */
   border-radius: var(--radius);
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -160,7 +159,7 @@
 .NoRes {
   display: flex;
   justify-content: center;
-  margin-top: 15%;
+  margin-top: 25%;
   font-size: 60px;
 }
 

@@ -10,12 +10,13 @@ type Props = {
 export default function ResponceCard({ resp }: Props): React.JSX.Element {
   const navigate = useNavigate();
 
-  // Функция для определения содержимого статуса
   const renderStatusContent = () => {
     if (resp.status === 'accepted') {
       return (
         <div className={styles.statusAccepted}>
-          <h5 className={styles.statusText}>Поздравляем, ваше резюме одобрено!</h5>
+          <h5 className={styles.statusText} data-status="accepted">
+            Поздравляем, ваше резюме одобрено!
+          </h5>
           <button onClick={() => navigate('/chat')} className={styles.chatButton}>
             Начать чат с HR
           </button>
@@ -23,12 +24,20 @@ export default function ResponceCard({ resp }: Props): React.JSX.Element {
       );
     }
     if (resp.status === 'pending') {
-      return <h5 className={styles.statusText}>На рассмотрении...</h5>;
+      return (
+        <h5 className={styles.statusText} data-status="pending">
+          На рассмотрении...
+        </h5>
+      );
     }
     if (resp.status === 'rejection') {
-      return <h5 className={styles.statusText}>Отказ</h5>;
+      return (
+        <h5 className={styles.statusText} data-status="rejection">
+          Отказ
+        </h5>
+      );
     }
-    return null; // На случай неизвестного статуса
+    return null;
   };
 
   return (

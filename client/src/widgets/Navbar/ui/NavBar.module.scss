@@ -25,7 +25,7 @@
   color: var(--primary-purple); /* Фиолетовый логотип */
   text-decoration: none;
   transition: color 0.2s ease-in-out;
-
+  padding-top: 5px;
   &:hover {
     color: var(--accent-purple); /* Светлее при ховере */
   }
