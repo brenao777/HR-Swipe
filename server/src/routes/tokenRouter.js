@@ -1,5 +1,5 @@
 const tokenRouter = require('express').Router();
-const cookieConfig = require('../configs/сookie.config');
+const cookieConfig = require('../configs/cookie.config');
 const { verifyRefreshToken } = require('../middlewares/verifyTokens');
 const generateTokens = require('../utils/generateTokens');
 

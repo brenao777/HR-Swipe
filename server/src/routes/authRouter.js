@@ -1,9 +1,9 @@
 const authRouter = require('express').Router();
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { User } = require('../../db/models');
 const generateTokens = require('../utils/generateTokens');
-const cookieConfig = require('../configs/сookie.config');
+const cookieConfig = require('../configs/cookie.config');
 
 authRouter.post('/register', async (req, res) => {
   const { email, firstName, secondName, password, company } = req.body;

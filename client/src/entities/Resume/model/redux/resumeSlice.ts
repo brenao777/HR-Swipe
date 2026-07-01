@@ -18,13 +18,12 @@ const resumeSlice = createSlice({
   name: 'resume',
   initialState,
   reducers: {
-    applyToResume(state, action: PayloadAction<number>) {
-      state.currentResumeIndex += 1; // Переход к следующему резюме
-      console.log('Отклик на резюме -', action.payload);
+    applyToResume(state, _action: PayloadAction<number>) {
+      state.currentResumeIndex += 1;
     },
     hideResume(state, action: PayloadAction<number>) {
       state.hiddenResumes.push(action.payload);
-      state.currentResumeIndex += 1; // Переход к следующему резюме
+      state.currentResumeIndex += 1;
     },
   },
 
@@ -35,11 +34,11 @@ const resumeSlice = createSlice({
         state.loading = true;
       })
       .addCase(getResumes.rejected, (state, action) => {
-        state.loading = true;
-        state.error = action.payload as string;
+        state.loading = false;
+        state.error = action.error.message ?? 'Не удалось загрузить резюме';
       })
       .addCase(getResumes.fulfilled, (state, action) => {
-        state.loading = true;
+        state.loading = false;
         state.error = null;
         state.resumes = action.payload;
       })
@@ -53,12 +52,24 @@ const resumeSlice = createSlice({
         state.error = null;
         state.resumesById = action.payload;
       })
+      // Loading a vacancy's candidates resets the HR swipe deck.
+      .addCase(findVacancyById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.hiddenResumes = [];
+        state.currentResumeIndex = 0;
+      })
       .addCase(findVacancyById.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
         state.resumesById = action.payload;
+      })
+      .addCase(findVacancyById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? 'Не удалось загрузить отклики';
       });
   },
 });
+
 export const { applyToResume, hideResume } = resumeSlice.actions;
 export default resumeSlice;

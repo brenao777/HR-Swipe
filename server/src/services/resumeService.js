@@ -6,18 +6,13 @@ const path = require('path');
 const findResume = async (search) => {
   if (search && search.length !== 0) {
     return Resume.findAll({
-      where: {
-        title: {
-          [Op.like]: `%${search}%`,
-        },
-      },
+      where: { specialty: { [Op.like]: `%${search}%` } },
+      include: { model: User, attributes: ['firstName', 'secondName'] },
+      order: [['id', 'DESC']],
     });
   }
   return Resume.findAll({
-    include: {
-      model: User,
-      attributes: ['firstName', 'secondName'],
-    },
+    include: { model: User, attributes: ['firstName', 'secondName'] },
     order: [['id', 'DESC']],
   });
 };
@@ -31,13 +26,12 @@ const createResume = async ({
   coverLetter,
   userId,
   file,
-  fullName,
 }) => {
-  const fileName = `${userId}-${new Date().getTime()}.webp`;
+  const fileName = `${userId}-${Date.now()}.webp`;
   const filePath = path.join(__dirname, `../../public/${fileName}`);
   await sharp(file.buffer).webp().toFile(filePath);
 
-  const newResume = Resume.create({
+  return Resume.create({
     number,
     specialty,
     location,
@@ -46,24 +40,19 @@ const createResume = async ({
     coverLetter,
     userId,
     photo: fileName,
-    fullName,
   });
-  return newResume;
 };
 
 const findResumeIdById = async (userId) =>
   Resume.findAll({
     where: { userId },
-    include: {
-      model: User,
-      attributes: ['firstName', 'secondName'],
-    },
+    include: { model: User, attributes: ['firstName', 'secondName'] },
   });
 
 const deleteResumeById = async (resumeId, userId) => {
   const resume = await Resume.findByPk(resumeId);
   if (!resume) {
-    return { success: false, status: 404, message: 'Товар не найден!' };
+    return { success: false, status: 404, message: 'Резюме не найдено!' };
   }
   if (resume.userId !== userId) {
     return {
@@ -73,33 +62,13 @@ const deleteResumeById = async (resumeId, userId) => {
     };
   }
 
-  await Resume.destroy({
-    where: {
-      id: resumeId,
-    },
-  });
-
-  return { success: true, status: 200, message: 'Резюме успешно удален!' };
+  await resume.destroy();
+  return { success: true, status: 200, message: 'Резюме успешно удалено!' };
 };
-
-// const updateResumeById = async (id, status) => {
-//   const resume = await Resume.findOne({ where: { id } });
-
-//   if (!resume) {
-//     return { success: false, status: 404, message: 'Резюме не найдено!' };
-//   }
-
-//   await resume.update({
-//     status,
-//   });
-
-//   return { success: true, resume };
-// };
 
 module.exports = {
   findResume,
   createResume,
   findResumeIdById,
   deleteResumeById,
-  // updateResumeById,
 };

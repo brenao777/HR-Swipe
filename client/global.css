@@ -1,60 +1,106 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Raleway:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=Montserrat:wght@400..800&display=swap');
 
-/* Глобальные переменные */
+/* ============================ Design tokens ============================ */
 :root {
-  --font-primary: 'Montserrat', 'Arial', sans-serif;
-  --font-heading: 'Raleway', 'Arial', sans-serif;
-  --primary-purple: #6b48ff;
-  --light-purple: #f2efff;
-  --accent-purple: #8a63ff;
-  --text-dark: #333;
-  --radius: 12px;
+  --font-primary: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --font-heading: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+
+  /* Brand */
+  --primary: #6d5efc;
+  --primary-dark: #574bd6;
+  --primary-soft: #efecff;
+  --gradient: linear-gradient(135deg, #6d5efc 0%, #9b6bff 100%);
+
+  /* Semantic (swipe): green = apply, red = skip */
+  --success: #16c784;
+  --success-soft: #e3f9f0;
+  --danger: #ff5a72;
+  --danger-soft: #ffe6ea;
+  --warning: #f5a623;
+
+  /* Neutrals */
+  --bg: #f4f5fb;
+  --surface: #ffffff;
+  --text: #1c2138;
+  --muted: #7a8095;
+  --border: #e7e9f3;
+
+  --radius: 18px;
+  --radius-sm: 12px;
+  --shadow-sm: 0 4px 14px rgba(28, 33, 56, 0.06);
+  --shadow: 0 14px 40px rgba(28, 33, 56, 0.12);
+  --shadow-lg: 0 24px 60px rgba(28, 33, 56, 0.18);
 }
 
-/* Основной стиль для страницы */
+/* ============================ Base ============================ */
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--font-primary);
-  font-weight: 400; /* Обычный вес для текста */
-  background-color: var(--light-purple);
-  color: var(--text-dark);
+  font-weight: 400;
+  background: var(--bg);
+  color: var(--text);
   margin: 0;
   padding: 0;
-  font-size: 1rem; /* Базовый размер текста */
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Заголовки */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 700; /* Жирный вес для заголовков */
-  color: var(--primary-purple); /* Фиолетовый цвет для заголовков */
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.5em;
+  letter-spacing: -0.02em;
 }
 
-h1 {
-  font-size: 2.5rem;
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 1.1rem; }
+
+p, label, span {
+  font-family: var(--font-primary);
+  line-height: 1.55;
 }
 
-h2 {
-  font-size: 2rem;
-}
+a { color: var(--primary); text-decoration: none; }
 
-h3 {
-  font-size: 1.5rem;
-}
-
-h4 {
-  font-size: 1.25rem;
-}
-
-/* Элементы интерфейса */
 button, input, select, textarea {
   font-family: var(--font-primary);
-  font-weight: 500; /* Средний вес для кнопок и форм */
+  font-weight: 500;
 }
 
-/* Мелкий текст */
-p, label, span, .vacancyDescription, .vacancyLocation {
-  font-family: var(--font-primary);
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
+button { cursor: pointer; }
+
+/* Shared form controls */
+input, select, textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
+
+input::placeholder, textarea::placeholder { color: var(--muted); }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+/* Bootstrap modal polish so the filter/create dialogs match the theme */
+.modal-content {
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.modal-header, .modal-footer { border-color: var(--border); }
+.modal-title { font-family: var(--font-heading); font-weight: 700; }

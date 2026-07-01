@@ -8,8 +8,6 @@ import RegisterPage from '@/pages/RegisterPage/RegisterPage';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import ProtectedRoute from './ProtectedRouter';
-import FilterModal from '@/widgets/Modal/FilterModal/FilterModal';
-import Test from '@/entities/test/Test';
 import Chat from '@/widgets/Chat/ui/Chat';
 import HrPersonCabinet from '@/pages/HR/HrPesonCabinet/HrPersonCabinet';
 import HrAddCompanyPage from '@/pages/HR/HrAddCompanyPage/HrAddCompanyPage';
@@ -20,16 +18,14 @@ export default function RouterProvider(): React.JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route element={<ProtectedRoute allowedStatuses={['logged']} redirectTo="/" />}>
+          <Route element={<ProtectedRoute allowedStatuses={['logged']} redirectTo="/login" />}>
             <Route index element={<VacancyPage />} />
             <Route path="/oneVacancyPage/:vacancyId" element={<OneVacancyPage />} />
             <Route path="/hrCabinet" element={<HrPersonCabinet />} />
             <Route path="/addcompany" element={<HrAddCompanyPage />} />
             <Route path="/cabinet" element={<PersonCabinetPage />} />
-            <Route path="/filter" element={<FilterModal />} />
             <Route path="/company" element={<HrCompanyPage />} />
             <Route path="/myResumes" element={<MyResumesPage />} />
-            <Route path="/test" element={<Test />} />
             <Route path="/chat" element={<Chat />} />
           </Route>
           <Route element={<ProtectedRoute allowedStatuses={['guest']} redirectTo="/login" />}>

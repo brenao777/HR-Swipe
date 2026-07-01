@@ -1,49 +1,23 @@
-const {
-  VacancyStatus,
-  ResumeStatus,
-  Resume,
-  User,
-  sequelize,
-} = require('../../db/models');
+const { VacancyStatus, ResumeStatus, Resume, User, sequelize } = require('../../db/models');
 
+// An applicant "applies" to a vacancy: record the response (ResumeStatus)
+// and the user↔vacancy link (VacancyStatus) atomically.
 const createConnection = async (userId, vacancyId) =>
-  // Начинаем транзакцию для атомарности операций
   sequelize.transaction(async (transaction) => {
-    // Ищем резюме пользователя
     const userWithResume = await User.findByPk(userId, {
-      include: {
-        model: Resume,
-        attributes: ['id'], // Запрашиваем только ID резюме
-        required: true, // Гарантируем наличие резюме
-      },
+      include: { model: Resume, attributes: ['id'], required: true },
       transaction,
     });
 
-    if (!userWithResume) {
-      throw new Error('User not found');
-    }
-
-    if (!userWithResume.Resumes || userWithResume.Resumes.length === 0) {
-      throw new Error('User has no resumes');
+    if (!userWithResume || userWithResume.Resumes.length === 0) {
+      throw new Error('У пользователя нет резюме');
     }
 
     const resumeId = userWithResume.Resumes[0].id;
 
-    // Создаем записи в обеих таблицах
-    await ResumeStatus.create(
-      {
-        vacancyId,
-        resumeId,
-      },
-      { transaction },
-    );
+    await ResumeStatus.create({ vacancyId, resumeId, status: 'pending' }, { transaction });
 
-    return VacancyStatus.create(
-      {
-        userId,
-        vacancyId,
-      },
-      { transaction },
-    );
+    return VacancyStatus.create({ userId, vacancyId }, { transaction });
   });
+
 module.exports = { createConnection };

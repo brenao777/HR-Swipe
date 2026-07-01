@@ -8,7 +8,6 @@ export default function MyResumesPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.user.data);
   const resumes = useAppSelector((store) => store.resume.resumesById);
-  console.log(resumes, 'MyResumesPage - store.resume.resumes');
 
   useEffect(() => {
     if (user?.id) {

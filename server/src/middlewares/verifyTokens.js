@@ -1,15 +1,14 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const jwtConfig = require('../configs/jwt.config');
 
 const verifyAccessToken = (req, res, next) => {
   try {
-    const accessToken = req.headers.authorization.split(' ')[1]; // Bearer <token>
-    const { user } = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    const accessToken = (req.headers.authorization || '').split(' ')[1]; // Bearer <token>
+    const { user } = jwt.verify(accessToken, jwtConfig.access.secret);
     res.locals.user = user;
 
     return next();
-  } catch (error) {
-    console.log('Invalid access token', error);
+  } catch {
     return res.sendStatus(403);
   }
 };
@@ -17,12 +16,11 @@ const verifyAccessToken = (req, res, next) => {
 const verifyRefreshToken = (req, res, next) => {
   try {
     const { refreshToken } = req.cookies;
-    const { user } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const { user } = jwt.verify(refreshToken, jwtConfig.refresh.secret);
     res.locals.user = user;
 
     return next();
-  } catch (error) {
-    console.log('Invalid refresh token', error);
+  } catch {
     return res.clearCookie('refreshToken').sendStatus(401);
   }
 };

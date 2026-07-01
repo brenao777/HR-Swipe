@@ -4,27 +4,13 @@ const vacancyService = require('../services/vacancyService');
 
 const getAllVacancies = async (req, res) => {
   try {
-    const filters = req.query;
-    const vacancies = await vacancyService.findVacancies(filters);
+    const vacancies = await vacancyService.findVacancies(req.query);
     return res.status(200).json(vacancies);
   } catch (error) {
     console.error('Ошибка при загрузке вакансий: ', error);
     return res.status(500).send({ message: error.message });
   }
 };
-
-const getVacanciesByCompanyId = async (req, res) => {
-  try {
-    const {vacancyId} = req.params;
-    console.log('companyId', vacancyId);
-    const vacancies = await vacancyService.findVacanciesByCompanyId(vacancyId);
-    return res.status(200).json(vacancies);
-  } catch (error) {
-    console.error('Ошибка при загрузке вакансий: ', error);
-    return res.status(500).send({ message: error.message });
-  }
-};
-
 
 const createVacancy = async (req, res) => {
   try {
@@ -71,21 +57,19 @@ const createVacancy = async (req, res) => {
     return res.status(201).json(newVacancy);
   } catch (error) {
     console.error('Ошибка при добавлении вакансии: ', error);
-    return res.status(500).send('Error in createVacancy: ', { message: error.message });
+    return res.status(500).send({ message: error.message });
   }
 };
 
+// Returns the resumes (candidates) that responded to a given vacancy.
 const getVacancyById = async (req, res) => {
   try {
     const { vacancyId } = req.params;
-    const vacancy = await vacancyService.findVacancyById(vacancyId);
-    if (!vacancy) {
-      res.status(404).json({ message: 'Вакансия не найдена!' });
-    }
-    res.status(200).json(vacancy);
+    const candidates = await vacancyService.findVacancyById(vacancyId);
+    return res.status(200).json(candidates);
   } catch (error) {
     console.error('Error in getVacancyById:', error);
-    res.status(500).json({ message: error.message || 'Ошибка сервера' });
+    return res.status(500).json({ message: error.message || 'Ошибка сервера' });
   }
 };
 
@@ -121,7 +105,7 @@ const updateVacancy = async (req, res) => {
     return res.json(updatedVacancy.vacancy);
   } catch (error) {
     console.error(error);
-    return res.status(500).send({message: error.message})
+    return res.status(500).send({ message: error.message });
   }
 };
 
@@ -131,5 +115,4 @@ module.exports = {
   getVacancyById,
   deleteVacancy,
   updateVacancy,
-  getVacanciesByCompanyId
 };

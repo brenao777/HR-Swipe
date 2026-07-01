@@ -10,62 +10,59 @@ export default function NavBar(): React.JSX.Element {
   const user = useAppSelector((store) => store.user.data);
   const { logoutHandler } = useUser();
   const dispatch = useAppDispatch();
-  const openModal = useAppSelector((state) => state.vacancies.openModal);
 
   const logout = async (): Promise<void> => {
     await logoutHandler();
   };
 
-  // const toggleMenu = (): void => setIsOpen((prev) => !prev);
-
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContainer}>
-        <h1 className={styles.brand}>
-          HR-Swipe
-        </h1>
-        <ul className={`${styles.nav} ${openModal ? styles.navOpen : ''}`}>
-          {status === 'logged' && (
+        <Link to="/" className={styles.brand}>
+          <span className={styles.brandMark}>HR</span>Swipe
+        </Link>
+
+        <ul className={styles.nav}>
+          {status === 'logged' && user?.company && (
             <>
-              {user?.company ? (
-                <>
-                  <li>
-                    <Link to="/company" className={styles.navLink}>
-                      Компания
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/hrCabinet" className={styles.navLink}>
-                      Личный кабинет
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/chat" className={styles.navLink}>
-                      Чат
-                    </Link>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li>
-                    <Link to="/" className={styles.navLink}>
-                      Вакансии
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/cabinet" className={styles.navLink}>
-                      Личный кабинет
-                    </Link>
-                  </li>
-                  <li>
-                    <button onClick={() => dispatch(handleShow())} className={styles.logoutBtn}>
-                      Фильтр
-                    </button>
-                  </li>
-                </>
-              )}
+              <li>
+                <Link to="/company" className={styles.navLink}>
+                  Компания
+                </Link>
+              </li>
+              <li>
+                <Link to="/hrCabinet" className={styles.navLink}>
+                  Личный кабинет
+                </Link>
+              </li>
+              <li>
+                <Link to="/chat" className={styles.navLink}>
+                  Чат
+                </Link>
+              </li>
             </>
           )}
+
+          {status === 'logged' && !user?.company && (
+            <>
+              <li>
+                <Link to="/" className={styles.navLink}>
+                  Вакансии
+                </Link>
+              </li>
+              <li>
+                <Link to="/cabinet" className={styles.navLink}>
+                  Личный кабинет
+                </Link>
+              </li>
+              <li>
+                <button onClick={() => dispatch(handleShow())} className={styles.filterBtn}>
+                  Фильтр
+                </button>
+              </li>
+            </>
+          )}
+
           {status === 'guest' && (
             <>
               <li>
@@ -74,25 +71,19 @@ export default function NavBar(): React.JSX.Element {
                 </Link>
               </li>
               <li>
-                <Link to="/register" className={styles.navLink}>
+                <Link to="/register" className={styles.navLinkPrimary}>
                   Регистрация
                 </Link>
               </li>
             </>
           )}
         </ul>
+
         {status === 'logged' && (
           <button onClick={logout} className={styles.logoutBtn}>
             Выход
           </button>
         )}
-        <button
-          className={`${styles.toggle} ${openModal ? styles.toggleOpen : ''}`}
-          onClick={() => dispatch(handleShow())}
-          aria-label="Toggle menu"
-        >
-          <span className={styles.hamburger}></span>
-        </button>
       </div>
     </nav>
   );

@@ -1,184 +1,192 @@
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+}
+
+.companyInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+.companyDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.companyTitle {
+  margin: 0.1rem 0;
+}
+
+.location {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tabBtn {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+
+  &:hover {
+    color: var(--primary);
+    border-color: var(--primary);
   }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap; /* Для адаптивности */
-  }
-  
-  .companyInfo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%; /* Закругленный логотип */
-    object-fit: cover;
-  }
-  
-  .companyDetails {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .label {
-    font-family: var(--font-primary); /* Montserrat */
-    font-size: 0.9rem;
-    color: var(--text-dark);
-    opacity: 0.7;
-  }
-  
-  .companyTitle {
-    font-family: var(--font-heading); /* Raleway */
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-purple); /* Фиолетовый заголовок */
-    margin: 0;
-  }
-  
-  .tabs {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .tabBtn {
-    font-family: var(--font-primary); /* Montserrat */
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text-dark);
-    background-color: transparent;
-    border: 2px solid var(--primary-purple); /* Фиолетовая рамка */
-    border-radius: var(--radius);
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  
-    &:hover {
-      background-color: var(--primary-purple); /* Фиолетовый фон при ховере */
-      color: #fff;
-    }
-  }
-  
-  .activeTab {
-    background-color: var(--primary-purple); /* Активная вкладка */
+}
+
+.activeTab {
+  background: var(--gradient);
+  color: #fff;
+  border-color: transparent;
+
+  &:hover {
     color: #fff;
-    border-color: var(--primary-purple);
   }
-  
-  .content {
-    flex-grow: 1;
-    padding: 20px;
+}
+
+.companyContent {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+
+  .description {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
   }
-  
-  .companyContent {
-    .description {
-      font-family: var(--font-primary); /* Montserrat */
-      font-size: 1.5rem;
-      color: var(--text-dark);
-      white-space: pre-line; /* Сохранение переносов строк */
-      margin-bottom: 15px;
-    }
-  
-    .location {
-      font-family: var(--font-primary); /* Montserrat */
-      font-size: 1rem;
-      color: var(--text-dark);
-  
-      strong {
-        font-weight: 500;
-      }
-    }
+}
+
+.metaLine {
+  color: var(--muted);
+  margin: 0.35rem 0;
+
+  strong {
+    color: var(--text);
   }
-  
-  .vacanciesContent {
-    display: flex;
+}
+
+.vacanciesContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.vacancyCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+}
+
+.vacancyTitle {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+}
+
+.salary {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.vacancyTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+}
+
+.tag {
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.noVacancies {
+  color: var(--muted);
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.error {
+  color: var(--danger);
+}
+
+@media (max-width: 640px) {
+  .header {
     flex-direction: column;
-    gap: 15px;
+    align-items: flex-start;
   }
-  
-  .vacancyCard {
-    background-color: #fff; /* Белый фон для карточек */
-    border: 1px solid var(--primary-purple); /* Фиолетовая рамка */
-    border-radius: var(--radius);
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-  
-    &:hover {
-      transform: translateY(-5px); /* Легкий подъем при ховере */
-    }
+  .tabs {
+    width: 100%;
   }
-  
-  .vacancyTitle {
-    font-family: var(--font-heading); /* Raleway */
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-purple); /* Фиолетовый заголовок */
-    margin-bottom: 10px;
+  .tabBtn {
+    flex: 1;
   }
-  
-  .vacancyDescription,
-  .vacancyLocation {
-    font-family: var(--font-primary); /* Montserrat */
-    font-size: 1rem;
-    color: var(--text-dark);
-    margin: 5px 0;
-  
-    strong {
-      font-weight: 500;
-    }
-  }
-  
-  .noVacancies {
-    font-family: var(--font-primary); /* Montserrat */
-    font-size: 1rem;
-    color: var(--text-dark);
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .loading,
-  .error {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-family: var(--font-primary); /* Montserrat */
-    font-size: 1.25rem;
-    color: var(--text-dark);
-  }
-  
-  .loadingText {
-    display: none; /* Скрываем текст для визуальной загрузки, если нужен спиннер — добавим */
-  }
-  
-  /* Адаптивность */
-  @media (max-width: 768px) {
-    .header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-    }
-  
-    .tabs {
-      width: 100%;
-      justify-content: center;
-    }
-  
-    .tabBtn {
-      flex-grow: 1;
-      text-align: center;
-    }
-  }
+}

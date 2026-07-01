@@ -1,22 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-type ChatState = {
+export type ChatMessage = {
+  id: string;
+  userId?: number;
   message: string;
   name: string;
 };
 
-const initialState: ChatState[] = [];
+const initialState: ChatMessage[] = [];
 
 const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
-    message: (state, action: PayloadAction<ChatState>) => {
+    message: (state, action: PayloadAction<ChatMessage>) => {
       state.push(action.payload);
     },
-    // Новый редюсер для установки полной истории
-    setChatHistory: (state, action: PayloadAction<ChatState[]>) => action.payload, // Заменяем текущее состояние на полную историю
+    setChatHistory: (_state, action: PayloadAction<ChatMessage[]>) => action.payload,
   },
 });
 

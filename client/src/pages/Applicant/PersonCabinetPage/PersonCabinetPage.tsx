@@ -14,7 +14,6 @@ export default function PersonCabinetPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const responses = useAppSelector((store) => store.vacancies.vacanciesWithStatus);
 
-  console.log(responses);
 
   useEffect(() => {
     void dispatch(getVacanciesWithStatus());

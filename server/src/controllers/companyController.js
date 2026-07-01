@@ -1,33 +1,24 @@
 const companyService = require('../services/companyService');
 
-// Получение всех компаний текущего пользователя
+// Company of the current user (used to check whether HR already has a company).
 const getAllCompany = async (req, res) => {
   try {
     const { search } = req.query;
     const { user } = res.locals;
 
-    if (!user) {
-      return res.status(403).json({ message: 'Требуется авторизация' });
-    }
-
-    const companies = await companyService.findCompany(search, user.id);
-    return res.status(200).json(companies);
+    const company = await companyService.findCompany(search, user.id);
+    return res.status(200).json(company);
   } catch (error) {
     console.error('Ошибка при загрузке компаний: ', error);
     return res.sendStatus(500);
   }
 };
 
-// Создание новой компании
 const createCompany = async (req, res) => {
   try {
-    const { title, description,  location } = req.body;
+    const { title, description, location } = req.body;
     const { user } = res.locals;
     const { file } = req;
-
-    // if (!title || !description  || !location) {
-    //   return res.status(400).json({ message: 'Некорректные данные' });
-    // }
 
     const newCompany = await companyService.createCompany({
       title,
@@ -40,19 +31,14 @@ const createCompany = async (req, res) => {
     return res.status(201).json(newCompany);
   } catch (error) {
     console.error('Ошибка при создании компании: ', error);
-    return res.status(500).send({ message: error });
+    return res.status(500).send({ message: error.message });
   }
 };
 
+// Company (with its vacancies) that belongs to :userId.
 const getCompanyById = async (req, res) => {
   try {
     const { userId } = req.params;
-    const { user } = res.locals;
-
-    if (!user) {
-      return res.status(403).json({ message: 'Требуется авторизация' });
-    }
-
     const company = await companyService.findCompanyIdById(userId);
 
     if (!company) {
@@ -66,18 +52,12 @@ const getCompanyById = async (req, res) => {
   }
 };
 
-// Удаление компании
 const deleteCompany = async (req, res) => {
   try {
-    const { vacancyId } = req.params;
+    const { userId } = req.params;
     const { user } = res.locals;
 
-    if (!user) {
-      return res.status(403).json({ message: 'Требуется авторизация' });
-    }
-
-    const result = await companyService.deleteCompanyById(vacancyId, user.id);
-
+    const result = await companyService.deleteCompanyByUserId(userId, user.id);
     if (!result.success) {
       return res.status(result.status).json({ message: result.message });
     }
@@ -89,18 +69,13 @@ const deleteCompany = async (req, res) => {
   }
 };
 
-// Обновление компании
 const updateCompany = async (req, res) => {
   try {
-    const { companyId } = req.params;
+    const { userId } = req.params;
     const { title, description, logo, location } = req.body;
     const { user } = res.locals;
 
-    if (!user) {
-      return res.status(403).json({ message: 'Требуется авторизация' });
-    }
-
-    const updatedCompany = await companyService.updateCompanyById(companyId, user.id, {
+    const updatedCompany = await companyService.updateCompanyByUserId(userId, user.id, {
       title,
       description,
       logo,

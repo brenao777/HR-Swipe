@@ -1,89 +1,30 @@
-# Elbrus Bootcamp Vite bundle
+# HR-Swipe — client
 
-## React + Typescript + ESLint + Prettier
+React 18 + TypeScript + Vite frontend for HR-Swipe, organised with
+[Feature-Sliced Design](https://feature-sliced.design/).
 
-Современный быстрый сборщик React проекта на Typescript с предустановленными настройками ESLint и Prettier от Elbrus Bootcamp.
+See the [root README](../README.md) for the full picture and one-command startup.
 
-## Использование
+## Scripts
 
-```
-npx degit Elbrus-Bootcamp/vite-react-ts my-app
-
-cd my-app
-
-npm i
-```
-
-## Скрипты
-
-- Запустить в режиме разработки
-
-```
-npm run dev
+```bash
+npm run dev       # dev server (http://localhost:5173, proxies /api and /uploads → :3000)
+npm run build     # type-check + production build → dist/
+npm run preview   # preview the production build
+npm run lint      # ESLint
 ```
 
-- Собрать проект
+## Layout
 
 ```
-npm run build
+src/
+├── app/        store, routing, providers
+├── pages/      route-level screens (Applicant / HR / Login / Register / Layout)
+├── widgets/    Navbar, Chat, resume lists
+├── features/   swipe carousel
+├── entities/   user, Vacancy, Resume, Company, Chat, vacancyStatus
+└── shared/     axios instance, hooks, imageUrl helper
 ```
 
-- Превью
-
-```
-npm run preview
-```
-
-## `ENV`
-
-Для подключения переменных окружения нужно описать их в файле `.env` в корне. Переменные окружения можно получить из объекта `import.meta.env`. Чтобы Typescript подсказывал, какими переменными окружения можно пользоваться, их нужно прописать в файле `src/env.d.ts`. Только переменные с префиксом `VITE_` передаются на клиент.
-
-## `settings.json`
-
-Чтобы настроить форматирование и линтование по сохранению, необходимо прописать в `settings.json` (ctrl + shift + P) следующие настройки:
-
-```json
-{
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
-}
-```
-
-Можно добавить форматирование Prettier для JS и React:
-
-```json
-{
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
-}
-```
-
-При работе не из корневой директории необходимо настроить CWD для ESLint:
-
-```json
-{
-  "eslint.workingDirectories": [
-    { "directory": "./client", "changeProcessCWD": true },
-    { "directory": "./server", "changeProcessCWD": true }
-  ]
-}
-```
-
-Если директория не `client` или `server`, то можно добавить соответствующую строчку в данный массив.
-
-## FAQ 
-
-1. На windows из-под wsl Vite не следит за изменениями файлов
-Добавить в `vite.config`
-
-```js
-server: { watch: { usePolling: true } }
-```
-Подробнее:  https://vitejs.dev/config/server-options.html#server-watch. 
+The dev server expects the API on `http://localhost:3000` (configurable via the
+Vite proxy in `vite.config.ts`). Websocket URL can be overridden with `VITE_SOCKET_URL`.

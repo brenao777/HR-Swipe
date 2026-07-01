@@ -19,10 +19,11 @@ const userSlice = createSlice({
         state.status = 'logged';
         state.error = null;
       })
-      .addCase(fetchUser.rejected, (state, action) => {
+      .addCase(fetchUser.rejected, (state) => {
+        // A failed token refresh just means the visitor is a guest — not an error to show.
         state.data = null;
         state.status = 'guest';
-        state.error = action.error.message ?? 'Что-то пошло не так :(';
+        state.error = null;
       })
       .addCase(submitHandler.fulfilled, (state, action) => {
         state.data = action.payload.user;

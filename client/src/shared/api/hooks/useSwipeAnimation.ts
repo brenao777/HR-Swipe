@@ -46,7 +46,7 @@ export const useSwipeAnimation = (onSwipeLeft: () => void, onSwipeRight: () => v
               backgroundApi.start({ backgroundColor: 'rgba(0, 0, 0, 0)' });
               onSwipeRight();
             })
-            .catch((error) => console.error);
+            .catch((error) => console.error(error));
         } else if (deltaX < -100) {
           Promise.all(api.start({ x: -500, opacity: 0, rotate: -10 }))
             .then(() => {
@@ -55,7 +55,7 @@ export const useSwipeAnimation = (onSwipeLeft: () => void, onSwipeRight: () => v
               backgroundApi.start({ backgroundColor: 'rgba(0, 0, 0, 0)' });
               onSwipeLeft();
             })
-            .catch((error) => console.error);
+            .catch((error) => console.error(error));
         } else {
           api.start({ x: 0, opacity: 1, rotate: 0 });
           backgroundApi.start({ backgroundColor: 'rgba(0, 0, 0, 0)' });

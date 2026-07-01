@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import type { SpringValue } from '@react-spring/web';
 import { animated, to } from '@react-spring/web';
-import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
+import { useAppDispatch } from '@/shared/api/hooks/hooks';
 import type { VacancyType } from '../model/types/vacancyTypes';
 import { useSwipeAnimation } from '@/shared/api/hooks/useSwipeAnimation';
+import { imageUrl } from '@/shared/lib/imageUrl';
 import Modal from 'react-bootstrap/Modal';
 import styles from './VacancyCard.module.scss';
 import { applyToVacancy, hideVacancy } from '@/entities/Vacancy/model/redux/vacancySlice';
@@ -14,23 +15,20 @@ type VacancyCardProps = {
   onBackgroundChange?: (style: { backgroundColor: SpringValue<string> }) => void;
 };
 
+const money = (value: number): string => value.toLocaleString('ru-RU');
+
 function VacancyCard({ vacancy, onBackgroundChange }: VacancyCardProps): React.JSX.Element {
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState(false);
   const [isSwiped, setIsSwiped] = useState(false);
-  const company = useAppSelector((store) => store.company.company);
-
-  console.log('MY COMPANY ==========>', company);
 
   const handleApply = async (): Promise<void> => {
-    console.log('Applying to vacancy:', vacancy.id);
     dispatch(applyToVacancy(vacancy.id));
     await dispatch(createResponse(vacancy.id));
     setIsSwiped(true);
   };
 
   const handleHide = (): void => {
-    console.log('Hiding vacancy:', vacancy.id);
     dispatch(hideVacancy(vacancy.id));
     setIsSwiped(true);
   };
@@ -38,9 +36,7 @@ function VacancyCard({ vacancy, onBackgroundChange }: VacancyCardProps): React.J
   const { props, api, bind, backgroundStyle } = useSwipeAnimation(handleApply, handleHide);
 
   const handleBackgroundChange = useCallback(() => {
-    if (onBackgroundChange) {
-      onBackgroundChange(backgroundStyle);
-    }
+    onBackgroundChange?.(backgroundStyle);
   }, [backgroundStyle, onBackgroundChange]);
 
   useEffect(() => {
@@ -53,19 +49,13 @@ function VacancyCard({ vacancy, onBackgroundChange }: VacancyCardProps): React.J
       api.start({ opacity: 1, rotate: 0 });
       setIsSwiped(false);
     }
-  }, [isSwiped]);
+  }, [isSwiped, api]);
 
   const handleShowDetails = (): void => setShowModal(true);
   const handleCloseModal = (): void => setShowModal(false);
 
-  // Функция для обрезки текста требований
-  const renderExperience = () => {
-    const text = vacancy.experience || '';
-    if (text.length > 200) {
-      return `${text.slice(0, 200)}...`;
-    }
-    return text;
-  };
+  const shortExperience =
+    vacancy.experience.length > 160 ? `${vacancy.experience.slice(0, 160)}…` : vacancy.experience;
 
   return (
     <>
@@ -80,27 +70,51 @@ function VacancyCard({ vacancy, onBackgroundChange }: VacancyCardProps): React.J
         }}
         {...bind}
       >
+        <span className={`${styles.hint} ${styles.hintApply}`}>Откликнуться</span>
+        <span className={`${styles.hint} ${styles.hintSkip}`}>Скрыть</span>
+
+        <div className={styles.companyRow}>
+          {vacancy.Company?.logo ? (
+            <img className={styles.logo} src={imageUrl(vacancy.Company.logo)} alt="" />
+          ) : (
+            <span className={styles.logoFallback}>{(vacancy.Company?.title ?? 'HR')[0]}</span>
+          )}
+          <div>
+            <div className={styles.companyName}>{vacancy.Company?.title ?? 'Компания'}</div>
+            <div className={styles.location}>{vacancy.location}</div>
+          </div>
+        </div>
+
         <h2 className={styles.title}>{vacancy.title}</h2>
+        <div className={styles.salary}>
+          {money(vacancy.from)} – {money(vacancy.before)} ₽
+        </div>
+
+        <div className={styles.tags}>
+          <span className={styles.tag}>{vacancy.format}</span>
+          <span className={styles.tag}>{vacancy.schedule}</span>
+          <span className={styles.tag}>Опыт: {vacancy.workDuration}</span>
+        </div>
+
         <p className={styles.description}>{vacancy.description}</p>
-        <p className={styles.workDuration}>Требуемый опыт (лет): {vacancy.workDuration}</p>
-        <p className={styles.salary}>от {vacancy.from}₽</p>
-        <p className={styles.location}>Город: {vacancy.location}</p>
         <p className={styles.experience}>
-          <strong>Требования:</strong> {renderExperience()}
+          <strong>Требования:</strong> {shortExperience}
         </p>
-        <div className={styles.instructions}>Свайп влево — откликнуться, вправо — скрыть</div>
+
         <button onClick={handleShowDetails} className={styles.detailsButton}>
           Подробнее
         </button>
+
+        <div className={styles.instructions}>← откликнуться&nbsp;&nbsp;·&nbsp;&nbsp;скрыть →</div>
       </animated.div>
 
-      <Modal show={showModal} onHide={handleCloseModal} className={styles.modal}>
-        <Modal.Header closeButton className={styles.modalHeader}>
-          <Modal.Title className={styles.modalTitle}>{vacancy.title}</Modal.Title>
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>{vacancy.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.modalBody}>
           <p>
-            <strong>Компания:</strong> {company?.title || 'Не указана'}
+            <strong>Компания:</strong> {vacancy.Company?.title ?? 'Не указана'}
           </p>
           <p>
             <strong>Описание:</strong> {vacancy.description}
@@ -109,7 +123,7 @@ function VacancyCard({ vacancy, onBackgroundChange }: VacancyCardProps): React.J
             <strong>Местоположение:</strong> {vacancy.location}
           </p>
           <p>
-            <strong>Требуемый опыт:</strong> {vacancy.experience}
+            <strong>Требования:</strong> {vacancy.experience}
           </p>
           <p>
             <strong>Формат:</strong> {vacancy.format}
@@ -118,10 +132,13 @@ function VacancyCard({ vacancy, onBackgroundChange }: VacancyCardProps): React.J
             <strong>График:</strong> {vacancy.schedule}
           </p>
           <p>
-            От <strong>{vacancy.from}₽</strong> до <strong>{vacancy.before}₽</strong>
+            <strong>Опыт:</strong> {vacancy.workDuration}
+          </p>
+          <p className={styles.modalSalary}>
+            {money(vacancy.from)} – {money(vacancy.before)} ₽
           </p>
         </Modal.Body>
-        <Modal.Footer className={styles.modalFooter}>
+        <Modal.Footer>
           <button onClick={handleCloseModal} className={styles.modalCloseButton}>
             Закрыть
           </button>

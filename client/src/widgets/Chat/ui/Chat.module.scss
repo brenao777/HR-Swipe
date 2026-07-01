@@ -1,120 +1,99 @@
 .chatContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    margin-top: 5vh;
-    padding: 20px;
-    background: #f5f7fa;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    height: 80vh;
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  height: 78vh;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-  
-    h1 {
-      font-size: 24px;
-      font-weight: 600;
-      color: #333;
-      text-align: center;
-      margin-bottom: 20px;
+    gap: 0.5rem;
+
+    &::-webkit-scrollbar {
+      width: 8px;
     }
-  
-    .messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px;
-      background: #fff;
+    &::-webkit-scrollbar-thumb {
+      background: var(--border);
       border-radius: 10px;
-      margin-bottom: 20px;
-  
-      // Кастомный скроллбар
-      &::-webkit-scrollbar {
-        width: 8px;
-      }
-      &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-      }
-      &::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 10px;
-      }
-      &::-webkit-scrollbar-thumb:hover {
-        background: #555;
-      }
-  
-      .message {
-        margin: 10px 0;
-        padding: 12px 18px;
-        border-radius: 20px;
-        max-width: 70%;
-        word-wrap: break-word;
-  
-        small {
-          display: block;
-          font-size: 12px;
-          margin-top: 5px;
-          opacity: 0.7;
-        }
-      }
-  
-      .you {
-        background: #007bff; // Синий для своих сообщений
-        color: white;
-        margin-left: auto; // Справа
-        text-align: right;
-  
-        small {
-          color: #d0e6ff;
-        }
-      }
-  
-      .other {
-        background: #e9ecef; // Серый для чужих сообщений
-        color: #333;
-        margin-right: auto; // Слева
-        text-align: left;
-  
-        small {
-          color: #666;
-        }
+    }
+
+    .empty {
+      margin: auto;
+      color: var(--muted);
+    }
+
+    .message {
+      padding: 0.7rem 1rem;
+      border-radius: 16px;
+      max-width: 75%;
+      word-wrap: break-word;
+
+      small {
+        display: block;
+        font-size: 0.72rem;
+        margin-top: 0.25rem;
+        opacity: 0.75;
       }
     }
-  
-    .chatInput {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-  
-      input {
-        flex: 1;
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        border-radius: 25px;
-        font-size: 16px;
-        outline: none;
-  
-        &:focus {
-          border-color: #007bff;
-        }
-  
-        &::placeholder {
-          color: #aaa;
-        }
-      }
-  
-      button {
-        padding: 12px 20px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 25px;
-        font-size: 16px;
-        cursor: pointer;
-  
-        &:hover {
-          background: #0056b3;
-        }
+
+    .you {
+      background: var(--gradient);
+      color: #fff;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+
+    .other {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      margin-right: auto;
+      border-bottom-left-radius: 4px;
+
+      small {
+        color: var(--muted);
       }
     }
   }
+
+  .chatInput {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    input {
+      flex: 1;
+      border-radius: 999px;
+    }
+
+    button {
+      padding: 0.7rem 1.4rem;
+      background: var(--gradient);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-weight: 700;
+
+      &:hover {
+        opacity: 0.92;
+      }
+    }
+  }
+}

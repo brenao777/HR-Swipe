@@ -3,93 +3,60 @@ const { Op } = require('sequelize');
 const sharp = require('sharp');
 const path = require('path');
 
-// Поиск компаний с фильтрацией по userId
+// The (single) company that belongs to a user.
 const findCompany = async (search, userId) => {
-  const query = {};
+  const where = { userId };
   if (search && search.length !== 0) {
-    query.title = { [Op.like]: `%${search}%` };
+    where.title = { [Op.like]: `%${search}%` };
   }
 
-  query.userId = userId; // Фильтруем по userId
-
-  return Company.findOne({
-    where: query,
-    order: [['id', 'DESC']],
-  });
+  return Company.findOne({ where, order: [['id', 'DESC']] });
 };
 
-// Создание новой компании
-// const createCompany = async ({ title, description, userId, logo, location }) => {
-//   const newCompany = await Company.create({
-//     title,
-//     description,
-//     userId,
-//     logo,
-//     location,
-//   });
-//   return newCompany;
-// };
 const createCompany = async ({ title, description, userId, file, location }) => {
-  const fileName = `${userId}-${new Date().getTime()}.webp`;
+  const fileName = `${userId}-${Date.now()}.webp`;
   const filePath = path.join(__dirname, `../../public/${fileName}`);
   await sharp(file.buffer).webp().toFile(filePath);
 
-  const newResume = Company.create({
+  return Company.create({
     title,
     description,
     userId,
     logo: fileName,
     location,
   });
-  return newResume;
 };
 
-const findCompanyIdById = async (userId) => {
-  const company = await Company.findOne({
+// Company with its vacancies for the given owner.
+const findCompanyIdById = async (userId) =>
+  Company.findOne({
     where: { userId },
-    include: { model: Vacancy, order: ['createdAt', 'DESC'] },
+    include: { model: Vacancy },
   });
 
-  if (company) {
-    company.vacancies = company.vacancies || []; // Гарантируем массив
-  }
-  return company;
-};
-
-// Удаление компании с проверкой userId
-const deleteCompanyById = async (vacancyId, userId) => {
-  const vacancy = await Vacancy.findByPk(vacancyId);
-
-  if (!vacancy) {
-    return { success: false, status: 404, message: 'Компания не найдена!' };
+const deleteCompanyByUserId = async (ownerId, userId) => {
+  if (Number(ownerId) !== Number(userId)) {
+    return { success: false, status: 403, message: 'У вас нет прав на удаление этой компании!' };
   }
 
-  if (vacancy.userId !== userId) {
-    return {
-      success: false,
-      status: 403,
-      message: 'У вас нет прав на удаление этой компании!',
-    };
-  }
-
-  await Vacancy.destroy({ where: { id: vacancyId } });
-  return { success: true, status: 200, message: 'Компания успешно удалена!' };
-};
-
-// Обновление компании с проверкой userId
-const updateCompanyById = async (companyId, userId, updates) => {
-  const company = await Company.findOne({ where: { id: companyId } });
-
+  const company = await Company.findOne({ where: { userId: ownerId } });
   if (!company) {
     return { success: false, status: 404, message: 'Компания не найдена!' };
   }
 
-  if (company.userId !== userId) {
-    return {
-      success: false,
-      status: 403,
-      message: 'У вас нет прав на изменение этой компании!',
-    };
+  await Vacancy.destroy({ where: { companyId: company.id } });
+  await company.destroy();
+  return { success: true, status: 200, message: 'Компания успешно удалена!' };
+};
+
+const updateCompanyByUserId = async (ownerId, userId, updates) => {
+  if (Number(ownerId) !== Number(userId)) {
+    return { success: false, status: 403, message: 'У вас нет прав на изменение этой компании!' };
+  }
+
+  const company = await Company.findOne({ where: { userId: ownerId } });
+  if (!company) {
+    return { success: false, status: 404, message: 'Компания не найдена!' };
   }
 
   await company.update({
@@ -106,6 +73,6 @@ module.exports = {
   findCompany,
   createCompany,
   findCompanyIdById,
-  deleteCompanyById,
-  updateCompanyById,
+  deleteCompanyByUserId,
+  updateCompanyByUserId,
 };

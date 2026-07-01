@@ -20,7 +20,6 @@ export const createVacancy = createAsyncThunk(
   'vacancies/createVacancy',
   async ({ formData, companyId }: { formData: FormData; companyId: number }) => {
     const data = vacancyFormSchema.parse(Object.fromEntries(formData));
-    console.log('Parsed Data:', data); // Логируем распарсенные данные
     return vacancyService.createVacancy({ ...data, companyId });
   },
 );

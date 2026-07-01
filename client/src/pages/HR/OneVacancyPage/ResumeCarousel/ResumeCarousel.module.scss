@@ -1,15 +1,21 @@
 .carouselContainer {
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    padding-top: 5vh;
-    overflow: hidden;
-  }
-  
-  .noResumes {
-    display: flex;
-    justify-content: center;
-    margin-top: 15%;
-    font-size: 60px;
-    font-weight: 600;
-  }
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.status,
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+}
+
+.empty h3 {
+  color: var(--text);
+}
+
+.emptyEmoji {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+}

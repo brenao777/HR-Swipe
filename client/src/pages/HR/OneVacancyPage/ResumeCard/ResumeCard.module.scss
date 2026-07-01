@@ -1,61 +1,120 @@
 .resumeCard {
-  width: 60vw;              // 90% ширины экрана
-  height: 85vh;             // 85% высоты экрана
-  max-width: 450px;         // максимальная ширина для больших экранов
-  max-height: 800px;        // максимальная высота для больших экранов
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 20px;
+  position: relative;
+  width: 400px;
+  max-width: 92vw;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.75rem;
   text-align: center;
   cursor: grab;
   user-select: none;
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.6rem;
 
-  .name {
-    font-size: 2rem;
-    margin-bottom: 20px;
+  &:active {
+    cursor: grabbing;
   }
+}
 
-  .experience {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
+.hint {
+  position: absolute;
+  top: 1.1rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.hintApply {
+  left: 1.1rem;
+  color: var(--success);
+  background: var(--success-soft);
+}
+
+.hintSkip {
+  right: 1.1rem;
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.responsePhoto {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--primary-soft);
+  margin-top: 1.6rem;
+}
+
+.name {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.specialty {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.meta {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.chip {
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.contacts {
+  color: var(--muted);
+  margin: 0;
+}
+
+.detailsButton {
+  margin-top: 0.3rem;
+  border: none;
+  background: var(--gradient);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  padding: 0.55rem 1.4rem;
+}
+
+.instructions {
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.modalBody {
+  text-align: center;
+
+  p {
+    text-align: left;
+    margin: 0.4rem 0;
   }
-
-  .age {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-
-  .number {
-    font-size: 1.2rem;
-    margin-bottom: 25px;
-  }
-
-  .detailsButton {
-    font-size: 1.1rem;
-    padding: 10px 20px;
-    width: 50%;
-    margin-top: 20px;
-  }
-
-  .responsePhoto {
-    max-width: 100%;
-    max-height: 50%;
-    object-fit: cover;
-    border-radius: 10px;
-    border: #666 solid 2px;
-    margin-bottom: 20px;
+  strong {
+    color: var(--text);
   }
 }
 
 .responseModalPhoto {
-  max-width: 275px;
-  border-radius: 10px;
-  border: #666 solid 2px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--primary-soft);
+  margin-bottom: 1rem;
 }

@@ -1,39 +1,40 @@
-const app = require('./app');
 require('dotenv').config();
-const { Server } = require('socket.io');
 const http = require('http');
+const { Server } = require('socket.io');
+const app = require('./app');
+const { ensureSeeded } = require('../db/seed');
 
 const PORT = process.env.PORT || 3000;
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 
 const server = http.createServer(app);
 
-// Массив для хранения истории сообщений
-let chatHistory = [];
-
 const io = new Server(server, {
-  cors: {
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  },
+  cors: { origin: CLIENT_ORIGIN, methods: ['GET', 'POST'] },
 });
 
+// Simple in-memory chat shared between an applicant and an HR after a match.
+let chatHistory = [];
+
 io.on('connection', (socket) => {
-  console.log('Client connected', socket.id);
-  
-  // Отправляем историю чата новому клиенту
   socket.emit('chatHistory', chatHistory);
 
   socket.on('chat', (data) => {
-    console.log('Message received', data);
-    // Добавляем сообщение в историю
     chatHistory.push(data);
-    // Рассылаем всем клиентам новое сообщение
     io.emit('chat', data);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Client disconnected', socket.id);
   });
 });
 
-server.listen(PORT, () => console.log(`Сервер запущен на порту - ${PORT}!`));
+async function start() {
+  await ensureSeeded();
+  server.listen(PORT, () => {
+    // eslint-disable-next-line no-console
+    console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
+  });
+}
+
+start().catch((error) => {
+  // eslint-disable-next-line no-console
+  console.error('Не удалось запустить сервер:', error);
+  process.exit(1);
+});

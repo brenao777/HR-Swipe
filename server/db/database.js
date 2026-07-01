@@ -1,25 +1,16 @@
-require('dotenv').config();
+const path = require('path');
+
+// Zero-config SQLite database — no external DB server required.
+// The whole schema is created automatically on boot (see db/seed.js),
+// so `npm run dev` just works out of the box.
+const config = {
+  dialect: 'sqlite',
+  storage: process.env.DB_STORAGE || path.resolve(__dirname, 'hr-swipe.sqlite'),
+  logging: false,
+};
 
 module.exports = {
-  development: {
-    username: process.env.USER_NAME,
-    password: process.env.USER_PASS,
-    database: process.env.DB_NAME,
-    host: process.env.HOST,
-    dialect: 'postgres',
-  },
-  test: {
-    username: process.env.USER_NAME,
-    password: process.env.USER_PASS,
-    database: process.env.DB_NAME,
-    host: process.env.HOST,
-    dialect: 'postgres',
-  },
-  production: {
-    username: process.env.USER_NAME,
-    password: process.env.USER_PASS,
-    database: process.env.DB_NAME,
-    host: process.env.HOST,
-    dialect: 'postgres',
-  },
+  development: config,
+  test: { ...config, storage: ':memory:' },
+  production: config,
 };

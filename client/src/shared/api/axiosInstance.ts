@@ -15,18 +15,25 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
+// On a 403 (expired access token) try to refresh it once, then replay the request.
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { config } = error;
-    if (error.response.status === 403 && !config.send) {
-      const res = await axios.get('/api/tokens/refresh');
-      setAccessToken(res.data.accessToken);
-      config.send = true;
-      config.headers.Authorization = `Bearer ${accessToken}`;
-      return axiosInstance(config);
+    const { config, response } = error;
+
+    if (response?.status === 403 && config && !config.sent) {
+      try {
+        const res = await axios.get('/api/tokens/refresh');
+        setAccessToken(res.data.accessToken);
+        config.sent = true;
+        config.headers.Authorization = `Bearer ${res.data.accessToken}`;
+        return await axiosInstance(config);
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
+      }
     }
-    return Promise.reject(new Error());
+
+    return Promise.reject(error);
   },
 );
 

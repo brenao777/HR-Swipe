@@ -28,9 +28,12 @@ const companySlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+      .addCase(findCompanyById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(findCompanyById.fulfilled, (state, action) => {
         state.myCompany = action.payload;
-        console.log('Payload in fulfilled:', action.payload);
         state.loading = false;
       })
       .addCase(findCompanyById.rejected, (state, action) => {
@@ -41,9 +44,11 @@ const companySlice = createSlice({
         state.company = payload;
       })
       .addCase(deleteVacancy.fulfilled, (state, action) => {
-        state.myCompany = state.myCompany?.Vacancies.filter(
-          (vacancy) => vacancy.id !== action.payload,
-        );
+        if (state.myCompany) {
+          state.myCompany.Vacancies = state.myCompany.Vacancies.filter(
+            (vacancy) => vacancy.id !== action.payload,
+          );
+        }
       });
   },
 });

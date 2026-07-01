@@ -1,186 +1,184 @@
 .vacancyCard {
-  width: 50vh;
-  height: 75vh;
-  background: #fff; /* Белый фон */
-  border-radius: var(--radius); /* Закругления */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Тень */
-  padding: 20px;
-  text-align: center;
+  position: relative;
+  width: 400px;
+  max-width: 92vw;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.75rem;
   cursor: grab;
   user-select: none;
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Отступы между элементами */
+  gap: 0.85rem;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+/* Swipe affordances */
+.hint {
+  position: absolute;
+  top: 1.1rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.hintApply {
+  left: 1.1rem;
+  color: var(--success);
+  background: var(--success-soft);
+}
+
+.hintSkip {
+  right: 1.1rem;
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.companyRow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.4rem;
+}
+
+.logo,
+.logoFallback {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.logoFallback {
+  display: grid;
+  place-items: center;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 800;
+  font-family: var(--font-heading);
+}
+
+.companyName {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.location {
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .title {
-  font-family: var(--font-heading); /* Raleway */
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-purple); /* Фиолетовый заголовок */
+  font-size: 1.45rem;
+  margin: 0.2rem 0 0;
+}
+
+.salary {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: var(--gradient);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.05rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.description {
+  color: var(--text);
+  font-size: 0.95rem;
   margin: 0;
 }
 
-.description,
-.workDuration,
-.salary,
-.location,
 .experience {
-  font-family: var(--font-primary); /* Montserrat */
-  font-size: 1rem;
-  color: var(--text-dark); /* Темный текст */
-  margin: 5px 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0;
 
   strong {
-    font-weight: 500;
+    color: var(--text);
+    font-weight: 700;
+  }
+}
+
+.detailsButton {
+  margin-top: 0.3rem;
+  align-self: flex-start;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--primary);
+  font-weight: 700;
+  transition: border-color 0.15s, background 0.15s;
+
+  &:hover {
+    border-color: var(--primary);
+    background: var(--primary-soft);
   }
 }
 
 .instructions {
-  font-family: var(--font-primary); /* Montserrat */
-  font-size: 0.9rem;
-  color: #666; /* Серый цвет для инструкций */
-  margin-top: 50%; /* Прижимаем инструкции к низу перед кнопкой */
+  margin-top: 0.4rem;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--muted);
 }
 
-.detailsButton {
-  padding: 10px 20px;
-  font-family: var(--font-primary); /* Montserrat */
-  font-size: 1rem;
-  font-weight: 500;
-  color: #fff;
-  background-color: var(--primary-purple); /* Фиолетовый фон */
+.modalBody {
+  p {
+    margin: 0.4rem 0;
+  }
+  strong {
+    color: var(--text);
+  }
+}
+
+.modalSalary {
+  font-weight: 800;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.modalCloseButton {
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-sm);
   border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  margin-top: auto; /* Закрепляем кнопку внизу карточки */
-
-  &:hover {
-    background-color: var(--accent-purple); /* Светлее при ховере */
-  }
+  background: var(--gradient);
+  color: #fff;
+  font-weight: 700;
 }
 
-/* Стили для Bootstrap Modal */
-.modal {
-  :global(.modal-content) {
-    background-color: var(--light-purple); /* Светло-фиолетовый фон */
-    border-radius: var(--radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-
-  .modalHeader {
-    border-bottom: 1px solid #e9ecef;
-    padding-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    :global(.btn-close) {
-      font-size: 1.5rem;
-      color: var(--text-dark);
-      background: none;
-      border: none;
-      transition: color 0.2s ease-in-out;
-
-      &:hover {
-        color: var(--primary-purple); /* Фиолетовый при ховере */
-      }
-    }
-  }
-
-  .modalTitle {
-    font-family: var(--font-heading); /* Raleway */
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-purple); /* Фиолетовый заголовок */
-    margin: 0;
-  }
-
-  .modalBody {
-    font-family: var(--font-primary); /* Montserrat */
-    font-size: 1rem;
-    color: var(--text-dark);
-    padding: 20px 0;
-
-    p {
-      margin: 10px 0;
-
-      strong {
-        font-weight: 500;
-      }
-    }
-  }
-
-  .modalFooter {
-    border-top: 1px solid #e9ecef;
-    padding-top: 10px;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .modalCloseButton {
-    padding: 10px 20px;
-    font-family: var(--font-primary); /* Montserrat */
-    font-size: 1rem;
-    font-weight: 500;
-    color: #fff;
-    background-color: var(--primary-purple); /* Фиолетовый фон */
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-
-    &:hover {
-      background-color: var(--accent-purple); /* Светлее при ховере */
-    }
-  }
-}
-
-/* Адаптивность */
-@media (max-width: 576px) {
+@media (max-width: 480px) {
   .vacancyCard {
-    width: 100%; /* Полная ширина на мобильных */
-    height: auto; /* Автоматическая высота */
-    padding: 15px;
+    padding: 1.35rem;
   }
-
   .title {
     font-size: 1.25rem;
-  }
-
-  .description,
-  .workDuration,
-  .salary,
-  .location,
-  .experience {
-    font-size: 0.9rem;
-  }
-
-  .detailsButton,
-  .modalCloseButton {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-  }
-
-  .instructions {
-    font-size: 0.8rem;
-  }
-
-  .modal {
-    :global(.modal-dialog) {
-      margin: 10px;
-    }
-
-    .modalTitle {
-      font-size: 1.25rem;
-    }
-
-    .modalBody {
-      font-size: 0.9rem;
-    }
   }
 }

@@ -1,63 +1,36 @@
 import type { AxiosInstance } from 'axios';
 import axiosInstance from '@/shared/api/axiosInstance';
-import { ZodError } from 'zod';
 import { resumeSchema } from '../model/schema/resumeSchema';
 import type { ResumeFormType, ResumeType } from '../model/types/resumeTypes';
+
+type EditStatusPayload = { status: string; resumeId: number; vacancyId: number };
 
 class ResumeService {
   constructor(private readonly client: AxiosInstance) {}
 
   async getResumes(): Promise<ResumeType[]> {
-    try {
-      const res = await this.client.get('/resume');
-      return resumeSchema.array().parse(res.data);
-    } catch (err) {
-      if (err instanceof ZodError) {
-        console.log('Validation error in getResumes: ', err.issues);
-      }
-      throw err;
-    }
+    const res = await this.client.get('/resume');
+    return resumeSchema.array().parse(res.data);
   }
 
   async getResumeById(userId: number): Promise<ResumeType[]> {
-    try {
-      const res = await this.client.get(`/resume/${String(userId)}`);
-      return resumeSchema.array().parse(res.data);
-    } catch (err) {
-      if (err instanceof ZodError) {
-        console.log('Validation error in getResumeById: ', err.issues);
-      }
-      throw err;
-    }
+    const res = await this.client.get(`/resume/${String(userId)}`);
+    return resumeSchema.array().parse(res.data);
   }
 
   async addResume(resume: ResumeFormType): Promise<ResumeType> {
-    try {
-      const res = await this.client.post('/resume', resume, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      return resumeSchema.parse(res.data);
-    } catch (err) {
-      if (err instanceof ZodError) {
-        console.log('Validation error in addResumes: ', err.issues);
-      }
-      throw err;
-    }
+    const res = await this.client.post('/resume', resume, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return resumeSchema.parse(res.data);
   }
 
   async deleteResume(id: number): Promise<void> {
     await this.client.delete(`/resume/${id.toString()}`);
   }
 
-  async editResumeStatus({status, resumeId, vacancyId}: {status: string, resumeId: number, vacancyId: number}): Promise<void> {
-    try {
-      await this.client.put(`/status/${resumeId.toString()}`, {status, vacancyId});
-    } catch (err) {
-      if (err instanceof ZodError) {
-        console.log('Validation error in addResumes: ', err.issues);
-      }
-      throw err;
-    }
+  async editResumeStatus({ status, resumeId, vacancyId }: EditStatusPayload): Promise<void> {
+    await this.client.put(`/status/${resumeId.toString()}`, { status, vacancyId });
   }
 }
 

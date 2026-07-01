@@ -1,14 +1,20 @@
 {
-  "name": "server",
+  "name": "hr-swipe-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "HR-Swipe API — Express + Sequelize (SQLite) backend for the job-swiping app",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "db": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+    "seed": "node db/seed.js",
+    "lint": "eslint ."
   },
-  "keywords": [],
+  "keywords": [
+    "hr",
+    "swipe",
+    "express",
+    "sequelize"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
@@ -16,10 +22,11 @@
     "@elbrus/eslint-config": "^1.0.0",
     "@eslint/js": "^9.20.0",
     "eslint": "^9.20.1",
-    "globals": "^15.15.0"
+    "globals": "^15.15.0",
+    "nodemon": "^3.1.9"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -27,14 +34,9 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.1.9",
-    "pg": "^8.13.3",
-    "pg-hstore": "^2.3.4",
-    "react-redux": "^9.2.0",
-    "react-router": "^7.2.0",
     "sequelize": "^6.37.5",
-    "sequelize-cli": "^6.6.2",
     "sharp": "^0.33.5",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "sqlite3": "^5.1.7"
   }
 }

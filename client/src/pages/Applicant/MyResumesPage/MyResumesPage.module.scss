@@ -1,57 +1,17 @@
-/* Главный контейнер страницы */
-:global(body) {
-  background-color: var(--light-purple); /* Светло-фиолетовый фон для всей страницы */
-}
-
-/* Заголовок */
 .title {
-  font-family: var(--font-heading); /* Raleway */
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary-purple); /* Фиолетовый заголовок */
   text-align: center;
-  margin: 20px 0; /* Отступы сверху и снизу */
+  margin: 2rem 0 1.5rem;
 }
 
-/* Контейнер для карточек резюме */
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* Отступ между карточками */
-  justify-content: center; /* Центрирование карточек */
-  padding: 0 20px; /* Отступы по бокам */
-  max-width: 1200px; /* Ограничение ширины как в других компонентах */
-  margin: 0 auto; /* Центрирование контейнера */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
 }
 
-/* Карточка резюме */
 .resumeItem {
-  // flex: 1 1 calc(50% - 20px); /* Две карточки в ряд с учетом gap */
-  max-width: calc(50% - 20px); /* Максимальная ширина */
-  box-sizing: border-box; /* Учитываем padding и border в ширине */
-  background-color: #fff; /* Белый фон */
-  border-radius: var(--radius); /* Закругления */
-  padding: 20px; /* Внутренние отступы */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Тень */
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-5px); /* Поднятие при наведении */
-  }
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-  .resumeItem {
-    flex: 1 1 100%; /* Одна карточка в ряд */
-    max-width: 100%;
-  }
-
-  .title {
-    font-size: 1.5rem; /* Уменьшаем заголовок на мобильных */
-  }
-
-  .container {
-    padding: 0 10px; /* Уменьшаем боковые отступы */
-  }
+  display: flex;
 }

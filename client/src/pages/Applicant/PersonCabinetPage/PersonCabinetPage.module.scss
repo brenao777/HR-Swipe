@@ -1,197 +1,89 @@
 .container {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
-  min-height: 100vh;
+  padding: 2rem 1rem 3rem;
 }
 
 .buttonContainer {
   display: flex;
   justify-content: center;
-  gap: 20px; /* Отступ между кнопками */
-  margin-bottom: 20px;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
 }
 
-.createResumeBtn,
-.myResumesBtn {
-  padding: 12px 24px;
-  font-family: var(--font-primary); /* Montserrat */
-  font-size: 1rem;
-  font-weight: 500;
-  color: #fff;
-  background-color: var(--primary-purple); /* Фиолетовый */
+.createResumeBtn {
+  padding: 0.7rem 1.4rem;
   border: none;
-  border-radius: var(--radius);
-  transition: background-color 0.2s ease-in-out;
+  border-radius: var(--radius-sm);
+  background: var(--gradient);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.myResumesBtn {
+  padding: 0.7rem 1.4rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--primary);
+  font-weight: 700;
+
   &:hover {
-    background-color: var(--accent-purple); /* Светлее при ховере */
+    border-color: var(--primary);
+    background: var(--primary-soft);
   }
 }
 
-.modal {
-  :global(.modal-content) {
-    border-radius: var(--radius);
-    padding: 20px;
-    background-color: var(--light-purple); /* Светло-фиолетовый фон */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  :global(.modal-header) {
-    border-bottom: 1px solid #e9ecef;
-    padding-bottom: 10px;
-
-    .modalTitle {
-      font-family: var(--font-heading); /* Raleway для заголовков */
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-purple); /* Фиолетовый заголовок */
-      text-align: center;
-      width: 100%;
-    }
-
-    :global(.btn-close) {
-      background: transparent;
-      border: none;
-      font-size: 1.2rem;
-      color: var(--text-dark);
-    }
-  }
-
-  :global(.modal-body) {
-    padding: 20px;
-
-    .resumeForm {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 50vh; /* Лаконичная ширина */
-      margin: 0 auto; /* Центрирование */
-    }
-
-    .formInput {
-      width: 100%;
-      height: 7vh; /* Единая высота */
-      padding: 10px;
-      border: 1px solid #ced4da;
-      border-radius: var(--radius);
-      font-family: var(--font-primary); /* Montserrat */
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--text-dark);
-      background-color: #fff;
-      transition: border-color 0.2s ease-in-out;
-
-      &:focus {
-        outline: none;
-        border-color: var(--accent-purple); /* Фиолетовый акцент */
-        box-shadow: 0 0 5px rgba(138, 99, 255, 0.3);
-      }
-
-      &::placeholder {
-        color: #6c757d;
-        font-style: italic;
-      }
-
-      &[type='file'] {
-        padding: 5px; /* Уменьшенный padding для файла */
-        background-color: transparent;
-        height: auto; /* Автоматическая высота для file */
-      }
-    }
-
-    .submitBtn {
-      width: 100%;
-      height: 7vh;
-      padding: 8px 16px;
-      font-family: var(--font-primary); /* Montserrat */
-      font-size: 1rem;
-      font-weight: 500;
-      color: #fff;
-      background-color: var(--primary-purple); /* Фиолетовый */
-      border: none;
-      border-radius: var(--radius);
-      transition: background-color 0.2s ease-in-out;
-
-      &:hover {
-        background-color: var(--accent-purple);
-      }
-    }
-  }
-
-  :global(.modal-footer) {
-    border-top: 1px solid #e9ecef;
-    padding-top: 10px;
-
-    .closeBtn {
-      width: 100%;
-      height: 7vh;
-      padding: 8px 16px;
-      font-family: var(--font-primary); /* Montserrat */
-      font-size: 1rem;
-      font-weight: 500;
-      color: #fff;
-      background-color: var(--primary-purple); /* Фиолетовый */
-      border: none;
-      border-radius: var(--radius);
-      transition: background-color 0.2s ease-in-out;
-
-      &:hover {
-        background-color: var(--accent-purple);
-      }
-    }
-  }
+.modalTitle {
+  font-weight: 700;
 }
 
-.responses {
-  margin: 2vh;
-  // border: 1px solid var(--primary-purple); /* Фиолетовая рамка */
-  border-radius: var(--radius);
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.resumeForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.submitBtn {
+  margin-top: 0.3rem;
+  padding: 0.7rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--gradient);
+  color: #fff;
+  font-weight: 700;
+}
+
+.closeBtn {
+  padding: 0.55rem 1.1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
 }
 
 .titleRes {
-  display: flex;
-  justify-content: center;
-  font-size: 60px;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.responses {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
 }
 
 .NoRes {
-  display: flex;
-  justify-content: center;
-  margin-top: 25%;
-  font-size: 60px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.15rem;
+  margin-top: 3rem;
 }
 
-/* Responsive adjustments */
-@media (max-width: 576px) {
-  :global(.modal-dialog) {
-    margin: 10px;
-  }
-
-  :global(.modal-body) {
-    .resumeForm {
-      gap: 10px;
-
-      .formInput {
-        font-size: 0.9rem;
-        padding: 8px;
-      }
-
-      .submitBtn {
-        padding: 10px;
-      }
-    }
-  }
-
-  :global(.modal-footer) {
-    .closeBtn {
-      padding: 10px;
-    }
-  }
-
+@media (max-width: 560px) {
   .buttonContainer {
     flex-direction: column;
-    gap: 10px;
   }
 }

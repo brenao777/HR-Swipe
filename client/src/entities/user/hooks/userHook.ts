@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import { useEffect } from 'react';
 import type { RootState } from '@/app/store/store';
 import { fetchUser, loginHandler, logoutHandler, submitHandler } from '../model/redux/userThunk';
+import type { LoginCredentials, RegisterFormData } from '../model/types/types';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useUser = () => {
@@ -15,8 +16,8 @@ export const useUser = () => {
   return {
     user: { data, status },
     error,
-    loginHandler: (loginData: FormData) => dispatch(loginHandler(loginData)),
+    loginHandler: (credentials: LoginCredentials) => dispatch(loginHandler(credentials)),
     logoutHandler: () => dispatch(logoutHandler()),
-    submitHandler: (registerData: FormData) => dispatch(submitHandler(registerData)),
+    submitHandler: (registerData: RegisterFormData) => dispatch(submitHandler(registerData)),
   };
 };

@@ -1,22 +1,39 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem 3rem;
+}
+
+.counter {
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
 .carouselContainer {
   display: flex;
   justify-content: center;
-  height: 100vh;
-  padding-top: 3vh;
-  overflow: hidden;
 }
 
-.noVacancies {
-  display: flex;
-  justify-content: center;
-  margin-top: 15%;
-  font-size: 60px;
-  font-weight: 600;
-
+.status,
+.empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--muted);
 }
 
-.findedVacancies {
-  display: flex;
-  padding-top: 5vh;
-  justify-content: center;
+.empty h3 {
+  color: var(--text);
+}
+
+.emptyEmoji {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
 }

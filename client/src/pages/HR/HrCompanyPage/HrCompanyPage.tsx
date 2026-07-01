@@ -1,7 +1,10 @@
-import { findCompanyById, getCompany } from '@/entities/Company/model/redux/companyThanks';
+import { findCompanyById } from '@/entities/Company/model/redux/companyThanks';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
+import { imageUrl } from '@/shared/lib/imageUrl';
 import React, { useEffect, useState } from 'react';
 import styles from './HrCompanyPage.module.scss';
+
+const money = (value: number): string => value.toLocaleString('ru-RU');
 
 export default function HrCompanyPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -10,42 +13,35 @@ export default function HrCompanyPage(): React.JSX.Element {
 
   const [activeTab, setActiveTab] = useState<'company' | 'vacancies'>('company');
 
-  // Вызов getCompany только при монтировании
   useEffect(() => {
-    void dispatch(getCompany());
-  }, [dispatch]);
-
-  // Вызов findCompanyById при изменении user.id и loading
-  useEffect(() => {
-    if (user?.id && !loading && !myCompany) {
+    if (user?.id) {
       void dispatch(findCompanyById(user.id));
     }
-  }, [dispatch, user?.id, loading, myCompany]);
+  }, [dispatch, user?.id]);
 
   if (loading) {
-    return (
-      <div className={styles.loading}>
-        <span className={styles.loadingText}>Загрузка...</span>
-      </div>
-    );
+    return <div className={styles.loading}>Загрузка…</div>;
   }
 
   if (error) {
     return <div className={styles.error}>Ошибка: {error}</div>;
   }
 
+  if (!myCompany) {
+    return <div className={styles.error}>Компания не найдена</div>;
+  }
+
+  const vacancies = myCompany.Vacancies ?? [];
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.companyInfo}>
-          <img
-            src={`http://localhost:3000/${myCompany?.logo}`}
-            alt={myCompany?.title}
-            className={styles.logo}
-          />
+          <img src={imageUrl(myCompany.logo)} alt={myCompany.title} className={styles.logo} />
           <div className={styles.companyDetails}>
             <span className={styles.label}>Организация</span>
-            <h2 className={styles.companyTitle}>{myCompany?.title}</h2>
+            <h2 className={styles.companyTitle}>{myCompany.title}</h2>
+            <span className={styles.location}>{myCompany.location}</span>
           </div>
         </div>
         <div className={styles.tabs}>
@@ -59,7 +55,7 @@ export default function HrCompanyPage(): React.JSX.Element {
             className={`${styles.tabBtn} ${activeTab === 'vacancies' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('vacancies')}
           >
-            Вакансии
+            Вакансии ({vacancies.length})
           </button>
         </div>
       </div>
@@ -67,37 +63,28 @@ export default function HrCompanyPage(): React.JSX.Element {
       <div className={styles.content}>
         {activeTab === 'company' && (
           <div className={styles.companyContent}>
-            <p className={styles.description}>{myCompany?.description}</p>
-            <p className={styles.location}>
-              <strong>Локация:</strong> {myCompany?.location}
+            <p className={styles.description}>{myCompany.description}</p>
+            <p className={styles.metaLine}>
+              <strong>Локация:</strong> {myCompany.location}
             </p>
           </div>
         )}
 
         {activeTab === 'vacancies' && (
           <div className={styles.vacanciesContent}>
-            {myCompany?.Vacancies.length > 0 ? (
-              myCompany.Vacancies.map((vacancy) => (
+            {vacancies.length > 0 ? (
+              vacancies.map((vacancy) => (
                 <div key={vacancy.id} className={styles.vacancyCard}>
                   <h3 className={styles.vacancyTitle}>{vacancy.title}</h3>
                   <p className={styles.salary}>
-                    <strong>Описание:</strong> {vacancy.description}
+                    от {money(vacancy.from)} ₽ до {money(vacancy.before)} ₽
                   </p>
-                  <p className={styles.salary}>
-                    <strong>Локация:</strong> {vacancy.location}
-                  </p>
-                  <p className={styles.salary}>
-                    <strong>Требования:</strong> {vacancy.experience}
-                  </p>
-                  <p className={styles.salary}>
-                    <strong>Формат:</strong> {vacancy.format}
-                  </p>
-                  <p className={styles.salary}>
-                    <strong>Опыт работы (лет):</strong> {vacancy.workDuration}
-                  </p>
-                  <p className={styles.salary}>
-                    <strong>Зарплата:</strong> от {vacancy.from}₽ до {vacancy.from}₽
-                  </p>
+                  <p className={styles.metaLine}>{vacancy.description}</p>
+                  <div className={styles.vacancyTags}>
+                    <span className={styles.tag}>{vacancy.location}</span>
+                    <span className={styles.tag}>{vacancy.format}</span>
+                    <span className={styles.tag}>Опыт: {vacancy.workDuration}</span>
+                  </div>
                 </div>
               ))
             ) : (

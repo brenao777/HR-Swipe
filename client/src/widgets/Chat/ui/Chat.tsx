@@ -1,4 +1,5 @@
 import type { RootState } from '@/app/store/store';
+import type { ChatMessage } from '@/entities/Chat/model/redux/chatSlice';
 import { message, setChatHistory } from '@/entities/Chat/model/redux/chatSlice';
 import { useAppDispatch, useAppSelector } from '@/shared/api/hooks/hooks';
 import React, { useEffect, useState } from 'react';
@@ -6,12 +7,8 @@ import io from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Chat.module.scss';
 
-type ChatMessage = {
-  message: string;
-  name: string;
-};
-
-const socket = io('http://localhost:3000/');
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000';
+const socket = io(SOCKET_URL);
 
 export default function Chat(): React.JSX.Element {
   const user = useAppSelector((store: RootState) => store.user.data);
@@ -20,25 +17,26 @@ export default function Chat(): React.JSX.Element {
   const dispatch = useAppDispatch();
 
   const sendMessage = (): void => {
-    if (msg.trim()) {
-      const newMessage = { message: msg, name: user?.firstName ?? 'Человек' };
-      socket.emit('chat', newMessage);
-      setMsg('');
-    }
+    const text = msg.trim();
+    if (!text) return;
+    const newMessage: ChatMessage = {
+      id: uuidv4(),
+      userId: user?.id,
+      message: text,
+      name: user?.firstName ?? 'Гость',
+    };
+    socket.emit('chat', newMessage);
+    setMsg('');
   };
 
   useEffect(() => {
-    // Получение истории чата при подключении
     socket.on('chatHistory', (history: ChatMessage[]) => {
       dispatch(setChatHistory(history));
     });
-
-    // Получение новых сообщений
     socket.on('chat', (data: ChatMessage) => {
       dispatch(message(data));
     });
 
-    // Очистка слушателей при размонтировании
     return () => {
       socket.off('chatHistory');
       socket.off('chat');
@@ -49,10 +47,11 @@ export default function Chat(): React.JSX.Element {
     <div className={styles.chatContainer}>
       <h1>Чат</h1>
       <div className={styles.messages}>
+        {chat.length === 0 && <p className={styles.empty}>Сообщений пока нет — начните диалог!</p>}
         {chat.map((item) => (
           <div
-            key={uuidv4()}
-            className={`${styles.message} ${user?.name === item.name ? styles.you : styles.other}`}
+            key={item.id}
+            className={`${styles.message} ${item.userId === user?.id ? styles.you : styles.other}`}
           >
             {item.message}
             <small>{item.name}</small>
@@ -67,7 +66,7 @@ export default function Chat(): React.JSX.Element {
           onChange={(e) => setMsg(e.target.value)}
           onKeyUp={(e) => e.key === 'Enter' && sendMessage()}
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage}>Отправить</button>
       </div>
     </div>
   );

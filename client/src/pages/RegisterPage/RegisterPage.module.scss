@@ -1,117 +1,75 @@
 .main {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: var(--light-purple); /* Светло-фиолетовый фон */
-  padding: 20px;
-}
-
-.title {
-  text-align: center;
-  font-family: var(--font-primary);
-}
-
-.isCompany {
-  display: flex;
-  justify-content: center;
-  gap: 1vh;
-}
-
-.isCompanyText {
-  font-size: 30px;
-  font-weight: 500;
+  min-height: calc(100vh - 60px);
+  padding: 2rem 1rem;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-width: 400px; /* Ограничение ширины формы */
+  gap: 0.8rem;
+  max-width: 400px;
   width: 100%;
-  padding: 20px;
-  background-color: #fff; /* Белый фон для формы */
+  padding: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
+}
+
+.title {
+  text-align: center;
+  margin: 0 0 0.5rem;
 }
 
 .input {
-  height: 50px; /* Единая высота */
-  padding: 10px;
-  border: 1px solid #ced4da;
-  border-radius: var(--radius);
-  font-family: var(--font-primary); /* Montserrat */
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--text-dark);
-  background-color: #fff;
-  transition: border-color 0.2s ease-in-out;
+  height: 48px;
+}
 
-  &:focus {
-    outline: none;
-    border-color: var(--accent-purple); /* Фиолетовый акцент при фокусе */
-    box-shadow: 0 0 5px rgba(138, 99, 255, 0.3);
-  }
+.isCompany {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
 
-  &::placeholder {
-    color: #6c757d;
-    font-style: italic;
-  }
+.isCompanyText {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
 }
 
 .checkbox {
-  width: 25px; /* Размер чекбокса */
-  height: 45px;
-  accent-color: var(--primary-purple); /* Фиолетовый цвет чекбокса */
+  width: 22px;
+  height: 22px;
+  accent-color: var(--primary);
+  cursor: pointer;
 }
 
 .button {
-  height: 50px; /* Единая высота с инпутами */
-  padding: 10px;
-  font-family: var(--font-primary); /* Montserrat */
-  font-size: 1rem;
-  font-weight: 500;
-  color: #fff;
-  background-color: var(--primary-purple); /* Фиолетовый фон */
+  height: 48px;
   border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  border-radius: var(--radius-sm);
+  background: var(--gradient);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: opacity 0.15s;
 
   &:hover {
-    background-color: var(--accent-purple); /* Светлее при ховере */
+    opacity: 0.92;
   }
 }
 
 .text {
-  font-family: var(--font-primary); /* Montserrat */
-  font-size: 0.9rem;
-  color: #ff4d4f; /* Красный цвет для ошибок */
-  margin: 0;
-}
-
-/* Стили для текста "Вы компания?" */
-.form > p {
-  font-family: var(--font-primary); /* Montserrat */
-  font-size: 1rem;
-  color: var(--text-dark);
-  margin: 10px 0 0 0;
-}
-
-/* Адаптивность */
-@media (max-width: 576px) {
-  .form {
-    padding: 15px;
-  }
-
-  .input,
-  .button {
-    height: 45px; /* Уменьшаем высоту на мобильных */
-    font-size: 0.9rem;
-  }
-
-  .title {
-    font-size: 1.5rem;
-  }
+  font-size: 0.85rem;
+  color: var(--danger);
+  margin: -0.35rem 0 0;
 }
